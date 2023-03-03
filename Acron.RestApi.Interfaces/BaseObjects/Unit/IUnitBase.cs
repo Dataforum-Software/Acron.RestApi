@@ -25,14 +25,17 @@ namespace Acron.RestApi.Interfaces.BaseObjects
          /// <summary>
          /// "Diverse Einheiten"
          /// </summary>
+         [SwaggerEnumInfo("Base units")]
          Default = 0,
          /// <summary>
          /// Von uns vorgegebene
          /// </summary>
+         [SwaggerEnumInfo("Vendor predefined units")]
          DaFo = 1,
          /// <summary>
          /// Vom Kunden
          /// </summary>
+         [SwaggerEnumInfo("Custom user defined units")]
          User = 2,
       }
 

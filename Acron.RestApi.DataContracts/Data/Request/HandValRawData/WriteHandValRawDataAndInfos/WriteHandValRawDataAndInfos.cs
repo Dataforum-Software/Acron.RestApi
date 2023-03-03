@@ -3,18 +3,34 @@ using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValRawDataAn
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValRawDataAndInfos
 {
+   [DataContract]
    public class WriteHandValRawDataAndInfos : IWriteHandValRawDataAndInfos<WriteHandValRawDataAndInfoFlag>
    {
-      public DateTime TimeStamp { get; set; }
+      [DataMember]
+      public DateTimeOffset TimeStamp { get; set; }
+
+      public DateTime TimeStamp_UTC
+      {
+         get
+         {
+            return TimeStamp.UtcDateTime;
+         }
+      }
+
       public WriteHandValRawDataAndInfoTypes ProvalType { get; private set; }
+
+      [DataMember]
       public short MilliSeconds { get; set; }
 
       private double _value = GlobalDataDef.NO_VALID;
+      [DataMember]
       public double Value 
       {
          get { return _value; }
@@ -22,13 +38,17 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValRa
       }
 
       private string _stringValue = string.Empty;
+      [DataMember]
       public string StringValue 
       {
          get { return _stringValue; }
          set { _stringValue = value; ProvalType = WriteHandValRawDataAndInfoTypes.Text; }
       }
 
+      [DataMember]
       public WriteHandValRawDataAndInfoFlag ProInfoFlag { get; set; }
+
+      [DataMember]
       public string Key { get; set; }
    }
 }

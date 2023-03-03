@@ -1,6 +1,7 @@
 ﻿using Acron.RestApi.Interfaces.Data.Response.ProcessData.TData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using static Acron.RestApi.Interfaces.Data.Response.ProcessData.TData.ITDataBase;
 
@@ -46,6 +47,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.ProcessData.TData
 
       //Art des Wertes
       [DataMember]
+      [DefaultValue(-1)]
       [JsonConverter(typeof(StringEnumConverter))]
       public DBP_ValueTypes ValueType { get; set; }
 

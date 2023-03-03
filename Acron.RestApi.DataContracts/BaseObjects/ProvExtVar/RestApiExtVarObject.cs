@@ -2,11 +2,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
 {
-   
+
    [DataContract]
    public class RestApiExtVarObject : RestApiBaseObject, IExtVarObject
    {
@@ -108,6 +109,23 @@ namespace Acron.RestApi.BaseObjects
 
       #region IExtVarObject
 
+      [DataMember]
+      [MinLength(1)]
+      [MaxLength(256)]
+      public override string ShortName
+      {
+         get { return base.ShortName; }
+         set { base.ShortName = value; }
+      }
+
+      [DataMember]
+      [MaxLength(256)]
+      public override string LongName
+      {
+         get { return base.LongName; }
+         set { base.LongName = value; }
+      }
+
       private string _propComment;
       [DataMember]
       [DefaultValue("")]
@@ -182,6 +200,7 @@ namespace Acron.RestApi.BaseObjects
       /// <summary>Bedingungsvariable</summary>
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(256)]
       public string PropConditionVar
       {
          get { return _propConditionVar; }
@@ -196,6 +215,7 @@ namespace Acron.RestApi.BaseObjects
       /// <summary>Bestätigungsvariable</summary>
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(256)]
       public string PropAcknowledgeVar
       {
          get { return _propAcknowledgeVar; }

@@ -9,6 +9,7 @@
       Day,
       WeekOrMonth,
       Year,
+      ManualValue,
    }
 
 

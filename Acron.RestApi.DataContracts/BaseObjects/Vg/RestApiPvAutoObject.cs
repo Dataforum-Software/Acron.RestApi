@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -97,6 +98,7 @@ namespace Acron.RestApi.BaseObjects
       /// <summary> Formel der VG </summary>
       [DataMember]
       [DefaultValue("1")]
+      [MaxLength(2498)]
       public string PropFormulaEdit
       {
          get { return _propFormulaEdit; }

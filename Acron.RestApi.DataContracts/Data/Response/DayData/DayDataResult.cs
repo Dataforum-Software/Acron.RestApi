@@ -47,16 +47,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
 
 
       [DataMember]
-      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), nameof(TimeStamps_TIMEZONE), DateTimeFormatType.DayX)]
+      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), DateTimeFormatType.DayX)]
       public List<DateTime> TimeStamps { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> TimeStamps_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> TimeStamps_TIMEZONE{ get; set; }
 
       [DataMember]
       public List<IDayData> Data { get; set; }

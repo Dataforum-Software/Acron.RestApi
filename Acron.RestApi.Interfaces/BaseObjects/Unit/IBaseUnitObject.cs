@@ -13,7 +13,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       
 
       [SwaggerSchema("Type of main unit")]
-      [SwaggerExampleValue("DaFo")]
+      [SwaggerExampleValue(UnitDefines.UnitType.Default)]
       UnitDefines.UnitType RestApiUnitType { get; }
 
       /// <summary>

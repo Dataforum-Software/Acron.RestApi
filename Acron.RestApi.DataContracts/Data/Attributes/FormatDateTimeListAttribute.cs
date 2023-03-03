@@ -32,19 +32,19 @@
 
    public sealed class FormatDateTimeListAttribute : FormatBaseAttribute
    {
-      public FormatDateTimeListAttribute(string targetPropertyName, string extraTimeZoneProperty) 
-               : this(targetPropertyName, extraTimeZoneProperty, DateTimeFormatType.Default)
+      public FormatDateTimeListAttribute(string targetPropertyName/*, string extraTimeZoneProperty*/) 
+               : this(targetPropertyName, /*extraTimeZoneProperty,*/ DateTimeFormatType.Default)
       { }
 
-      public FormatDateTimeListAttribute(string targetPropertyName, string extraTimeZoneProperty, DateTimeFormatType formatType) 
+      public FormatDateTimeListAttribute(string targetPropertyName, /*string extraTimeZoneProperty,*/ DateTimeFormatType formatType) 
                : base(targetPropertyName)
       {
-         _extraTimeZoneProperty = extraTimeZoneProperty;
+         //_extraTimeZoneProperty = extraTimeZoneProperty;
          _formatType = formatType;
       }
 
-      private readonly string _extraTimeZoneProperty;
-      public string ExtraTimeZoneProperty { get { return _extraTimeZoneProperty; } }
+      //private readonly string _extraTimeZoneProperty;
+      //public string ExtraTimeZoneProperty { get { return _extraTimeZoneProperty; } }
 
       private DateTimeFormatType _formatType;
       public DateTimeFormatType FormatType { get { return _formatType; } }
@@ -52,19 +52,19 @@
 
    public sealed class FormatDateTimeAttribute : FormatBaseAttribute
    {
-      public FormatDateTimeAttribute(string targetPropertyName, string extraTimeZoneProperty) 
-               : this(targetPropertyName, extraTimeZoneProperty, DateTimeFormatType.Default)
+      public FormatDateTimeAttribute(string targetPropertyName/*, string extraTimeZoneProperty*/) 
+               : this(targetPropertyName, /*extraTimeZoneProperty,*/ DateTimeFormatType.Default)
       { }
 
-      public FormatDateTimeAttribute(string targetPropertyName, string extraTimeZoneProperty, DateTimeFormatType formatType)
+      public FormatDateTimeAttribute(string targetPropertyName, /*string extraTimeZoneProperty,*/ DateTimeFormatType formatType)
                : base(targetPropertyName)
       {
-         _extraTimeZoneProperty = extraTimeZoneProperty;
+         //_extraTimeZoneProperty = extraTimeZoneProperty;
          _formatType = formatType;
       }
 
-      private readonly string _extraTimeZoneProperty;
-      public string ExtraTimeZoneProperty { get { return _extraTimeZoneProperty; } }
+      //private readonly string _extraTimeZoneProperty;
+      //public string ExtraTimeZoneProperty { get { return _extraTimeZoneProperty; } }
 
       private DateTimeFormatType _formatType;
       public DateTimeFormatType FormatType { get { return _formatType; } }

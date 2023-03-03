@@ -79,12 +79,12 @@ namespace Acron.RestApi.Interfaces.Data.Request.DayData
       bool DDAT_ISIGMA { get; set; }
 
 
-      [SwaggerSchema("Percentile value 15% of process values")]
+      [SwaggerSchema("15th percentile of interval values")]
       [SwaggerExampleValue("true")]
       bool DDAT_IPERC15 { get; set; }
 
 
-      [SwaggerSchema("Percentile value 85% of process values")]
+      [SwaggerSchema("85th percentile of interval values")]
       [SwaggerExampleValue("true")]
       bool DDAT_IPERC85 { get; set; }
 

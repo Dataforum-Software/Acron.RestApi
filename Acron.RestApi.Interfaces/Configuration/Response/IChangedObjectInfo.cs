@@ -4,14 +4,17 @@ using static Acron.RestApi.Interfaces.BaseObjects.BaseObjectDefines;
 namespace Acron.RestApi.Interfaces.Configuration.Response
 {
    public enum ModificationMode : int 
-   { 
+   {
       /// <summary>Neuanlage</summary>
+      [SwaggerEnumInfo("Object added")]
       New = 0,
 
       /// <summary>Änderung</summary>
+      [SwaggerEnumInfo("Object changed")]
       Changed = 1,
 
       /// <summary>Löschung</summary>
+      [SwaggerEnumInfo("Object deleted")]
       Deleted = 2,
    }
 

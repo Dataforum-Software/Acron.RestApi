@@ -45,16 +45,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
 
 
       [DataMember]
-      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), nameof(TimeStamps_TIMEZONE), DateTimeFormatType.Year)]
+      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), DateTimeFormatType.Year)]
       public List<DateTime> TimeStamps { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> TimeStamps_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> TimeStamps_TIMEZONE { get; set; }
 
       [DataMember]
       public List<IYearData> Data { get; set; }

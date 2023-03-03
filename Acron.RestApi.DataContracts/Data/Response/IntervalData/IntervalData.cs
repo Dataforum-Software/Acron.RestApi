@@ -62,16 +62,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       public List<string> IDAT_PMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(IDAT_PMINTM_FORMATTED), nameof(IDAT_PMINTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(IDAT_PMINTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> IDAT_PMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> IDAT_PMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> IDAT_PMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(IDAT_PMAX_FORMATTED), ValueFormatType.Process)]
@@ -81,16 +76,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       public List<string> IDAT_PMAX_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(IDAT_PMAXTM_FORMATTED), nameof(IDAT_PMAXTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(IDAT_PMAXTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> IDAT_PMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> IDAT_PMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> IDAT_PMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       public List<uint> IDAT_PMINLIM { get; set; }

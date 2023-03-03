@@ -21,16 +21,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.ProcessData.TData
       public DataTypes DataType { get; set; }
 
       [DataMember]
-      [FormatDateTime(nameof(TimeStamp_FORMATTED), nameof(TimeStamp_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTime(nameof(TimeStamp_FORMATTED), DateTimeFormatType.Process)]
       public DateTime TimeStamp { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public string TimeStamp_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public DateTime TimeStamp_TIMEZONE { get; set; }
 
       [DataMember]
       public ITDataBitArrayBase DataBitArray { get; set; }

@@ -4,7 +4,7 @@ namespace Acron.RestApi.Interfaces.Data.Request.DayData
 {
    public interface IGetDayDataPVDescription<T> where T : IDayWhat
    {
-      [SwaggerSchema("Identification of Process Variable")]
+      [SwaggerSchema("Numeric ID of Process Variable")]
       [SwaggerExampleValue(302000003)]
       uint PVID { get; set; }
 

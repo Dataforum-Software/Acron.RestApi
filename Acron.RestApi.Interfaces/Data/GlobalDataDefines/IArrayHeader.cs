@@ -1,8 +1,11 @@
-﻿namespace Acron.RestApi.Interfaces.Data.GlobalDataDefines
+﻿using Swashbuckle.AspNetCore.Annotations;
+
+namespace Acron.RestApi.Interfaces.Data.GlobalDataDefines
 {
    public interface IArrayHeader
    {
       bool HasData { get; }
+
       bool IsSorted { get; }
 
       uint ElementCount { get; }

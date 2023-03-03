@@ -1,12 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using Acron.RestApi.Interfaces.Data.Response.IntervalData;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawData
 {
    public interface IGetHandValRawDataResult
     {
-        bool HasData { get; }
-        int PVCount { get; }
+      [SwaggerSchema("Result contains values")]
+      [SwaggerExampleValue(true)]
+      bool HasData { get; }
 
-        List<IGetHandValRawData> PVList { get; set; }
+      [SwaggerSchema("Number of manual variables in result")]
+      [SwaggerExampleValue(15)]
+      int PVCount { get; }
+
+      [SwaggerSchema("List of manual variables")]
+      [SwaggerExampleValue(typeof(IGetHandValRawData))]
+      List<IGetHandValRawData> PVList { get; set; }
     }
 }

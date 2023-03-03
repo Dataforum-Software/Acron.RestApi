@@ -47,10 +47,10 @@
         {
             get
             {
-                if (ApiResult < 0)
-                    return true;
+               if (ApiResult < 0)
+                  return true;
 
-                return false;
+               return false;
             }
         }
 

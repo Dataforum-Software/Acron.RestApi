@@ -24,7 +24,6 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       [FormatDoubleListMarker(nameof(DDAT_DVAL_FORMATTED), ValueFormatType.Day)]
       public List<double> DDAT_DVAL { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> DDAT_DVAL_FORMATTED { get; set; }
 
@@ -36,16 +35,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_DVALAVG_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(DDAT_DVALTM_FORMATTED), nameof(DDAT_DVALTM_TIMEZONE), DateTimeFormatType.DayX)]
+      [FormatDateTimeList(nameof(DDAT_DVALTM_FORMATTED), DateTimeFormatType.DayX)]
       public List<DateTime> DDAT_DVALTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> DDAT_DVALTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> DDAT_DVALTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_PSUM_FORMATTED), ValueFormatType.Process)]
@@ -55,16 +49,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_PSUM_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(DDAT_PMINTM_FORMATTED),nameof(DDAT_PMINTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(DDAT_PMINTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> DDAT_PMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]      
       public List<string> DDAT_PMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> DDAT_PMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_PMIN_FORMATTED), ValueFormatType.Process)]
@@ -74,16 +63,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_PMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(DDAT_PMAXTM_FORMATTED), nameof(DDAT_PMAXTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(DDAT_PMAXTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> DDAT_PMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> DDAT_PMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> DDAT_PMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_PMAX_FORMATTED), ValueFormatType.Process)]
@@ -130,16 +114,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_IPERC85_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(DDAT_IMINTM_FORMATTED), nameof(DDAT_IMINTM_TIMEZONE), DateTimeFormatType.IntervalX)]
+      [FormatDateTimeList(nameof(DDAT_IMINTM_FORMATTED), DateTimeFormatType.IntervalX)]
       public List<DateTime> DDAT_IMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> DDAT_IMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> DDAT_IMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_IMIN_FORMATTED), ValueFormatType.Interval)]
@@ -149,16 +128,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_IMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(DDAT_IMAXTM_FORMATTED), nameof(DDAT_IMAXTM_TIMEZONE), DateTimeFormatType.IntervalX)]
+      [FormatDateTimeList(nameof(DDAT_IMAXTM_FORMATTED), DateTimeFormatType.IntervalX)]
       public List<DateTime> DDAT_IMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> DDAT_IMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> DDAT_IMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_IMAX_FORMATTED), ValueFormatType.Interval)]

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -39,6 +40,38 @@ namespace Acron.RestApi.BaseObjects
       }
 
       #region IAlertObject
+
+      /// <summary>
+      /// Identifikation des BOs
+      /// </summary>
+      [DataMember]
+      [DefaultValue("")]
+      [MinLength(1)]
+      [MaxLength(299)]
+      public override string ShortName
+      {
+         get { return base.ShortName; }
+         set
+         {
+            base.ShortName = value;
+         }
+      }
+
+      /// <summary>
+      /// Bezeichnung des BOs
+      /// </summary>
+      [DataMember]
+      [DefaultValue("")]
+      [MaxLength(299)]
+      public override string LongName
+      {
+         get { return base.LongName; }
+         set
+         {
+            base.LongName = value;
+         }
+      }
+
 
       private AlertDefines.AlertState _propState;
 

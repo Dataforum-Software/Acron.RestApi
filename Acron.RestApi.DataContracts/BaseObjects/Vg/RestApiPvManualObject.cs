@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -121,6 +122,7 @@ namespace Acron.RestApi.BaseObjects
       private string _propHvalKey;
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(10)]
       public string PropHvalKey
       {
          get { return _propHvalKey; }

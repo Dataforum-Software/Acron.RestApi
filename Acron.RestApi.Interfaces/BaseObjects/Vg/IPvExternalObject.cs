@@ -46,11 +46,11 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// ID of the parent connection
       /// </summary>
       [SwaggerSchema("Id of the parent connection")]
-      [SwaggerExampleValue("")]
+      [SwaggerExampleValue(0)]
       int PropConnectionId { get; }
 
       /// <summary>Key</summary>
-      [SwaggerSchema("Key")]
+      [SwaggerSchema("Property Key")]
       [SwaggerExampleValue("")]
       string PropKey { get; }
 
@@ -262,16 +262,28 @@ namespace Acron.RestApi.Interfaces.BaseObjects
    {
       public enum VgExternalType : int
       {
+         [SwaggerEnumInfo("Auto variable")]
          VgAuto = 1,
+
+         [SwaggerEnumInfo("Calculation variable")]
          VgCalc = 2,
+
+         [SwaggerEnumInfo("Manual variable")]
          VgHand = 4,
       }
 
       public enum VgExternalSyncState
       {
+         [SwaggerEnumInfo("Connection state not verified")]
          ReachabilityNotTesteted,
+
+         [SwaggerEnumInfo("No connection to remote plant")]
          NotReachable,
+
+         [SwaggerEnumInfo("Connection to remote plant successful")]
          Reachable,
+
+         [SwaggerEnumInfo("External process variable does not exist in remote plant")]
          NotOnServer,
       }
 

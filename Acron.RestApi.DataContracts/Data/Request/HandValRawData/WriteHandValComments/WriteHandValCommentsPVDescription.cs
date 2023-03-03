@@ -1,11 +1,15 @@
 ﻿using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComments;
+using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValComments
 {
+   [DataContract]
    public class WriteHandValCommentsPVDescription : IWriteHandValCommentsPVDescription
    {
+      [DataMember]
       public uint PVID { get; set; }
-      //public WriteHandValCommentsCDAT CDAT { get; set; } / In CDat sind der User und die TimeStamp der Erfassung. Dies wird von der RestAPI / DBServer versorgt
+
+      [DataMember]
       public string Comment { get; set; }
    }
 }

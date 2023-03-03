@@ -28,16 +28,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVALTM_FORMATTED), nameof(MDAT_MVALTM_TIMEZONE), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVALTM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
       public List<DateTime> MDAT_MVALTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_MVALTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_MVALTM_TIMEZONE { get; set; }
 
 
       [DataMember]
@@ -48,16 +43,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL1_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL1TM_FORMATTED), nameof(MDAT_MVAL1TM_TIMEZONE), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL1TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
       public List<DateTime> MDAT_MVAL1TM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_MVAL1TM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_MVAL1TM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatFloatList(nameof(MDAT_MVAL2_FORMATTED), ValueFormatType.WeekOrMonth)]
@@ -67,16 +57,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL2_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL2TM_FORMATTED), nameof(MDAT_MVAL2TM_TIMEZONE), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL2TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
       public List<DateTime> MDAT_MVAL2TM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_MVAL2TM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_MVAL2TM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatFloatList(nameof(MDAT_MVAL3_FORMATTED), ValueFormatType.WeekOrMonth)]
@@ -86,16 +71,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL3_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL3TM_FORMATTED), nameof(MDAT_MVAL3TM_TIMEZONE), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL3TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
       public List<DateTime> MDAT_MVAL3TM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_MVAL3TM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_MVAL3TM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_PSUM_FORMATTED), ValueFormatType.Process)]
@@ -105,16 +85,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_PSUM_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_PMINTM_FORMATTED), nameof(MDAT_PMINTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(MDAT_PMINTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_PMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_PMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_PMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_PMIN_FORMATTED), ValueFormatType.Process)]
@@ -124,16 +99,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_PMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_PMAXTM_FORMATTED), nameof(MDAT_PMAXTM_TIMEZONE), DateTimeFormatType.Process)]
+      [FormatDateTimeList(nameof(MDAT_PMAXTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_PMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_PMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_PMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_PMAX_FORMATTED), ValueFormatType.Process)]
@@ -159,16 +129,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_ISUM_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_IMINTM_FORMATTED), nameof(MDAT_IMINTM_TIMEZONE), DateTimeFormatType.Interval1)]
+      [FormatDateTimeList(nameof(MDAT_IMINTM_FORMATTED), DateTimeFormatType.Interval1)]
       public List<DateTime> MDAT_IMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_IMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_IMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_IMIN_FORMATTED), ValueFormatType.Interval)]
@@ -178,16 +143,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_IMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_IMAXTM_FORMATTED), nameof(MDAT_IMAXTM_TIMEZONE), DateTimeFormatType.Interval1)]
+      [FormatDateTimeList(nameof(MDAT_IMAXTM_FORMATTED), DateTimeFormatType.Interval1)]
       public List<DateTime> MDAT_IMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_IMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_IMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_IMAX_FORMATTED), ValueFormatType.Interval)]
@@ -234,16 +194,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_DPERC85_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_DMINTM_FORMATTED), nameof(MDAT_DMINTM_TIMEZONE), DateTimeFormatType.Day1)]
+      [FormatDateTimeList(nameof(MDAT_DMINTM_FORMATTED), DateTimeFormatType.Day1)]
       public List<DateTime> MDAT_DMINTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_DMINTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_DMINTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_DMIN_FORMATTED), ValueFormatType.Day)]
@@ -253,16 +208,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_DMIN_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_DMAXTM_FORMATTED), nameof(MDAT_DMAXTM_TIMEZONE), DateTimeFormatType.Day1)]
+      [FormatDateTimeList(nameof(MDAT_DMAXTM_FORMATTED), DateTimeFormatType.Day1)]
       public List<DateTime> MDAT_DMAXTM { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> MDAT_DMAXTM_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> MDAT_DMAXTM_TIMEZONE { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_DMAX_FORMATTED), ValueFormatType.Day)]

@@ -102,10 +102,15 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum CalculationType : int
       {
          /// <summary> Standard design </summary>
+         [SwaggerEnumInfo("Default calculation variable")]
          Standard = 0,
+
          /// <summary> Temporary - no compression data is stored </summary>
+         [SwaggerEnumInfo("Temporary calculation variable, no compression data is stored")]
          Temporary = 1,
+
          /// <summary> Calculation using external process variables - no compression data is stored </summary>
+         [SwaggerEnumInfo("Calculation variable using external process variables, no compression data is stored")]
          Live = 2,
       }
 

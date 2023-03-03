@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -157,6 +158,26 @@ namespace Acron.RestApi.BaseObjects
 
       #region IPvBaseObject
 
+      [DataMember]
+      [DefaultValue("")]
+      [MinLength(1)]
+      [MaxLength(60)]
+      public override string ShortName 
+      { 
+         get => base.ShortName; 
+         set => base.ShortName = value; 
+      }
+
+      [DataMember]
+      [DefaultValue("")]
+      [MinLength(1)]
+      [MaxLength(96)]
+      public override string LongName 
+      { 
+         get => base.LongName; 
+         set => base.LongName = value; 
+      }
+
       private string _propKey;
       [DataMember]
       [DefaultValue("")]
@@ -173,6 +194,7 @@ namespace Acron.RestApi.BaseObjects
       private PvBaseDefines.ValueFormat _propFormatVal;
       [DataMember]
       [DefaultValue(0)]
+      [Range(0,2)]
       [JsonConverter(typeof(StringEnumConverter))]
       public PvBaseDefines.ValueFormat PropFormatVal
       {
@@ -187,6 +209,7 @@ namespace Acron.RestApi.BaseObjects
       private PvBaseDefines.TimeFormat _propFormatTime;
       [DataMember]
       [DefaultValue(PvBaseDefines.TimeFormat.DayMonthYear)]
+      [Range(0, 2)]
       [JsonConverter(typeof(StringEnumConverter))]
       public PvBaseDefines.TimeFormat PropFormatTime
       {
@@ -201,6 +224,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propNk;
       [DataMember]
       [DefaultValue(0)]
+      [Range(-9, 9)]
       public int PropNk
       {
          get { return _propNk; }
@@ -227,6 +251,7 @@ namespace Acron.RestApi.BaseObjects
       private string _propComment;
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(1024)]
       public string PropComment
       {
          get { return _propComment; }
@@ -346,6 +371,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propCompressionIntervalNk;
       [DataMember]
       [DefaultValue(0)]
+      [Range(-9, 9)]
       public int PropCompressionIntervalNk
       {
          get { return _propCompressionIntervalNk; }
@@ -441,6 +467,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propCompressionDayNk;
       [DataMember]
       [DefaultValue(0)]
+      [Range(-9, 9)]
       public int PropCompressionDayNk
       {
          get { return _propCompressionDayNk; }
@@ -523,6 +550,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propCompressionMonthNk;
       [DataMember]
       [DefaultValue(0)]
+      [Range(-9, 9)]
       public int PropCompressionMonthNk
       {
          get { return _propCompressionMonthNk; }
@@ -605,6 +633,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propCompressionYearNk;
       [DataMember]
       [DefaultValue(0)]
+      [Range(-9, 9)]
       public int PropCompressionYearNk
       {
          get { return _propCompressionYearNk; }
@@ -635,6 +664,7 @@ namespace Acron.RestApi.BaseObjects
       private int _propFloatingDayValue;
       [DataMember]
       [DefaultValue(0)]
+      [Range(0,370)]
       public int PropFloatingDayValue
       {
          get { return _propFloatingDayValue; }
@@ -901,6 +931,7 @@ namespace Acron.RestApi.BaseObjects
       private PvBaseDefines.QuitValueChanges _propQuitValChanges;
       [DataMember]
       [DefaultValue(0)]
+      [Range(0, 2)]
       [JsonConverter(typeof(StringEnumConverter))]
       public PvBaseDefines.QuitValueChanges PropQuitValChanges
       {

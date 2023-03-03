@@ -136,7 +136,7 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
-      private string _shortName;
+      protected string _shortName;
 
       /// <summary>
       /// Identifikation des BOs
@@ -153,7 +153,7 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
-      private string _longName;
+      protected string _longName;
       /// <summary>
       /// Bezeichnung des BOs
       /// </summary>

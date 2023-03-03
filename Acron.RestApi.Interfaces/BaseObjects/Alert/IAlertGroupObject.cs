@@ -21,7 +21,10 @@ namespace Acron.RestApi.Interfaces.BaseObjects
    {
       public enum GroupType : int
       {
+         [SwaggerEnumInfo("User created group")]
          UserDefined = 0,
+
+         [SwaggerEnumInfo("ACRON default group")]
          Default = 1,
       }
 

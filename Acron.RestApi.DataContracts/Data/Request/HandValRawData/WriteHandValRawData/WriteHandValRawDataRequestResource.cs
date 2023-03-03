@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValRawData;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValRawData;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -8,12 +9,15 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValRa
    [DataContract]
    public class WriteHandValRawDataRequestResource : IWriteHandValRawDataRequestResource<WriteHandValRawDataPVDescription, WriteHandValRawDataProval>
    {
-      public WriteHandValRawDataRequestResource() 
-      {         
-      }
-
       [DataMember]
-      public DateTime DayTimeStamp { get; set; }
+      public DateTimeOffset DayTimeStamp { get; set; }
+      public DateTime DayTimeStamp_UTC 
+      {
+         get
+         {
+            return DayTimeStamp.UtcDateTime;
+         }
+      }
 
       [DataMember]
       public List<WriteHandValRawDataPVDescription> PVDescriptions { get; set; }

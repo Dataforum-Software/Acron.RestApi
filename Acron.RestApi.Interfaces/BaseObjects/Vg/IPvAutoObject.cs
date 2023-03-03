@@ -66,7 +66,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Interval compression method</summary>
       [SwaggerSchema("Interval compression method")]
-      [SwaggerExampleValue("AverageWeighted = PvBaseDefines.CompMethod.AverageWeighted,")]
+      [SwaggerExampleValue("AverageWeighted = PvBaseDefines.CompMethod.AverageWeighted")]
       PvAutoDefines.CompIntervalMethod PropCompressionIntervalMethod { get; set; }
 
       #endregion Interval
@@ -75,7 +75,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Compression method - Day </summary>
       [SwaggerSchema("Compression method - Day")]
-      [SwaggerExampleValue("Average = PvBaseDefines.CompMethod.Average,")]
+      [SwaggerExampleValue("Average = PvBaseDefines.CompMethod.Average")]
       PvAutoDefines.CompDayMethod PropCompressionDayMethod { get; set; }
 
       #endregion Tag
@@ -84,7 +84,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Compression method - Month </summary>
       [SwaggerSchema("Compression method - Month")]
-      [SwaggerExampleValue(" Average = PvBaseDefines.CompMethod.Average,")]
+      [SwaggerExampleValue(" Average = PvBaseDefines.CompMethod.Average")]
       PvAutoDefines.CompMonthMethod PropCompressionMonthMethod { get; set; }
 
       #endregion Monat
@@ -107,18 +107,26 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum ValueReplacement : uint
       {
          /// <summary> Failure </summary>
+         [SwaggerEnumInfo("Value is empty")]
          MissingValue = 0x1,
+
          /// <summary> Overrun </summary>
+         [SwaggerEnumInfo("Overrun")]
          OverValue = 0x2,
+
          /// <summary> Underrun </summary>
+         [SwaggerEnumInfo("Underrun")]
          UnderValue = 0x4,
       }
 
       public enum ReplacementType : int
       {
          /// <summary> Fixed value </summary>
+         [SwaggerEnumInfo("Fixed Value")]
          FixValue = 0,
+
          /// <summary> Last value </summary>
+         [SwaggerEnumInfo("Previous value")]
          LastValue = 1,
       }
 
@@ -126,30 +134,55 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum CompIntervalMethod : int
       {
          /// <summary>Arithmetic mean</summary>
+         [SwaggerEnumInfo("Arithmetic mean")]
          Average = PvBaseDefines.CompMethod.Average,
+
          /// <summary>Logarithmic mean</summary>
+         [SwaggerEnumInfo("Logarithmic mean")]
          AverageLog = PvBaseDefines.CompMethod.AverageLog,
+
          /// <summary>Last value</summary>
+         [SwaggerEnumInfo("Last value")]
          Last = PvBaseDefines.CompMethod.Last,
+
          /// <summary>First value</summary>
+         [SwaggerEnumInfo("First value")]
          First = PvBaseDefines.CompMethod.First,
+
          /// <summary>Frequency</summary>
+         [SwaggerEnumInfo("Value with most occurences")]
          Frequency = PvBaseDefines.CompMethod.Frequency,
+
          /// <summary>Sum</summary>
+         [SwaggerEnumInfo("Sum")]
          Sum = PvBaseDefines.CompMethod.Sum,
+
          /// <summary>Median</summary>
+         [SwaggerEnumInfo("Median")]
          Median = PvBaseDefines.CompMethod.Median,
+
          /// <summary>Percentile value</summary>
+         [SwaggerEnumInfo("Percentile")]
          Percentil = PvBaseDefines.CompMethod.Percentil,
+
          /// <summary>Standard deviation</summary>
+         [SwaggerEnumInfo("Standard deviation - totality")]
          Sigma = PvBaseDefines.CompMethod.Sigma,
+
          /// <summary>Standard deviation sample</summary>
+         [SwaggerEnumInfo("Standard deviation - sample")]
          SigmaSample = PvBaseDefines.CompMethod.SigmaSample,
+
          /// <summary>Weighted arithmetic mean</summary>
+         [SwaggerEnumInfo("Weighted mean")]
          AverageWeighted = PvBaseDefines.CompMethod.AverageWeighted,
+
          /// <summary> Concatenate (link the individual texts to a character string) </summary>
+         [SwaggerEnumInfo("Concatenate (link individual texts)")]
          Link = PvBaseDefines.CompMethod.Link,
+
          /// <summary> Concatenate (link the individual texts to a character string without duplicates) </summary>
+         [SwaggerEnumInfo("Concatenate without duplicates (link individual texts)")]
          LinkWithoutDuplicates = PvBaseDefines.CompMethod.LinkWithoutDuplicates,
       }
 
@@ -157,28 +190,51 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum CompDayMethod : int
       {
          /// <summary>Arithmetic mean</summary>
+         [SwaggerEnumInfo("Arithmetic mean")]
          Average = PvBaseDefines.CompMethod.Average,
+
          /// <summary>Logarithmic mean</summary>
+         [SwaggerEnumInfo("Logarithmic mean")]
          AverageLog = PvBaseDefines.CompMethod.AverageLog,
+
          /// <summary>Last value</summary>
+         [SwaggerEnumInfo("Last value")]
          Last = PvBaseDefines.CompMethod.Last,
+
          /// <summary>First value</summary>
+         [SwaggerEnumInfo("First value")]
          First = PvBaseDefines.CompMethod.First,
+
          /// <summary>Frequency</summary>
+         [SwaggerEnumInfo("Value with most occurences")]
          Frequency = PvBaseDefines.CompMethod.Frequency,
+
          /// <summary>Sum</summary>
+         [SwaggerEnumInfo("Sum")]
          Sum = PvBaseDefines.CompMethod.Sum,
+
          /// <summary>Median</summary>
+         [SwaggerEnumInfo("Median")]
          Median = PvBaseDefines.CompMethod.Median,
+
          /// <summary>Percentile value</summary>
+         [SwaggerEnumInfo("Percentile")]
          Percentil = PvBaseDefines.CompMethod.Percentil,
+
          /// <summary>Standard deviation</summary>
+         [SwaggerEnumInfo("Standard deviation - totality")]
          Sigma = PvBaseDefines.CompMethod.Sigma,
+
          /// <summary>Standard deviation sample</summary>
+         [SwaggerEnumInfo("Standard deviation - sample")]
          SigmaSample = PvBaseDefines.CompMethod.SigmaSample,
+
          /// <summary> Concatenate (link the individual texts to a character string) </summary>
+         [SwaggerEnumInfo("Concatenate (link individual texts)")]
          Link = PvBaseDefines.CompMethod.Link,
+
          /// <summary> Concatenate (link the individual texts to a character string without duplicates) </summary>
+         [SwaggerEnumInfo("Concatenate without duplicates (link individual texts)")]
          LinkWithoutDuplicates = PvBaseDefines.CompMethod.LinkWithoutDuplicates,
       }
 
@@ -186,30 +242,55 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum CompMonthMethod : int
       {
          /// <summary>Arithmetic mean</summary>
+         [SwaggerEnumInfo("Arithmetic mean")]
          Average = PvBaseDefines.CompMethod.Average,
+
          /// <summary>Arithmetic mean in the range (5-95%)</summary>
+         [SwaggerEnumInfo("Arithmetic mean, excluding each the lowest and highest 5% of values")]
          Average95 = PvBaseDefines.CompMethod.Average95,
+
          /// <summary>Logarithmic mean</summary>
+         [SwaggerEnumInfo("Logarithmic mean")]
          AverageLog = PvBaseDefines.CompMethod.AverageLog,
+
          /// <summary>Last value</summary>
+         [SwaggerEnumInfo("Last value")]
          Last = PvBaseDefines.CompMethod.Last,
+
          /// <summary>First value</summary>
+         [SwaggerEnumInfo("First value")]
          First = PvBaseDefines.CompMethod.First,
+
          /// <summary>Frequency</summary>
+         [SwaggerEnumInfo("Value with most occurences")]
          Frequency = PvBaseDefines.CompMethod.Frequency,
+
          /// <summary>Sum</summary>
+         [SwaggerEnumInfo("Sum")]
          Sum = PvBaseDefines.CompMethod.Sum,
+
          /// <summary>Median</summary>
+         [SwaggerEnumInfo("Median")]
          Median = PvBaseDefines.CompMethod.Median,
+
          /// <summary>Percentile value</summary>
+         [SwaggerEnumInfo("Percentile")]
          Percentil = PvBaseDefines.CompMethod.Percentil,
+
          /// <summary>Standard deviation</summary>
+         [SwaggerEnumInfo("Standard deviation - totality")]
          Sigma = PvBaseDefines.CompMethod.Sigma,
+
          /// <summary>Standard deviation sample</summary>
+         [SwaggerEnumInfo("Standard deviation - sample")]
          SigmaSample = PvBaseDefines.CompMethod.SigmaSample,
+
          /// <summary> Concatenate (link the individual texts to a character string) </summary>
+         [SwaggerEnumInfo("Concatenate (link individual texts)")]
          Link = PvBaseDefines.CompMethod.Link,
+
          /// <summary> Concatenate (link the individual texts to a character string without duplicates) </summary>
+         [SwaggerEnumInfo("Concatenate without duplicates (link individual texts)")]
          LinkWithoutDuplicates = PvBaseDefines.CompMethod.LinkWithoutDuplicates,
       }
 
@@ -217,28 +298,51 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum CompYearMethod : int
       {
          /// <summary>Arithmetic mean</summary>
+         [SwaggerEnumInfo("Arithmetic mean")]
          Average = PvBaseDefines.CompMethod.Average,
+
          /// <summary>Logarithmic mean</summary>
+         [SwaggerEnumInfo("Logarithmic mean")]
          AverageLog = PvBaseDefines.CompMethod.AverageLog,
+
          /// <summary>Last value</summary>
+         [SwaggerEnumInfo("Last value")]
          Last = PvBaseDefines.CompMethod.Last,
+
          /// <summary>First value</summary>
+         [SwaggerEnumInfo("First value")]
          First = PvBaseDefines.CompMethod.First,
+
          /// <summary>Frequency</summary>
+         [SwaggerEnumInfo("Value with most occurences")]
          Frequency = PvBaseDefines.CompMethod.Frequency,
+
          /// <summary>Sum</summary>
+         [SwaggerEnumInfo("Sum")]
          Sum = PvBaseDefines.CompMethod.Sum,
+
          /// <summary>Median</summary>
+         [SwaggerEnumInfo("Median")]
          Median = PvBaseDefines.CompMethod.Median,
+
          /// <summary>Percentile value</summary>
+         [SwaggerEnumInfo("Percentile")]
          Percentil = PvBaseDefines.CompMethod.Percentil,
+
          /// <summary>Standard deviation</summary>
+         [SwaggerEnumInfo("Standard deviation - totality")]
          Sigma = PvBaseDefines.CompMethod.Sigma,
+
          /// <summary>Standard deviation sample</summary>
+         [SwaggerEnumInfo("Standard deviation - sample")]
          SigmaSample = PvBaseDefines.CompMethod.SigmaSample,
+
          /// <summary> Concatenate (link the individual texts to a character string) </summary>
+         [SwaggerEnumInfo("Concatenate (link individual texts)")]
          Link = PvBaseDefines.CompMethod.Link,
+
          /// <summary> Concatenate (link the individual texts to a character string without duplicates) </summary>
+         [SwaggerEnumInfo("Concatenate without duplicates (link individual texts)")]
          LinkWithoutDuplicates = PvBaseDefines.CompMethod.LinkWithoutDuplicates,
       }
 

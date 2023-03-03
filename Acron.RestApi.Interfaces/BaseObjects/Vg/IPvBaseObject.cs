@@ -18,7 +18,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary>Value format</summary>
       [SwaggerSchema("Value format")]
-      [SwaggerExampleValue("Numerical")]
+      [SwaggerExampleValue(PvBaseDefines.ValueFormat.Numerical)]
       PvBaseDefines.ValueFormat PropFormatVal
       {
          get; set;
@@ -26,7 +26,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary>Output format of time values</summary>
       [SwaggerSchema("Output format of time values")]
-      [SwaggerExampleValue("Process")]
+      [SwaggerExampleValue(PvBaseDefines.TimeFormat.DayMonthYear)]
       PvBaseDefines.TimeFormat PropFormatTime
       {
          get; set;
@@ -34,7 +34,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary>Decimal places basic values</summary>
       [SwaggerSchema("Decimal places basic values")]
-      [SwaggerExampleValue("2")]
+      [SwaggerExampleValue(2)]
       int PropNk
       {
          get; set;
@@ -60,7 +60,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary>Limit range minimum</summary>
       [SwaggerSchema("Limit range minimum")]
-      [SwaggerExampleValue("0.0")]
+      [SwaggerExampleValue(0.0)]
       double PropGvalMin
       {
          get; set;
@@ -68,7 +68,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary>Limit range maximum</summary>
       [SwaggerSchema("Limit range maximum")]
-      [SwaggerExampleValue("2.0")]
+      [SwaggerExampleValue(2.0)]
       double PropGvalMax
       {
          get; set;
@@ -78,7 +78,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// Convert (all) units
       /// </summary>
       [SwaggerSchema("Convert (all) units")]
-      [SwaggerExampleValue("false")]
+      [SwaggerExampleValue(false)]
       bool PropCalculateUnits
       {
          get; set;
@@ -136,7 +136,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Interval compression decimal places</summary>
       [SwaggerSchema("Interval compression decimal places")]
-      [SwaggerExampleValue("1")]
+      [SwaggerExampleValue(1)]
       int PropCompressionIntervalNk
       {
          get; set;
@@ -144,7 +144,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Interval compression percentile value %</summary>
       [SwaggerSchema("Interval compression percentile value %")]
-      [SwaggerExampleValue("")]
+      [SwaggerExampleValue(0.0)]
       double PropCompressionIntervalPercentil
       {
          get; set;
@@ -212,7 +212,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Daily compression percentile value %</summary>
       [SwaggerSchema("Daily compression percentile value %")]
-      [SwaggerExampleValue("")]
+      [SwaggerExampleValue(0.0)]
       double PropCompressionDayPercentil
       {
          get; set;
@@ -272,7 +272,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Monthly compression percentile value %</summary>
       [SwaggerSchema("Monthly compression percentile value %")]
-      [SwaggerExampleValue("")]
+      [SwaggerExampleValue(0.0)]
       double PropCompressionMonthPercentil
       {
          get; set;
@@ -332,7 +332,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
 
       /// <summary> Annual compression percentile value %</summary>
       [SwaggerSchema("Annual compression percentile value %")]
-      [SwaggerExampleValue("")]
+      [SwaggerExampleValue(0.0)]
       double PropCompressionYearPercentil
       {
          get; set;
@@ -350,7 +350,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// this dictionary will be replaced by correcponding values.
       /// </remarks>
       [SwaggerSchema("All Key-Value pairs of this process variable")]
-      [SwaggerExampleValue("")]
+      //[SwaggerExampleValue("")]
       Dictionary<double,string> PropValKeys { get; set; }
 
       #endregion ValKeys
@@ -578,16 +578,27 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum ValueResult : int
       {
          /// <summary> Unknown </summary>
+         [SwaggerEnumInfo("Undefined")]
          Unknown = 1,
-         /// <summary> Calculation variable begins in the interval </summary>
+
+         /// <summary> Calculation result is a interval value </summary>
+         [SwaggerEnumInfo("Calculation result is a interval value")]
          Interval = 2,
-         /// <summary> Calculation variable begins in day </summary>
+
+         /// <summary>Calculation result is a daily value </summary>
+         [SwaggerEnumInfo("Calculation result is a daily value")]
          Day = 3,
-         /// <summary> Calculation variable begins in month </summary>
+
+         /// <summary>Calculation result is a monthly value </summary>
+         [SwaggerEnumInfo("Calculation result is a monthly value")]
          Month = 4,
-         /// <summary> Calculation variable begins in year </summary>
+
+         /// <summary>Calculation result is a yearly value </summary>
+         [SwaggerEnumInfo("Calculation result is a yearly value")]
          Year = 5,
-         /// <summary> Calculation variable begins in process values  </summary>
+
+         /// <summary>Calculation result is a process value </summary>
+         [SwaggerEnumInfo("Calculation result is a process value")]
          Process = 6,
       }
 
@@ -596,20 +607,31 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// </summary>
       public enum ValueType : int
       {
+         [SwaggerEnumInfo("Undefined")]
          None = 0,
 
          /// <summary> Process value </summary>
+         [SwaggerEnumInfo("Process value")]
          Process = 1,
+
          /// <summary> Interval value 1 </summary>
+         [SwaggerEnumInfo("Main interval")]
          Interval1 = 2,
+
          /// <summary> Interval value 2 </summary>
+         [SwaggerEnumInfo("Secondary interval")]
          Interval2 = 3,
 
          /// <summary> Daily value </summary>
+         [SwaggerEnumInfo("Daily value")]
          Day = 4,
+
          /// <summary> Monthly value </summary>
+         [SwaggerEnumInfo("Monthly value")]
          Month = 5,
+
          /// <summary> Annual value </summary>
+         [SwaggerEnumInfo("Annual value")]
          Year = 6,
       }
 
@@ -617,10 +639,15 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum ValueFormat : int
       {
          /// <summary>Value of a process variable is displayed as a numerical value</summary>
+         [SwaggerEnumInfo("Process variable contains numerical value")]
          Numerical = 0,
+
          /// <summary>Value of a process variable is displayed as time</summary>
+         [SwaggerEnumInfo("Process variable contains time stamp")]
          Time = 1,
+
          /// <summary>Value of a process variable is displayed as text</summary>
+         [SwaggerEnumInfo("Process variable contains alphanumeric value")]
          Text = 2,
       }
 
@@ -628,10 +655,15 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum TimeFormat : int
       {
          /// <summary>Hour:Min (HHMM)</summary>
+         [SwaggerEnumInfo("Time format hh:mm")]
          HourMinute = 0,
+
          /// <summary>Hour:Min:Sec (HHMMSS)</summary>
+         [SwaggerEnumInfo("Time format hh:mm:ss")]
          HourMinuteSecond = 1,
+
          /// <summary>Day.Month.Year (DDMMYYYY)</summary>
+         [SwaggerEnumInfo("Time format dd.MM.yyyy")]
          DayMonthYear = 2,
       }
 
@@ -639,79 +671,144 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public enum QuitValueChanges : int
       {
          /// <summary>None </summary>
+         [SwaggerEnumInfo("No confirmation")]
          None = 0,
 
          /// <summary> One-man rule</summary>
+         [SwaggerEnumInfo("Confirm changes with additional user credentials")]
          TwoEyeMode = 1,
 
          /// <summary> Two-man rule </summary>
+         [SwaggerEnumInfo("Confirm changes with two additional sets of user credentials")]
          FourEyeMode = 2,
       }
 
       /// <summary> Compression methods (handling of values)</summary>
+      [SwaggerSchema("Value handling type")]
       public enum CompMethod : int
       {
          /// <summary>No handling of values</summary>
+         [SwaggerEnumInfo("No value handling")]
          None = 0,
+
          /// <summary>Difference to the previous value</summary>
+         [SwaggerEnumInfo("Difference to previous value")]
          Diff = 1,
+
          /// <summary>Counter difference without overflow</summary>
+         [SwaggerEnumInfo("Counter difference - no overflow")]
          CounterDiff = 2,
+
          /// <summary>Counter difference with overflow</summary>
+         [SwaggerEnumInfo("Counter difference")]
          CounterDiffOverflow = 3,
+
          /// <summary>Consumption from container content</summary>
+         [SwaggerEnumInfo("Consumption from container content")]
          Hyst = 4,
+
          /// <summary>Operating hours from condition bit</summary>
+         [SwaggerEnumInfo("Operating hours from condition bit")]
          ZuBit = 5,
+
          /// <summary>Integral</summary>
+         [SwaggerEnumInfo("Integral")]
          Integral = 6,
+
          /// <summary>Arithmetic mean</summary>
+         [SwaggerEnumInfo("Arithmetic mean")]
          Average = 7,
+
          /// <summary>Arithmetic mean in the range (5-95%)</summary>
+         [SwaggerEnumInfo("Arithmetic mean, excluding each the lowest and highest 5% of values")]
          Average95 = 8,
+
          /// <summary>Logarithmic mean</summary>
+         [SwaggerEnumInfo("Logarithmic mean")]
          AverageLog = 9,
+
          /// <summary>Last Value</summary>
+         [SwaggerEnumInfo("Last value")]
          Last = 10,
+
          /// <summary>Frequency</summary>
+         [SwaggerEnumInfo("Frequency")]
          Frequency = 11,
+
          /// <summary>Sum</summary>
+         [SwaggerEnumInfo("Sum")]
          Sum = 12,
+
          /// <summary>Median</summary>
+         [SwaggerEnumInfo("Median")]
          Median = 13,
+
          /// <summary>Percentile value</summary>
+         [SwaggerEnumInfo("Percentile")]
          Percentil = 14,
+
          /// <summary>Moving maximum (mean)</summary>
+         [SwaggerEnumInfo("Moving maximum (mean)")]
          AverageMaxHour = 15,
+
          /// <summary>Moving minimum (mean)</summary>
+         [SwaggerEnumInfo("Moving minimum (mean)")]
          AverageMinHour = 16,
+
          /// <summary>Moving maximum  (sum)</summary>
+         [SwaggerEnumInfo("Moving maximum (sum)")]
          SumMaxHour = 17,
+
          /// <summary>Moving minimum (sum)</summary>
+         [SwaggerEnumInfo("Moving minimum (sum)")]
          SumMinHour = 18,
+
          /// <summary>Hessian annual amount of wastewater</summary>
+         [SwaggerEnumInfo("Hessian annual amount of wastewater")]
          Hess = 19,
+
          /// <summary>Standard deviation</summary>
+         [SwaggerEnumInfo("Standard deviation")]
          Sigma = 20,
+
          /// <summary>4 greatest values</summary>
+         [SwaggerEnumInfo("4 greatest values")]
          MaxVal4 = 21,
+
          /// <summary>4 smallest values</summary>
+         [SwaggerEnumInfo("4 smallest values")]
          MinVal4 = 22,
+
          /// <summary>Amount of valid values (batch only)</summary>
+         [SwaggerEnumInfo("Amount of valid values")]
          ValidCounter = 23,
+
          /// <summary>Weighted mean</summary>
+         [SwaggerEnumInfo("Weighted mean")]
          AverageWeighted = 24,
+
          /// <summary>First value</summary>
+         [SwaggerEnumInfo("First value")]
          First = 25,
+
          /// <summary>Daily maximum with an interval of at least 14 days</summary>
+         [SwaggerEnumInfo("Max value in 14 day interval")]
          MaxDay14 = 26,
+
          /// <summary>Daily minimum with an interval of at least 14 days</summary>
+         [SwaggerEnumInfo("Min value in 14 day interval")]
          MinDay14 = 27,
+
          /// <summary> Concatenate (link the individual texts to a character string) </summary>
+         [SwaggerEnumInfo("Concatenate (link individual texts)")]
          Link = 28,
+
          /// <summary>Standard deviation sample</summary>
+         [SwaggerEnumInfo("Standard deviation sample")]
          SigmaSample = 29,
+
          /// <summary> Concatenate (link the individual texts to a character string, duplicate text parts are not added) </summary>
+         [SwaggerEnumInfo("Concatenate without duplicates (link individual texts)")]
          LinkWithoutDuplicates = 31,
       }
 

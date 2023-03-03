@@ -2,23 +2,32 @@
 using Acron.RestApi.Interfaces.Data.Request.ProcessData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
 {
 
-   [DataContract]    
+   [DataContract]
    public class GetProcessDataRequestResource : IGetProcessDataRequestResource<GetProcessDataPVDescription>
    {
       [DataMember]
-      [FormatDateTimeUTCRequest(nameof(FromTime_UTC))]
-      public DateTime FromTime { get; set; }
-      public DateTime FromTime_UTC { get; set; }
+      [Required]
+      [RequestTimeStampValidator]
+      public DateTimeOffset FromTime { get; set; }
+      public DateTime FromTime_UTC
+      {
+         get { return FromTime.UtcDateTime; }
+      }
 
       [DataMember]
-      [FormatDateTimeUTCRequest(nameof(ToTime_UTC))]
-      public DateTime ToTime { get; set; }
-      public DateTime ToTime_UTC { get; set; }
+      [Required]
+      [RequestTimeStampValidator]
+      public DateTimeOffset ToTime { get; set; }
+      public DateTime ToTime_UTC
+      {
+         get { return ToTime.UtcDateTime; }
+      }
 
       /// <summary>
       /// Differenzzeit in Sekunden für Sonderfälle, sonst -1
@@ -30,6 +39,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
       /// Liste der PV ObjectIDs mit Optionen
       /// </summary>
       [DataMember]
+      [Required]
       public List<GetProcessDataPVDescription> PVIDs { get; set; }
    }
 }

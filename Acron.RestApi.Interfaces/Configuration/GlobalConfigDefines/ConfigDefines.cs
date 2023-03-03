@@ -159,7 +159,7 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
          /// <summary> Speichern nicht möglich - Anlage wurde nicht validiert </summary>
          { ApiActionResult.SaveMissingValidation, "Save config - missing validation call." },
 
-               #endregion Save
+         #endregion Save
 
         };
 
@@ -446,12 +446,19 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
             /// <summary> Lock fehlgeschlagen - Unbekannter Server-Fehler </summary>
             ConfigAccessSetRegisterUnknown = 120,
 
-            #endregion Config Access Infos
+         #endregion Config Access Infos
 
-            #region Delete
+         #region Create and Update
 
-            /// <summary> Das BaseObject konnte nicht gelöscht werden, da es von anderen BaseObjects verwendet wird </summary>
-            DeleteFailedObjectUsed = 200,
+            /// <summary> Create / Update fehlgeschlagen </summary>
+            CreateUpdateFailed =  150,
+
+         #endregion Create and Update
+
+         #region Delete
+
+         /// <summary> Das BaseObject konnte nicht gelöscht werden, da es von anderen BaseObjects verwendet wird </summary>
+         DeleteFailedObjectUsed = 200,
             /// <summary> Das BaseObject konnte nicht gelöscht werden </summary>
             DeleteFailedGeneral = 201,
 

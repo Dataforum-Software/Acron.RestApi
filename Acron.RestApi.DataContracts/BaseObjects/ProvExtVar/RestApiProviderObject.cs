@@ -1,5 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -190,6 +191,7 @@ namespace Acron.RestApi.BaseObjects
       private string _propAlertRuleGroupName;
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(255)]
       public string PropAlertRuleGroupName
       {
          get { return _propAlertRuleGroupName; }
@@ -203,6 +205,7 @@ namespace Acron.RestApi.BaseObjects
       private string _propAlertRuleVarName;
       [DataMember]
       [DefaultValue("")]
+      [MaxLength(255)]
       public string PropAlertRuleVarName
       {
          get { return _propAlertRuleVarName; }

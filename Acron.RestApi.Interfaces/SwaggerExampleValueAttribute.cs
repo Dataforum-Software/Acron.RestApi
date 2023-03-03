@@ -2,6 +2,7 @@
 
 namespace Acron.RestApi.Interfaces
 {
+   [AttributeUsage(AttributeTargets.Property)]
    public class SwaggerExampleValueAttribute : Attribute
    {
       public SwaggerExampleValueAttribute(object example)

@@ -24,32 +24,32 @@ namespace Acron.RestApi.Interfaces.Data.Request.MonthWeekData
       public bool MDAT_MVALTM { get; set; }
 
       //4	   MDAT_MVAL1	         double	         Wert
-      [SwaggerSchema("Monthly value 1")]
+      [SwaggerSchema("Second special monthly value according to compression type (e.g. '4 highest values')")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL1 { get; set; }
 
       //5	   MDAT_MVAL1TM	         time_t	         Zeitpunkt spezieller Wert gemäß Kompression
-      [SwaggerSchema("Time of monthly value 1")]
+      [SwaggerSchema("Time of second special monthly value")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL1TM { get; set; }
 
       //6	   MDAT_MVAL2	         double	         Wert
-      [SwaggerSchema("Monthly value 2")]
+      [SwaggerSchema("Third special monthly value according to compression type (e.g. '4 highest values')")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL2 { get; set; }
 
       //7	   MDAT_MVAL2TM	         time_t	         Zeitpunkt spezieller Wert gemäß Kompression
-      [SwaggerSchema("Time of monthly value 2")]
+      [SwaggerSchema("Time of third special monthly value")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL2TM { get; set; }
 
       //8	   MDAT_MVAL3	         double	         Wert
-      [SwaggerSchema("Monthly value 3")]
+      [SwaggerSchema("Fourth special monthly value according to compression type (e.g. '4 highest values')")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL3 { get; set; }
 
       //9	   MDAT_MVAL3TM	         time_t	         Zeitpunkt spezieller Stundenwert gemäß Kompression
-      [SwaggerSchema("Time of monthly value 3")]
+      [SwaggerSchema("Fourth special monthly value")]
       [SwaggerExampleValue("true")]
       public bool MDAT_MVAL3TM { get; set; }
 
@@ -144,12 +144,12 @@ namespace Acron.RestApi.Interfaces.Data.Request.MonthWeekData
       public bool MDAT_DSIGMA { get; set; }
 
       //28	MDAT_DPERC15	         float	         Percentilwert 15 % der Tageswerte
-      [SwaggerSchema("Percentile value 15% of daily values")]
+      [SwaggerSchema("15th percentile of daily values")]
       [SwaggerExampleValue("true")]
       public bool MDAT_DPERC15 { get; set; }
 
       //29	MDAT_DPERC85	         float	         Percentilwert 85 % der Tageswerte
-      [SwaggerSchema("Percentile value 85% of daily values")]
+      [SwaggerSchema("85th percentile of daily values")]
       [SwaggerExampleValue("true")]
       public bool MDAT_DPERC85 { get; set; }
 

@@ -5,6 +5,10 @@ using System.ComponentModel;
 
 using Acron.RestApi.Interfaces.BaseObjects;
 using Acron.RestApi.Interfaces.Configuration.Response;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using Acron.RestApi.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Acron.RestApi.DataContracts.Configuration.Response
 {
@@ -14,69 +18,121 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
    {
       #region cTor
 
-      public CreateUpdateResult(string errorText, IBaseObject restApiObject, IBaseObject baseObject)
+      public CreateUpdateResult(IBaseObject restApiObject)
       {
-         HasError = true;
-         ErrorText = errorText;
-         RestApiObject = restApiObject;
-         BaseObject = baseObject;
+         State = CrUpdState.NotProcessed;
+         ErrorText = string.Empty;
+         _restApiObject = restApiObject;
+         //BaseObject = null;
          UpdatedProperties = new List<string>();
       }
 
       public CreateUpdateResult(string errorText, IBaseObject restApiObject)
       {
-         HasError = true;
+         State = CrUpdState.Error;
          ErrorText = errorText;
-         RestApiObject = restApiObject;
-         BaseObject = null;
+         _restApiObject = restApiObject;
          UpdatedProperties = new List<string>();
       }
 
-      public CreateUpdateResult(IBaseObject restApiObject, IBaseObject baseObject)
+      public CreateUpdateResult(IBaseObject restApiObject, CrUpdState crUpdResult)
       {
-         HasError = false;
+         State = crUpdResult;
          ErrorText = string.Empty;
-         RestApiObject = restApiObject;
-         BaseObject = baseObject;
+         _restApiObject = restApiObject;
          UpdatedProperties = new List<string>();
       }
 
-      public CreateUpdateResult(IBaseObject restApiObject, IBaseObject baseObject, List<string> updatedProperties)
+      public CreateUpdateResult(IBaseObject restApiObject, List<string> updatedProperties, CrUpdState crUpResult)
       {
-         HasError = false;
+         State = crUpResult;
          ErrorText = string.Empty;
-         RestApiObject = restApiObject;
-         BaseObject = baseObject;
+         _restApiObject = restApiObject;
          UpdatedProperties = updatedProperties;
       }
 
       #endregion cTor
 
+      private IBaseObject __restApiObject = null;
+      private IBaseObject _restApiObject 
+      {
+         get { return __restApiObject; }
+         set
+         {
+            __restApiObject = value;
+         }
+      }
+
+      public IBaseObject GetRestApiObject()
+      {
+         return _restApiObject;
+      }
+
+      public void SetError(string errorText)
+      {
+         State = CrUpdState.Error;
+         ErrorText = errorText;
+      }
+
+      public void Update(CreateUpdateResult cur)
+      {
+         if (cur == null)
+            return;
+
+         this.State = cur.State;
+         this.ErrorText = cur.ErrorText;
+         this.UpdatedProperties = cur.UpdatedProperties;
+      }
+
       #region ICreateUpdateResult
 
       [DataMember]
-      public bool HasError { get; internal set; }
+      [JsonConverter(typeof(StringEnumConverter))]
+      public CrUpdState State { get; internal set; }
 
       [DataMember]
       [DefaultValue("")]
       public string ErrorText { get; internal set; }
 
       [DataMember]
-      public IBaseObject RestApiObject { get; internal set; }
+      [JsonConverter(typeof(StringEnumConverter))]
+      public BaseObjectDefines.RestObjectTypeCode RestTypeCode 
+      {
+         get { return _restApiObject.RestTypeCode; }
+      }
 
       [DataMember]
-      public IBaseObject BaseObject { get; internal set; }
+      public int IdParent 
+      {
+         get { return _restApiObject.IdParent; }
+      }
 
       [DataMember]
-      public List<string> UpdatedProperties { get; internal set; }
+      public int Id 
+      {
+         get { return _restApiObject.Id; }
+      }
 
+      [DataMember]
+      public string ShortName 
+      {
+         get { return _restApiObject.ShortName; }
+      }
+
+      [DataMember]
+      public string LongName 
+      {
+         get { return _restApiObject.LongName; }
+      }
+ 
       #endregion ICreateUpdateResult
 
+      public List<string> UpdatedProperties { get; internal set; }
    }
 
 
    [DataContract]
-   public class CreateUpdateResultList : ICreateUpdateResultList
+   public class CreateUpdateResultList : ICreateUpdateResultList<ICreateUpdateResult>
    {
       #region cTor
 
@@ -98,7 +154,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
          get
          {
             return Data
-                     .Where(item => item.HasError == false)
+                     .Where(item => item.State == CrUpdState.Success)
                      .Count();
          }
       }
@@ -112,10 +168,25 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
          get
          {
             return Data
-                     .Where(item => item.HasError == true)
+                     .Where(item => item.State == CrUpdState.Error)
                      .Count();
          }
       }
+
+      [DataMember]
+      /// <summary>
+      /// Count of not processed elements
+      /// </summary>
+      public int CountNotProcessed 
+      {
+         get 
+         {
+            return Data
+                     .Where(item => item.State == CrUpdState.NotProcessed)
+                     .Count();
+         }
+      }
+
 
       private List<ICreateUpdateResult> _data = null;
 
@@ -144,6 +215,20 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       public void AddRange(IEnumerable<ICreateUpdateResult> newItems)
       {
          _data.AddRange(newItems);
+      }
+
+      public CreateUpdateResult FindItem(IBaseObject restApiObject)
+      {
+         if (restApiObject == null)
+            return null;
+
+         if (restApiObject.Id < 0 && string.IsNullOrEmpty(restApiObject.ShortName))
+            return null;
+
+         if (restApiObject.Id < 0)
+            return Data.FirstOrDefault(cur => cur.ShortName == restApiObject.ShortName) as CreateUpdateResult;
+
+         return Data.FirstOrDefault(cur => cur.Id == restApiObject.Id) as CreateUpdateResult;
       }
    }
 

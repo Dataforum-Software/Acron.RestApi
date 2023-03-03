@@ -1,5 +1,4 @@
-﻿using Microsoft.OpenApi.Validations.Rules;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
 namespace Acron.RestApi.Interfaces.Request.AccessToken
 {

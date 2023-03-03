@@ -43,16 +43,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       }
 
       [DataMember]
-      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), nameof(TimeStamps_TIMEZONE), DateTimeFormatType.IntervalX)]
+      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), DateTimeFormatType.IntervalX)]
       public List<DateTime> TimeStamps { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> TimeStamps_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> TimeStamps_TIMEZONE { get; set; }
 
       [DataMember]
       public List<IIntervalData> Data { get; set; }

@@ -45,14 +45,14 @@ namespace Acron.RestApi.Interfaces.Data.Request.IntervalData
       //5
       //Daten Typ im Ergebnis: float
       //Percentilwert 15 % der Prozesswerte
-      [SwaggerSchema("Percentile value 15% of process values")]
+      [SwaggerSchema("15th percentile of process values")]
       [SwaggerExampleValue("true")]
       bool IDAT_PPERC15 { get; set; }
 
       //6
       //Daten Typ im Ergebnis: float
       //Percentilwert 85 % der Prozesswerte
-      [SwaggerSchema("Percentile value 85% of process values")]
+      [SwaggerSchema("85th percentile of process values")]
       [SwaggerExampleValue("true")]
       bool IDAT_PPERC85 { get; set; }
 

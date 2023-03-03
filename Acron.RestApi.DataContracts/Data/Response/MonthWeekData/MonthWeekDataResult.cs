@@ -43,16 +43,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       }
 
       [DataMember]
-      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), nameof(TimeStamps_TIMEZONE), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(TimeStamps_FORMATTED), DateTimeFormatType.WeekOrMonth)]
       public List<DateTime> TimeStamps { get; set; }
 
-      //ToDo Swagger
       [DataMember]
       public List<string> TimeStamps_FORMATTED { get; set; }
-
-      //ToDo Swagger
-      [DataMember]
-      public List<DateTime> TimeStamps_TIMEZONE { get; set; }
 
       [DataMember]
       public List<IMonthWeekData> Data { get; set; }
