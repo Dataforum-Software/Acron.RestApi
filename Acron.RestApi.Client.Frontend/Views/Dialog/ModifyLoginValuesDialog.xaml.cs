@@ -25,7 +25,6 @@ namespace Acron.RestApi.Client.Frontend.Views.Dialog
    {
 
       public ObservableCollection<DataItem> ListOfLoginValues { get; set; }
-      public DataItem? SelectedItem { get; set; }
       public ModifyLoginValuesDialog(Login login)
       {
          ListOfLoginValues = new();

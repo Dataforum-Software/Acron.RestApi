@@ -10,6 +10,8 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
    {
       #region Required Properties
       public DateTime LastExecution { get;  }
+
+      public int MaxLength { get; set; }
       #endregion
 
       public void UpdateLastExecution();

@@ -42,5 +42,13 @@
             </StackPanel>
          </StackPanel>
       </RibbonGroup>
+      <RibbonGroup Header="Command Parameters">
+         <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="5">
+               <TextBlock Text="Maximum amount of Results"/>
+               <TextBox Width="50" HorizontalAlignment="Center" KeyDown="TextBox_KeyDown" Text="{Binding SelectedOnlineGraph.MaxLength,UpdateSourceTrigger=Explicit}" IsEnabled="{Binding SelectedItem,Converter={StaticResource IsRealtime}}"/>
+            </StackPanel>
+         </StackPanel>
+      </RibbonGroup>
    </RibbonTab>
 </Ribbon>

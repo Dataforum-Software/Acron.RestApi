@@ -13,9 +13,9 @@ namespace Acron.RestApi.Client.Frontend.Models
       public VisualisationHelper()
       {
          _timeStamp = DateTime.Now;
-         IValue = 0;
-         _minValue = 0;
-         _maxValue = 0;
+         IValue = GlobalDataDef.NO_VALID;
+         _minValue = GlobalDataDef.NO_VALID;
+         _maxValue = GlobalDataDef.NO_VALID;
       }
       #endregion
 

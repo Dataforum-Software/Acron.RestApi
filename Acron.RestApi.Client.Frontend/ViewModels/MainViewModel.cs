@@ -23,6 +23,7 @@ using System.Windows;
 using Acron.RestApi.Client.Client.Request.ConfigurationRequests;
 using Acron.RestApi.BaseObjects;
 using Acron.RestApi.Client.Frontend.Models.CommandWrappers;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace Acron.RestApi.Client.Frontend.ViewModels
 {
@@ -255,11 +256,20 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
          set
          {
             if (SetProperty(ref _selectedItem, value))
+            {
                Resend = false;
+               OnPropertyChanged(nameof(SelectedOnlineGraph));
+            }
          }
       }
 
-
+      public IOnlineGraphCapable? SelectedOnlineGraph
+      {
+         get
+         {
+            return SelectedItem as IOnlineGraphCapable;
+         }
+      }
 
 
       private bool _resend;

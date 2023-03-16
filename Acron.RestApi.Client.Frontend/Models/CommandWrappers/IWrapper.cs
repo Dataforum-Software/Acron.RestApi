@@ -40,9 +40,9 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 
       ObservableCollection<VisualisationHelper>? VisualizedCollection { get; }
 
-      bool DateVisible { get; }
+      public bool DateVisible { get; }
 
-      bool TimeVisible { get; }
+      public bool TimeVisible { get; }
 
       public ApiActionResult? ApiResponse { get; set; }
       #endregion

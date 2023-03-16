@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 using static Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines.ConfigDefines;
 
 namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
@@ -42,24 +43,36 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
          FieldInfo routeKey = (typeof(RouteDefines.RouteKeys).GetFields().First(x => x.Name == helper));
          Url = _myProcessDataRequest.BaseAddress + RouteDefines.Instance.Routes[(RouteDefines.RouteKeys)routeKey!.GetValue(true)!];
          _visualizedCollection = new();
-         for (int i = 0; i < MaxLengthPlot; i++)
+         for (int i = 0; i < MaxLength; i++)
             _visualizedCollection.Add(new VisualisationHelper()
             {
                IValue = 0,
-               TimesStamp = DateTime.UtcNow - TimeSpan.FromSeconds((MaxLengthPlot * 5) + (i * 5))
-            }) ;
+               TimesStamp = DateTime.UtcNow - TimeSpan.FromSeconds((MaxLength * 5) + (i * 5))
+            });
       }
 
       #endregion
 
       #region Field
-      private int MaxLengthPlot = 50;
 
       private ProcessDataRequests? _myProcessDataRequest;
 
       #endregion
 
       #region Properties
+      private int _maxLength = 50;
+      public int MaxLength
+      {
+         get { return _maxLength; }
+         set
+         {
+            if(value == 0)
+               SetProperty(ref _maxLength, 1);
+            else
+               SetProperty(ref _maxLength, value);
+         }
+      }
+
       private ObservableCollection<VisualisationHelper>? _visualizedCollection;
       public ObservableCollection<VisualisationHelper>? VisualizedCollection
       {
@@ -113,7 +126,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 
       public string Name
       {
-         get;init;
+         get; init;
       }
 
       public string Url
@@ -245,7 +258,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
          get;
          private set;
       }
-#endregion
+      #endregion
 
       #region Method
       public async Task ExecuteMethod()
@@ -266,9 +279,10 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             if (Result is not List<ProcessDataBase> cResult)
                return;
             _visualizedCollection ??= new();
+            _visualizedCollection.Clear();
             for (int i = 0; i < cResult[0].ValuesElementCount; i++)
             {
-               if (VisualizedCollection!.Count >= MaxLengthPlot)
+               if (VisualizedCollection!.Count >= MaxLength)
                   VisualizedCollection.RemoveAt(0);
                VisualisationHelper vh = new()
                {
@@ -291,6 +305,8 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                }
                VisualizedCollection.Add(vh);
             }
+            OnPropertyChanged(nameof(TimeVisible));
+            OnPropertyChanged(nameof(DateVisible));
          }
       }
 
@@ -312,11 +328,11 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             if (Result is not List<ProcessDataBase> cResult || cResult[0].Values == null)
                return;
             _visualizedCollection ??= new();
-            for(int i=0;i< cResult[0].ValuesElementCount;i++)
+            for (int i = 0; i < cResult[0].ValuesElementCount; i++)
             {
-               if (cResult[0].Values[0].TimeStamp  <= VisualizedCollection![^1]._timeStamp)
+               if (cResult[0].Values[0].TimeStamp <= VisualizedCollection![^1]._timeStamp)
                   continue;
-               if (VisualizedCollection.Count >= MaxLengthPlot)
+               if (VisualizedCollection.Count >= MaxLength)
                   VisualizedCollection.RemoveAt(0);
                VisualisationHelper vh = new()
                {
@@ -327,12 +343,12 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                   vh.IValue = cResult[0].Values[i].Value;
                   vh.TimesStamp = cResult[0].Values[i].TimeStamp;
                }
-               if (Input.PVIDs[0].ValueTypes.HasFlag(Interfaces.Data.Request.ProcessData.IGetProcessDataPVDescription.DataValueTypes.Maxima) && cResult[0].MaximaElementCount!=0)
+               if (Input.PVIDs[0].ValueTypes.HasFlag(Interfaces.Data.Request.ProcessData.IGetProcessDataPVDescription.DataValueTypes.Maxima) && cResult[0].MaximaElementCount != 0)
                {
                   vh.MaxValue = cResult[0].Maxima[i].Value;
                   vh.TimesStamp = cResult[0].Maxima[i].TimeStamp;
                }
-               if (Input.PVIDs[0].ValueTypes.HasFlag(Interfaces.Data.Request.ProcessData.IGetProcessDataPVDescription.DataValueTypes.Minima) && cResult[0].MinimaElementCount!=0)
+               if (Input.PVIDs[0].ValueTypes.HasFlag(Interfaces.Data.Request.ProcessData.IGetProcessDataPVDescription.DataValueTypes.Minima) && cResult[0].MinimaElementCount != 0)
                {
                   vh.MaxValue = cResult[0].Minima[i].Value;
                   vh.TimesStamp = cResult[0].Minima[i].TimeStamp;
@@ -361,7 +377,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       public void UpdateLastExecution()
       {
          Input.ToTime = new DateTimeOffset(DateTime.Now, TimeSpan.FromHours(1));
-         Input.FromTime = new DateTimeOffset(LastExecution - TimeSpan.FromSeconds(5),TimeSpan.FromHours(1));
+         Input.FromTime = new DateTimeOffset(LastExecution - TimeSpan.FromSeconds(5), TimeSpan.FromHours(1));
          OnPropertyChanged(nameof(Input));
          OnPropertyChanged(nameof(InputBodyText));
          LastExecution = Input.ToTime.DateTime;

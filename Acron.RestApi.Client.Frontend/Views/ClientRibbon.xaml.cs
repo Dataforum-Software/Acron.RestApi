@@ -25,5 +25,17 @@ namespace Acron.RestApi.Client.Frontend.Views
       {
          InitializeComponent();
       }
+
+      private void TextBox_KeyDown(object sender, KeyEventArgs e)
+      {
+         if (sender is not TextBox tb)
+            return;
+         if(e.Key == Key.Enter)
+         {
+            if (!int.TryParse(tb.Text,out int test))
+               tb.Text = "50";
+            tb.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+         }
+      }
    }
 }

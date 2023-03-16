@@ -26,7 +26,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
    internal class GetIntervalDataWrapper : ObservableObject, IWrapper
    {
       #region ctor
-      public GetIntervalDataWrapper(RestClient? client=null) 
+      public GetIntervalDataWrapper(RestClient? client = null)
       {
          _myIntervalDataRequest = new IntervalDataRequests(client);
          _visualizedCollection = new();
@@ -34,7 +34,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
          _responseBodyText = string.Empty;
          ErrorText = string.Empty;
          Input = new();
-         Url= string.Empty;
+         Url = string.Empty;
          if (_myIntervalDataRequest is null)
             return;
          string helper = GetType().Name.Replace("Wrapper", "");
@@ -46,7 +46,6 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #region Fields
       protected IntervalDataRequests? _myIntervalDataRequest;
 
-      private int MaxLength = 50;
       #endregion
 
       #region Properties
@@ -274,10 +273,10 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             ApiResponse = Response.ApiActionResult;
             if (Result is not IntervalDataResult cResult)
                return;
-            for(int i=0;i<cResult.TimeStampsCount;i++)
+            _visualizedCollection ??= new();
+            _visualizedCollection.Clear();
+            for (int i = 0; i < cResult.TimeStampsCount; i++)
             {
-               if (VisualizedCollection.Count >= MaxLength)
-                  VisualizedCollection.RemoveAt(0);
                VisualizedCollection.Add(new VisualisationHelper()
                {
                   TimesStamp = cResult.TimeStamps[i],

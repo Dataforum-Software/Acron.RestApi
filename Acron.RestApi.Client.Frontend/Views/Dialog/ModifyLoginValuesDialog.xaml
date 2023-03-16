@@ -9,10 +9,10 @@
         Title="ModifyLoginVariableDialog" Height="450" Width="800">
    <Grid>
       <StackPanel>
-         <DataGrid Margin="23" ItemsSource="{Binding BindingList}" SelectedItem="{Binding SelectedItem}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
+         <DataGrid Margin="23" ItemsSource="{Binding ListOfLoginValues}" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
             <DataGrid.Columns>
-               <DataGridTextColumn Header="" Binding="{Binding Key}" IsReadOnly="True"/>
-               <DataGridTextColumn Header="" Binding="{Binding Value}" MaxWidth="500"/>
+               <DataGridTextColumn Header="" Binding="{Binding Key}" IsReadOnly="True" Width="300"/>
+               <DataGridTextColumn Header="" Binding="{Binding Value}" Width="300"/>
             </DataGrid.Columns>
          </DataGrid>
          <Button Content="Save Changes" Click="Button_Click_1" Margin="20" Height="50"/>

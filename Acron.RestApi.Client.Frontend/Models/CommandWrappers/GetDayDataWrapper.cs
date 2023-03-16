@@ -37,7 +37,6 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
          ErrorText = string.Empty;
          Url = string.Empty;
          Input = new();
-         LastExecution = DateTime.Now;
          if (_myDayDataRequest is null)
             return;
          string helper = GetType().Name.Replace("Wrapper", "");
@@ -49,11 +48,22 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 
       #region Fields
       private DayDataRequests? _myDayDataRequest;
-
       #endregion
 
       #region Properties
 
+      private int _maxLength = 50;
+      public int MaxLength
+      {
+         get { return _maxLength; }
+         set
+         {
+            if (value == 0)
+               SetProperty(ref _maxLength, 1);
+            else
+               SetProperty(ref _maxLength, value);
+         }
+      }
       public bool TimeVisible
       {
          get
@@ -262,6 +272,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             if (Result is not DayDataResult cResult)
                return;
             VisualizedCollection ??= new();
+            VisualizedCollection.Clear();
             for (int i=0;i<cResult.TimeStampsCount;i++)
             {
                VisualizedCollection.Add(new()
@@ -270,8 +281,10 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                   IValue = cResult.Data[0].DDAT_DVAL[i],
                   MaxValue = cResult.Data[0].DDAT_IMAX[i],
                   MinValue = cResult.Data[0].DDAT_IMIN[i]
-               });;
+               });
             }
+            OnPropertyChanged(nameof(TimeVisible));
+            OnPropertyChanged(nameof(DateVisible));
          }
       }
 
@@ -290,10 +303,34 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             ReadOutResponse();
             StatusCode = Response.HttpStatusCode;
             ApiResponse = Response.ApiActionResult;
-            if (Result is not List<ProcessDataBase> cResult || cResult[0].Values == null)
+            if (Result is not DayDataResult cResult)
                return;
+            if(VisualizedCollection is null)
+            {
+               VisualizedCollection = new();
+               for(int i=0;i<MaxLength;i++)
+               {
+                  VisualizedCollection.Add(new() { TimesStamp = new DateTime((Input.FromTime - (TimeSpan.FromDays(MaxLength+1) -TimeSpan.FromDays(i))).Date.Ticks + TimeSpan.FromHours(23).Ticks)});
+               };
+            }
+            for (int i = 0; i < cResult.TimeStampsCount; i++)
+            {
+               if (cResult.TimeStamps[i] <= VisualizedCollection![^1]._timeStamp)
+                  continue;
+               if (VisualizedCollection.Count >= MaxLength)
+                  VisualizedCollection.RemoveAt(0);
+               VisualizedCollection.Add(new()
+               {
+                  TimesStamp = cResult.TimeStamps[i],
+                  IValue = cResult.Data[0].DDAT_DVAL[i],
+                  MaxValue = cResult.Data[0].DDAT_IMAX[i],
+                  MinValue = cResult.Data[0].DDAT_IMIN[i]
+               }); ;
+            }
 
          }
+         OnPropertyChanged(nameof(TimeVisible));
+         OnPropertyChanged(nameof(DateVisible));
 
       }
 
@@ -315,7 +352,10 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       public void UpdateLastExecution()
       {
          Input.ToTime = new DateTimeOffset(DateTime.Now, TimeSpan.FromHours(1));
-         Input.FromTime = new DateTimeOffset(LastExecution - TimeSpan.FromSeconds(5),TimeSpan.FromHours(1));
+         if (LastExecution == new DateTime())
+            Input.FromTime = Input.FromTime;
+         else
+            Input.FromTime = new DateTimeOffset(LastExecution- TimeSpan.FromSeconds(5),TimeSpan.FromHours(1));
          OnPropertyChanged(nameof(Input));
          OnPropertyChanged(nameof(InputBodyText));
          LastExecution = Input.ToTime.DateTime;
