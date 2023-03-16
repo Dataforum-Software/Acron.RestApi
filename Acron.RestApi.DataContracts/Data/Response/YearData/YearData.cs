@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.YearData
 {
    [DataContract]
-   public class YearData : IYearData
+   public class YearData : IYearData<YearDataFlag>
    {
       [DataMember]
       public uint PVID { get; set; }
@@ -16,7 +16,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public string ShortName { get; set; }
 
       [DataMember]
-      public List<IYearDataFlag> YDAT_FLAG { get; set; }
+      public List<YearDataFlag> YDAT_FLAG { get; set; }
 
       [DataMember]
       [FormatDoubleListMarker(nameof(YDAT_YVAL_FORMATTED), ValueFormatType.Year)]
@@ -26,7 +26,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_YVAL_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(YDAT_YVALTM_FORMATTED), DateTimeFormatType.Year)]
+      [FormatDateTimeList(nameof(YDAT_YVALTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> YDAT_YVALTM { get; set; }
 
       [DataMember]
@@ -40,7 +40,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_YVAL1_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(YDAT_YVAL1TM_FORMATTED), DateTimeFormatType.Year)]
+      [FormatDateTimeList(nameof(YDAT_YVAL1TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> YDAT_YVAL1TM { get; set; }
 
       [DataMember]
@@ -54,7 +54,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_YVAL2_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(YDAT_YVAL2TM_FORMATTED), DateTimeFormatType.Year)]
+      [FormatDateTimeList(nameof(YDAT_YVAL2TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> YDAT_YVAL2TM { get; set; }
 
       [DataMember]
@@ -68,7 +68,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_YVAL3_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(YDAT_YVAL3TM_FORMATTED), DateTimeFormatType.Year)]
+      [FormatDateTimeList(nameof(YDAT_YVAL3TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> YDAT_YVAL3TM { get; set; }
 
       [DataMember]

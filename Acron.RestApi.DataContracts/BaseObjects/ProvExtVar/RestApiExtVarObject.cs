@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
@@ -53,9 +55,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropServiceOverflowValue = BaseObjectDefines.NO_VALID;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IExtVarObject iExtVar = baseObject as IExtVarObject;
 
@@ -105,6 +108,119 @@ namespace Acron.RestApi.BaseObjects
 
          #endregion Service
 
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateExtVarObjectRequestResource iExtVar = baseObject as ICreateExtVarObjectRequestResource;
+
+         this.PropComment = iExtVar.PropComment;
+         this.SetProviderId(iExtVar.PropIdProvider);
+         this.PropIdDependVar1 = iExtVar.PropIdDependVar1;
+         this.PropIdDependVar2 = iExtVar.PropIdDependVar2;
+         this.PropIdDependVar3 = iExtVar.PropIdDependVar3;
+         this.PropAcknowledgeVar = iExtVar.PropAcknowledgeVar;
+         this.PropConditionVar = iExtVar.PropConditionVar;
+
+         #region Measurement
+
+         this.PropMeasurementActive = iExtVar.PropMeasurementActive;
+         this.PropMeasurementRecordingType = iExtVar.PropMeasurementRecordingType;
+         this.PropCyclicMin = iExtVar.PropCyclicMin;
+         this.PropCyclicMax = iExtVar.PropCyclicMax;
+         this.PropDataType = iExtVar.PropDataType;
+         this.PropGeneralValueFrom = iExtVar.PropGeneralValueFrom;
+         this.PropGeneralValueTo = iExtVar.PropGeneralValueTo;
+         this.PropPeriodOfValidity = iExtVar.PropPeriodOfValidity;
+         this.PropCyclicInterval = iExtVar.PropCyclicInterval;
+
+         this.PropDeltaEventActive1 = iExtVar.PropDeltaEventActive1;
+         this.PropDeltaEventValueFrom1 = iExtVar.PropDeltaEventValueFrom1;
+         this.PropDeltaEventValueTo1 = iExtVar.PropDeltaEventValueTo1;
+         this.PropDeltaEventValueChange1 = iExtVar.PropDeltaEventValueChange1;
+
+         this.PropDeltaEventActive2 = iExtVar.PropDeltaEventActive2;
+         this.PropDeltaEventValueFrom2 = iExtVar.PropDeltaEventValueFrom2;
+         this.PropDeltaEventValueTo2 = iExtVar.PropDeltaEventValueTo2;
+         this.PropDeltaEventValueChange2 = iExtVar.PropDeltaEventValueChange2;
+
+         this.PropDeltaEventActive3 = iExtVar.PropDeltaEventActive3;
+         this.PropDeltaEventValueFrom3 = iExtVar.PropDeltaEventValueFrom3;
+         this.PropDeltaEventValueTo3 = iExtVar.PropDeltaEventValueTo3;
+         this.PropDeltaEventValueChange3 = iExtVar.PropDeltaEventValueChange3;
+
+         #endregion Measurement
+
+         #region Service
+
+         this.PropServiceActive = iExtVar.PropServiceActive;
+         this.PropServiceOverflowValue = iExtVar.PropServiceOverflowValue;
+         this.PropServiceType = iExtVar.PropServiceType;
+         this.PropServiceUnit = iExtVar.PropServiceUnit;
+
+         #endregion Service
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateExtVarObjectRequestResource iExtVar = baseObject as IUpdateExtVarObjectRequestResource;
+
+         this.PropComment = iExtVar.PropComment;
+         this.SetProviderId(iExtVar.PropIdProvider);
+         this.PropIdDependVar1 = iExtVar.PropIdDependVar1;
+         this.PropIdDependVar2 = iExtVar.PropIdDependVar2;
+         this.PropIdDependVar3 = iExtVar.PropIdDependVar3;
+         this.PropAcknowledgeVar = iExtVar.PropAcknowledgeVar;
+         this.PropConditionVar = iExtVar.PropConditionVar;
+
+         #region Measurement
+
+         this.PropMeasurementActive = iExtVar.PropMeasurementActive;
+         this.PropMeasurementRecordingType = iExtVar.PropMeasurementRecordingType;
+         this.PropCyclicMin = iExtVar.PropCyclicMin;
+         this.PropCyclicMax = iExtVar.PropCyclicMax;
+         this.PropDataType = iExtVar.PropDataType;
+         this.PropGeneralValueFrom = iExtVar.PropGeneralValueFrom;
+         this.PropGeneralValueTo = iExtVar.PropGeneralValueTo;
+         this.PropPeriodOfValidity = iExtVar.PropPeriodOfValidity;
+         this.PropCyclicInterval = iExtVar.PropCyclicInterval;
+
+         this.PropDeltaEventActive1 = iExtVar.PropDeltaEventActive1;
+         this.PropDeltaEventValueFrom1 = iExtVar.PropDeltaEventValueFrom1;
+         this.PropDeltaEventValueTo1 = iExtVar.PropDeltaEventValueTo1;
+         this.PropDeltaEventValueChange1 = iExtVar.PropDeltaEventValueChange1;
+
+         this.PropDeltaEventActive2 = iExtVar.PropDeltaEventActive2;
+         this.PropDeltaEventValueFrom2 = iExtVar.PropDeltaEventValueFrom2;
+         this.PropDeltaEventValueTo2 = iExtVar.PropDeltaEventValueTo2;
+         this.PropDeltaEventValueChange2 = iExtVar.PropDeltaEventValueChange2;
+
+         this.PropDeltaEventActive3 = iExtVar.PropDeltaEventActive3;
+         this.PropDeltaEventValueFrom3 = iExtVar.PropDeltaEventValueFrom3;
+         this.PropDeltaEventValueTo3 = iExtVar.PropDeltaEventValueTo3;
+         this.PropDeltaEventValueChange3 = iExtVar.PropDeltaEventValueChange3;
+
+         #endregion Measurement
+
+         #region Service
+
+         this.PropServiceActive = iExtVar.PropServiceActive;
+         this.PropServiceOverflowValue = iExtVar.PropServiceOverflowValue;
+         this.PropServiceType = iExtVar.PropServiceType;
+         this.PropServiceUnit = iExtVar.PropServiceUnit;
+
+         #endregion Service
+
+         return true;
       }
 
       #region IExtVarObject

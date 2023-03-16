@@ -20,9 +20,10 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IProviderDriverObject iProvDrv = baseObject as IProviderDriverObject;
 
@@ -47,6 +48,69 @@ namespace Acron.RestApi.BaseObjects
          this._propConnectionType = iProvDrv.PropConnectionType;
          this._propTransferType = iProvDrv.PropTransferType;
 
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         //IProviderDriverObject iProvDrv = baseObject as IProviderDriverObject;
+
+         //this._propVersion = iProvDrv.PropVersion;
+         //this._propDescription = iProvDrv.PropDescription;
+
+         //this._propParamText1 = iProvDrv.PropParam1Text;
+         //this._propParamDefault1 = iProvDrv.PropParam1Default;
+
+         //this._propParamText2 = iProvDrv.PropParam2Text;
+         //this._propParamDefault2 = iProvDrv.PropParam2Default;
+
+         //this._propParamText3 = iProvDrv.PropParam3Text;
+         //this._propParamDefault3 = iProvDrv.PropParam3Default;
+
+         //this._propParamText4 = iProvDrv.PropParam4Text;
+         //this._propParamDefault4 = iProvDrv.PropParam4Default;
+
+         //this._propReadingInterval = iProvDrv.PropReadingInterval;
+         //this._propStartupDelayTime = iProvDrv.PropStartupDelayTime;
+
+         //this._propConnectionType = iProvDrv.PropConnectionType;
+         //this._propTransferType = iProvDrv.PropTransferType;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         //IUpdateProviderDriverObject iProvDrv = baseObject as IProviderDriverObject;
+
+         //this._propVersion = iProvDrv.PropVersion;
+         //this._propDescription = iProvDrv.PropDescription;
+
+         //this._propParamText1 = iProvDrv.PropParam1Text;
+         //this._propParamDefault1 = iProvDrv.PropParam1Default;
+
+         //this._propParamText2 = iProvDrv.PropParam2Text;
+         //this._propParamDefault2 = iProvDrv.PropParam2Default;
+
+         //this._propParamText3 = iProvDrv.PropParam3Text;
+         //this._propParamDefault3 = iProvDrv.PropParam3Default;
+
+         //this._propParamText4 = iProvDrv.PropParam4Text;
+         //this._propParamDefault4 = iProvDrv.PropParam4Default;
+
+         //this._propReadingInterval = iProvDrv.PropReadingInterval;
+         //this._propStartupDelayTime = iProvDrv.PropStartupDelayTime;
+
+         //this._propConnectionType = iProvDrv.PropConnectionType;
+         //this._propTransferType = iProvDrv.PropTransferType;
+
+         return true;
       }
 
       #region IProviderDriverObject

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.DayData
 {
-   public interface IDayDataResult
+   public interface IDayDataResult<T,U> where T : IDayData<U> where U : IDayDataFlag
    {
       [SwaggerSchema("Result contains values")]
       [SwaggerExampleValue("true")]
@@ -27,8 +27,8 @@ namespace Acron.RestApi.Interfaces.Data.Response.DayData
       [SwaggerExampleValue("[\"10.10.2022 00:00:00\", \"11.10.2022 00:00:00\", \"12.10.2022 00:00:00\"]")]
       List<string> TimeStamps_FORMATTED { get; set; }
 
-      [SwaggerSchema($"Collection of {nameof(IDayData)} objects, one per process variable")]
-      [SwaggerExampleValue(typeof(IDayData))]
-      List<IDayData> Data { get; set; }      
+      [SwaggerSchema($"Collection of DayData objects, one per process variable")]
+      [SwaggerExampleValue(typeof(IDayData<IDayDataFlag>))]
+      List<T> Data { get; set; }      
    }
 }

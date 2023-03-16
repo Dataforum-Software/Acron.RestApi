@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
@@ -27,9 +29,10 @@ namespace Acron.RestApi.BaseObjects
          base.setDefaultValues();
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvExternalObject iPvExt = baseObject as IPvExternalObject;
 
@@ -85,6 +88,131 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingReleased = iPvExt.PropProvidingReleased;
          this.PropProvidingValKeys = iPvExt.PropProvidingValKeys;
 
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvExternalObjectRequestResource iPvExt = baseObject as ICreatePvExternalObjectRequestResource;
+
+         this.PropExtType = iPvExt.PropExtType;
+         this.PropExtId = iPvExt.PropExtId;
+
+         this.PropConnectionId = iPvExt.PropConnectionId;
+
+         this.PropKey = iPvExt.PropKey;
+
+         this.PropCalculationType = iPvExt.PropCalculationType;
+
+         this.PropCompressionDataSource = iPvExt.PropCompressionDataSource;
+
+         this.PropCompressionProcessActive = iPvExt.PropCompressionProcessActive;
+
+         this.PropHedit = iPvExt.PropHedit;
+
+         this.PropCompressionIntervalActive = iPvExt.PropCompressionIntervalActive;
+         this.PropCompressionIntervalMethod = iPvExt.PropCompressionIntervalMethod;
+         this.PropCompressionIntervalUsedIntervals = iPvExt.PropCompressionIntervalUsedIntervals;
+
+         this.PropCompressionDayActive = iPvExt.PropCompressionDayActive;
+         this.PropCompressionDayMethod = iPvExt.PropCompressionDayMethod;
+
+         this.PropCompressionMonthActive = iPvExt.PropCompressionMonthActive;
+         this.PropCompressionMonthMethod = iPvExt.PropCompressionMonthMethod;
+
+         this.PropCompressionYearActive = iPvExt.PropCompressionYearActive;
+         this.PropCompressionYearMethod = iPvExt.PropCompressionYearMethod;
+
+         this.PropFormatVal = iPvExt.PropFormatVal;
+         this.PropFormatTime = iPvExt.PropFormatTime;
+
+         this.PropFloatingDayValue = iPvExt.PropFloatingDayValue;
+         this.PropProvidingValue = iPvExt.PropProvidingValue;
+         this.PropProvidingSum = iPvExt.PropProvidingSum;
+         this.PropProvidingMinMax = iPvExt.PropProvidingMinMax;
+         this.PropProvidingSDeviation = iPvExt.PropProvidingSDeviation;
+         this.PropProvidingPercentil = iPvExt.PropProvidingPercentil;
+         this.PropProvidingMDays = iPvExt.PropProvidingMDays;
+         this.PropProvidingFloatDayval = iPvExt.PropProvidingFloatDayval;
+         this.PropProvidingWWW = iPvExt.PropProvidingWWW;
+         this.PropProvidingLimits = iPvExt.PropProvidingLimits;
+         this.PropProvidingCoding = iPvExt.PropProvidingCoding;
+         this.PropProvidingMultiserver = iPvExt.PropProvidingMultiserver;
+         this.PropProvidingOpcDde = iPvExt.PropProvidingOpcDde;
+
+         this.PropProvidingDialogDay = iPvExt.PropProvidingDialogDay;
+         this.PropProvidingDialogMonth = iPvExt.PropProvidingDialogMonth;
+         this.PropProvidingDialogYear = iPvExt.PropProvidingDialogYear;
+
+         this.PropProvidingReleased = iPvExt.PropProvidingReleased;
+         this.PropProvidingValKeys = iPvExt.PropProvidingValKeys;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvExternalObjectRequestResource iPvExt = baseObject as IUpdatePvExternalObjectRequestResource;
+
+         this.PropExtType = iPvExt.PropExtType;
+         this.PropExtId = iPvExt.PropExtId;
+
+         this.PropConnectionId = iPvExt.PropConnectionId;
+
+         this.PropKey = iPvExt.PropKey;
+
+         this.PropCalculationType = iPvExt.PropCalculationType;
+
+         this.PropCompressionDataSource = iPvExt.PropCompressionDataSource;
+
+         this.PropCompressionProcessActive = iPvExt.PropCompressionProcessActive;
+
+         this.PropHedit = iPvExt.PropHedit;
+
+         this.PropCompressionIntervalActive = iPvExt.PropCompressionIntervalActive;
+         this.PropCompressionIntervalMethod = iPvExt.PropCompressionIntervalMethod;
+         this.PropCompressionIntervalUsedIntervals = iPvExt.PropCompressionIntervalUsedIntervals;
+
+         this.PropCompressionDayActive = iPvExt.PropCompressionDayActive;
+         this.PropCompressionDayMethod = iPvExt.PropCompressionDayMethod;
+
+         this.PropCompressionMonthActive = iPvExt.PropCompressionMonthActive;
+         this.PropCompressionMonthMethod = iPvExt.PropCompressionMonthMethod;
+
+         this.PropCompressionYearActive = iPvExt.PropCompressionYearActive;
+         this.PropCompressionYearMethod = iPvExt.PropCompressionYearMethod;
+
+         this.PropFormatVal = iPvExt.PropFormatVal;
+         this.PropFormatTime = iPvExt.PropFormatTime;
+
+         this.PropFloatingDayValue = iPvExt.PropFloatingDayValue;
+         this.PropProvidingValue = iPvExt.PropProvidingValue;
+         this.PropProvidingSum = iPvExt.PropProvidingSum;
+         this.PropProvidingMinMax = iPvExt.PropProvidingMinMax;
+         this.PropProvidingSDeviation = iPvExt.PropProvidingSDeviation;
+         this.PropProvidingPercentil = iPvExt.PropProvidingPercentil;
+         this.PropProvidingMDays = iPvExt.PropProvidingMDays;
+         this.PropProvidingFloatDayval = iPvExt.PropProvidingFloatDayval;
+         this.PropProvidingWWW = iPvExt.PropProvidingWWW;
+         this.PropProvidingLimits = iPvExt.PropProvidingLimits;
+         this.PropProvidingCoding = iPvExt.PropProvidingCoding;
+         this.PropProvidingMultiserver = iPvExt.PropProvidingMultiserver;
+         this.PropProvidingOpcDde = iPvExt.PropProvidingOpcDde;
+
+         this.PropProvidingDialogDay = iPvExt.PropProvidingDialogDay;
+         this.PropProvidingDialogMonth = iPvExt.PropProvidingDialogMonth;
+         this.PropProvidingDialogYear = iPvExt.PropProvidingDialogYear;
+
+         this.PropProvidingReleased = iPvExt.PropProvidingReleased;
+         this.PropProvidingValKeys = iPvExt.PropProvidingValKeys;
+
+         return true;
       }
 
       #region IPvExternalObject

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
 {
    [DataContract]
-   public class IntervalDataResult : IIntervalDataResult
+   public class IntervalDataResult : IIntervalDataResult<IntervalData, IntervalDataFlag>
    {
       [DataMember]
       public bool HasData 
@@ -50,6 +50,6 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       public List<string> TimeStamps_FORMATTED { get; set; }
 
       [DataMember]
-      public List<IIntervalData> Data { get; set; }
+      public List<IntervalData> Data { get; set; }
    }
 }

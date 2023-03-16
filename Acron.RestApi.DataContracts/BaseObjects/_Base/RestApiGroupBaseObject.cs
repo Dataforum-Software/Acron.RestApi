@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -19,14 +21,40 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IGroupBaseObject iGroupBase = baseObject as IGroupBaseObject;
 
          _isDefaultGroup = iGroupBase.IsDefaultGroup;
-         
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateGroupBaseObjectRequestResource iGroupBase = baseObject as ICreateGroupBaseObjectRequestResource;
+
+         _isDefaultGroup = iGroupBase.IsDefaultGroup;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateGroupBaseObjectRequestResource iGroupBase = baseObject as IUpdateGroupBaseObjectRequestResource;
+
+         _isDefaultGroup = iGroupBase.IsDefaultGroup;
+
+         return true;
       }
 
       #region IGroupBaseObject

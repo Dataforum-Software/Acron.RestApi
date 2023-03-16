@@ -1,5 +1,7 @@
 ﻿using Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines;
 using Acron.RestApi.Interfaces.Response;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Net;
 using System.Runtime.Serialization;
 
@@ -19,7 +21,7 @@ namespace Acron.RestApi.DataContracts.Response
       /// </summary>
       [DataMember] 
       public string HttpStatusCodeMessage { get; set; }
-
+           
       /// <summary>
       /// Return code of REST API methods
       /// </summary>
@@ -28,7 +30,8 @@ namespace Acron.RestApi.DataContracts.Response
       /// int-Val == 0  ===> Ok
       /// int-Val &gt; 0   ===> Warning or hint
       /// </remarks>
-      [DataMember] 
+      [DataMember]
+      [JsonConverter(typeof(StringEnumConverter))]
       public ConfigDefines.ApiActionResult? ApiActionResult { get; set; }
 
       [DataMember] 

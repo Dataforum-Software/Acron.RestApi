@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
@@ -21,15 +23,46 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IUnitObject iUb = baseObject as IUnitObject;
 
          this.PropOffset = iUb.PropOffset;
          this.PropFactor = iUb.PropFactor;
          this._restApiUnitType = iUb.RestApiUnitType;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateUnitObjectRequestResource iUb = baseObject as ICreateUnitObjectRequestResource;
+
+         this.PropOffset = iUb.PropOffset;
+         this.PropFactor = iUb.PropFactor;
+         this._restApiUnitType = iUb.RestApiUnitType;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateUnitObjectRequestResource iUb = baseObject as IUpdateUnitObjectRequestResource;
+
+         this.PropOffset = iUb.PropOffset;
+         this.PropFactor = iUb.PropFactor;
+         this._restApiUnitType = iUb.RestApiUnitType;
+
+         return true;
       }
 
       protected override void setDefaultValues()

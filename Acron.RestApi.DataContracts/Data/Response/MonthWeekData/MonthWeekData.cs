@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
 {
    [DataContract]
-   public class MonthWeekData : IMonthWeekData
+   public class MonthWeekData : IMonthWeekData<MonthWeekDataFlag>
    {
       [DataMember]
       public uint PVID { get; set; }
@@ -18,7 +18,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
 
 
       [DataMember]
-      public List<IMonthWeekDataFlag> MDAT_FLAG { get; set; }
+      public List<MonthWeekDataFlag> MDAT_FLAG { get; set; }
 
       [DataMember]
       [FormatDoubleListMarker(nameof(MDAT_MVAL_FORMATTED), ValueFormatType.WeekOrMonth)]
@@ -28,7 +28,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVALTM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVALTM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_MVALTM { get; set; }
 
       [DataMember]
@@ -43,7 +43,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL1_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL1TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL1TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_MVAL1TM { get; set; }
 
       [DataMember]
@@ -57,7 +57,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL2_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL2TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL2TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_MVAL2TM { get; set; }
 
       [DataMember]
@@ -71,7 +71,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_MVAL3_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatDateTimeList(nameof(MDAT_MVAL3TM_FORMATTED), DateTimeFormatType.WeekOrMonth)]
+      [FormatDateTimeList(nameof(MDAT_MVAL3TM_FORMATTED), DateTimeFormatType.Process)]
       public List<DateTime> MDAT_MVAL3TM { get; set; }
 
       [DataMember]

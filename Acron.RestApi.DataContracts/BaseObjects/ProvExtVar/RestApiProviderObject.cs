@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -29,9 +31,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropReadingInterval = 3600;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IProviderObject iProv = baseObject as IProviderObject;
 
@@ -52,6 +55,64 @@ namespace Acron.RestApi.BaseObjects
          this.PropAlertAutoGeneration = iProv.PropAlertAutoGeneration;
          this.PropAlertRuleGroupName = iProv.PropAlertRuleGroupName;
          this.PropAlertRuleVarName = iProv.PropAlertRuleVarName;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateProviderObjectRequestResource iProv = baseObject as ICreateProviderObjectRequestResource;
+
+         this.PropIdDriver = iProv.PropIdDriver;
+
+         this.PropDriverParameter1 = iProv.PropDriverParameter1;
+         this.PropDriverParameter2 = iProv.PropDriverParameter2;
+         this.PropDriverParameter3 = iProv.PropDriverParameter3;
+         this.PropDriverParameter4 = iProv.PropDriverParameter4;
+
+         this.PropReadingInterval = iProv.PropReadingInterval;
+         this.PropStartupDelayTime = iProv.PropStartupDelayTime;
+
+         this.PropTestMode = iProv.PropTestMode;
+
+         this.PropAlwaysOnTop = iProv.PropAlwaysOnTop;
+
+         this.PropAlertAutoGeneration = iProv.PropAlertAutoGeneration;
+         this.PropAlertRuleGroupName = iProv.PropAlertRuleGroupName;
+         this.PropAlertRuleVarName = iProv.PropAlertRuleVarName;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateProviderObjectRequestResource iProv = baseObject as IUpdateProviderObjectRequestResource;
+
+         this.PropIdDriver = iProv.PropIdDriver;
+
+         this.PropDriverParameter1 = iProv.PropDriverParameter1;
+         this.PropDriverParameter2 = iProv.PropDriverParameter2;
+         this.PropDriverParameter3 = iProv.PropDriverParameter3;
+         this.PropDriverParameter4 = iProv.PropDriverParameter4;
+
+         this.PropReadingInterval = iProv.PropReadingInterval;
+         this.PropStartupDelayTime = iProv.PropStartupDelayTime;
+
+         this.PropTestMode = iProv.PropTestMode;
+
+         this.PropAlwaysOnTop = iProv.PropAlwaysOnTop;
+
+         this.PropAlertAutoGeneration = iProv.PropAlertAutoGeneration;
+         this.PropAlertRuleGroupName = iProv.PropAlertRuleGroupName;
+         this.PropAlertRuleVarName = iProv.PropAlertRuleVarName;
+
+         return true;
       }
 
       #region IProviderObject

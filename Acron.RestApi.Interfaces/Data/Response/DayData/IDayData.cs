@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.DayData
 {
-   public interface IDayData
+   public interface IDayData<U> where U : IDayDataFlag
    {
       [SwaggerSchema("Numeric ID of process value")]
       [SwaggerExampleValue(302000003)]
@@ -19,7 +19,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.DayData
       //Bit 1 : DDAT_FLAG
       [SwaggerSchema("Extended properties of this value")]
       [SwaggerExampleValue(typeof(IDayDataFlag))]
-      List<IDayDataFlag> DDAT_FLAG { get; set; }
+      List<U> DDAT_FLAG { get; set; }
 
       //Bit 2 : DDAT_DVAL
       [SwaggerSchema("Daily value")]

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Configuration.Response
 {
-   public interface IObjectInfoEnhanced
+   public interface IObjectInfoEnhanced<T> where T : IBaseObject
    {
       /// <summary> Ergebnis Object </summary>
       [SwaggerSchema("Config object")]
       [SwaggerExampleValue(typeof(IBaseObject))]
-      IBaseObject BaseObject { get; }
+      T BaseObject { get; }
 
       /// <summary> Referenzierte Objecte (Ids) </summary>
       [SwaggerSchema("List of objects referenced by this config object")]

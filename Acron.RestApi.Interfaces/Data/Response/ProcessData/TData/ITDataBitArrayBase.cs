@@ -1,5 +1,4 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
-using static Acron.RestApi.Interfaces.Data.Response.ProcessData.TData.ITDataBase;
 
 namespace Acron.RestApi.Interfaces.Data.Response.ProcessData.TData
 {

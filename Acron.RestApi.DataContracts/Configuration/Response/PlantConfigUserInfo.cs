@@ -1,4 +1,5 @@
 ﻿using Acron.RestApi.Interfaces.Configuration.Response;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Configuration.Response
@@ -53,5 +54,13 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       /// </summary>
       [DataMember] 
       public string DisplayText { get; set; }
+
+      /// <summary>
+      /// I have exclusive access to configuration
+      /// </summary>
+      [DataMember]
+      [DefaultValue(null)]
+      public bool AccessByMe { get; set; }
+
    }
 }

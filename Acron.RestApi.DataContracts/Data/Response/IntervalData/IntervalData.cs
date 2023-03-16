@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
 {
    [DataContract]
-   public class IntervalData : IIntervalData
+   public class IntervalData : IIntervalData<IntervalDataFlag>
    {
       [DataMember]
       public uint PVID {get; set;}
@@ -17,7 +17,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       public string ShortName { get; set;}
 
       [DataMember]
-      public List<IIntervalDataFlag> IDAT_FLAG { get; set; }
+      public List<IntervalDataFlag> IDAT_FLAG { get; set; }
 
       [DataMember]
       [FormatDoubleListMarker(nameof(IDAT_IVAL_FORMATTED), ValueFormatType.Interval)]

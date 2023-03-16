@@ -1,4 +1,7 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -24,13 +27,40 @@ namespace Acron.RestApi.BaseObjects
          this._propIdProvider = providerId;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IExtVarGroupObject iExtVarGrp = baseObject as IExtVarGroupObject;
 
          this.SetProviderId(iExtVarGrp.PropIdProvider);
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateExtVarGroupObjectRequestResource iExtVarGrp = baseObject as ICreateExtVarGroupObjectRequestResource;
+
+         this.SetProviderId(iExtVarGrp.PropIdProvider);
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateExtVarGroupObjectRequestResource iExtVarGrp = baseObject as IUpdateExtVarGroupObjectRequestResource;
+
+         this.SetProviderId(iExtVarGrp.PropIdProvider);
+
+         return true;
       }
 
       #region IExtVarGroupObject
@@ -38,14 +68,15 @@ namespace Acron.RestApi.BaseObjects
       private int _propIdProvider=0;
 
       [DataMember]
+      [Required]
       public int PropIdProvider
       {
          get { return _propIdProvider; }
-         //set
-         //{
-         //   _propIdProvider = value;
+         private set
+         {
+            _propIdProvider = value;
          //   ModifiedProperties.Add(nameof(PropIdProvider));
-         //}
+         }
       }
 
       #endregion IExtVarGroupObject

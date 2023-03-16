@@ -9,7 +9,7 @@ using Acron.RestApi.Interfaces.Data.Response.DayData;
 namespace Acron.RestApi.DataContracts.Data.Response.DayData
 {
    [DataContract]
-   public class DayDataResult : IDayDataResult
+   public class DayDataResult : IDayDataResult<DayData,DayDataFlag>
    {
       [DataMember]
       public bool HasData
@@ -54,6 +54,6 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> TimeStamps_FORMATTED { get; set; }
 
       [DataMember]
-      public List<IDayData> Data { get; set; }
+      public List<DayData> Data { get; set; }
    }
 }

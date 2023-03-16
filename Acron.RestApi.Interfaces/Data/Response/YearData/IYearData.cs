@@ -1,10 +1,11 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.YearData
 {
-   public interface IYearData
+   public interface IYearData<YearDataFlagType> where YearDataFlagType : IYearDataFlag
    {
       [SwaggerSchema("Numeric ID of process variable")]
       [SwaggerExampleValue("302000003")]
@@ -23,7 +24,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.YearData
 
       [SwaggerSchema("Extended properties of this value")]
       [SwaggerExampleValue("[{}]")]
-      public List<IYearDataFlag> YDAT_FLAG { get; set; }
+      public List<YearDataFlagType> YDAT_FLAG { get; set; }
 
       //2   	YDAT_YVAL	         double      Wert
       [SwaggerSchema("Annual value")]

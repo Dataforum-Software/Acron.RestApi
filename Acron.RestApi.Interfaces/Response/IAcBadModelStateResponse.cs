@@ -6,6 +6,6 @@ namespace Acron.RestApi.Interfaces.Response
    {
       [SwaggerSchema("")]
       [SwaggerExampleValue("")]
-      object ModelStateDictionary { get; }
+      object ModelStateDictionary { get; set; }
    }
 }

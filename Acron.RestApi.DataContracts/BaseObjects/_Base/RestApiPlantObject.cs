@@ -19,15 +19,18 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          // Falls 'RestTypeCode' nicht passt - siehe Eigenschaft "RestTypeCode" in BaseObject_IBaseObject
 
          IPlantObject iplant = baseObject as IPlantObject;
 
          this.PropVersion = iplant.PropVersion;
+
+         return true;
       }
 
       protected override void setDefaultValues()

@@ -6,10 +6,10 @@ namespace Acron.RestApi.Interfaces.Response
    {
       [SwaggerSchema("Requested API Method")]
       [SwaggerExampleValue("/api/v9.4/Test/HelloRestApi")]
-      string RequestRoute { get; }
+      string RequestRoute { get; set; }
 
       [SwaggerSchema("User friendly error message")]
       [SwaggerExampleValue("Example error text!")]
-      string ErrorText { get; }
+      string ErrorText { get; set; }
    }
 }

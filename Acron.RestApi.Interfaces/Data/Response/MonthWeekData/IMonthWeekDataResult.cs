@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.MonthWeekData
 {
-   public interface IMonthWeekDataResult
+   public interface IMonthWeekDataResult<MonthWeekDataType, MonthWeekDataFlagType> where MonthWeekDataType : IMonthWeekData<MonthWeekDataFlagType>
+                                                                                   where MonthWeekDataFlagType : IMonthWeekDataFlag 
    {
       [SwaggerSchema("Result contains values")]
       [SwaggerExampleValue("true")]
@@ -27,8 +28,8 @@ namespace Acron.RestApi.Interfaces.Data.Response.MonthWeekData
       [SwaggerExampleValue("[\"01.10.2022 00:00:00\", \"01.11.2022 00:00:00\", \"01.12.2022 00:00:00\"]")]
       public List<string> TimeStamps_FORMATTED { get; set; }
 
-      [SwaggerSchema($"Collection of {nameof(IMonthWeekData)} objects, one per process variable")]
-      [SwaggerExampleValue(typeof(IMonthWeekData))]
-      public List<IMonthWeekData> Data { get; set; }
+      [SwaggerSchema($"Collection of {nameof(IMonthWeekData<IMonthWeekDataFlag>)} objects, one per process variable")]
+      [SwaggerExampleValue(typeof(List<IMonthWeekData<IMonthWeekDataFlag>>))]
+      public List<MonthWeekDataType> Data { get; set; }
    }
 }

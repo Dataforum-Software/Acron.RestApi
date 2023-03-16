@@ -8,7 +8,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.ProcessData.TData
    {
       public TDataBitArrayString()
       {
-         base.DataType = ITDataBase.DataTypes.String;
+         base.DataType = DataTypes.String;
       }
    }
 }

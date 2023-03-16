@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
@@ -42,9 +44,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropCompressionYearMethod = PvAutoDefines.CompYearMethod.Average;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvAutoObject iPvAuto = baseObject as IPvAutoObject;
 
@@ -88,6 +91,110 @@ namespace Acron.RestApi.BaseObjects
 
          /// <summary> Jahreskompression Methode</summary>
          this.PropCompressionYearMethod = iPvAuto.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvAutoObjectRequestResource iPvAuto = baseObject as ICreatePvAutoObjectRequestResource;
+
+         this.PropFormulaEdit = iPvAuto.PropFormulaEdit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung - Aktiv ?</summary>
+         this.PropReplacementMinLimit = iPvAuto.PropReplacementMinLimit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung</summary>
+         this.PropRepValMinLimit = iPvAuto.PropRepValMinLimit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung - Wertetyp</summary>
+         this.PropRepValMinLimitType = iPvAuto.PropRepValMinLimitType;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung - Aktiv ?</summary>
+         this.PropReplacementMaxLimit = iPvAuto.PropReplacementMaxLimit;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung</summary>
+         this.PropRepValMaxLimit = iPvAuto.PropRepValMaxLimit;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung - Wertetyp</summary>
+         this.PropRepValMaxLimitType = iPvAuto.PropRepValMaxLimitType;
+
+         /// <summary>Ersatzwert bei Ausfall - Aktiv ?</summary>
+         this.PropReplacementLoss = iPvAuto.PropReplacementLoss;
+
+         /// <summary>Ersatzwert bei Ausfall</summary>
+         this.PropRepValLoss = iPvAuto.PropRepValLoss;
+
+         /// <summary>Ersatzwert bei Ausfall - Wertetyp</summary>
+         this.PropRepValLossType = iPvAuto.PropRepValLossType;
+
+         /// <summary> Intervallkompression Methode</summary>
+         this.PropCompressionIntervalMethod = iPvAuto.PropCompressionIntervalMethod;
+
+         /// <summary> Tageskompression Methode</summary>
+         this.PropCompressionDayMethod = iPvAuto.PropCompressionDayMethod;
+
+         /// <summary> Monatskompression Methode</summary>
+         this.PropCompressionMonthMethod = iPvAuto.PropCompressionMonthMethod;
+
+         /// <summary> Jahreskompression Methode</summary>
+         this.PropCompressionYearMethod = iPvAuto.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvAutoObjectRequestResource iPvAuto = baseObject as IUpdatePvAutoObjectRequestResource;
+
+         this.PropFormulaEdit = iPvAuto.PropFormulaEdit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung - Aktiv ?</summary>
+         this.PropReplacementMinLimit = iPvAuto.PropReplacementMinLimit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung</summary>
+         this.PropRepValMinLimit = iPvAuto.PropRepValMinLimit;
+
+         /// <summary>Ersatzwert bei Messwertunterschreitung - Wertetyp</summary>
+         this.PropRepValMinLimitType = iPvAuto.PropRepValMinLimitType;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung - Aktiv ?</summary>
+         this.PropReplacementMaxLimit = iPvAuto.PropReplacementMaxLimit;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung</summary>
+         this.PropRepValMaxLimit = iPvAuto.PropRepValMaxLimit;
+
+         /// <summary>Ersatzwert bei Messwertüberschreitung - Wertetyp</summary>
+         this.PropRepValMaxLimitType = iPvAuto.PropRepValMaxLimitType;
+
+         /// <summary>Ersatzwert bei Ausfall - Aktiv ?</summary>
+         this.PropReplacementLoss = iPvAuto.PropReplacementLoss;
+
+         /// <summary>Ersatzwert bei Ausfall</summary>
+         this.PropRepValLoss = iPvAuto.PropRepValLoss;
+
+         /// <summary>Ersatzwert bei Ausfall - Wertetyp</summary>
+         this.PropRepValLossType = iPvAuto.PropRepValLossType;
+
+         /// <summary> Intervallkompression Methode</summary>
+         this.PropCompressionIntervalMethod = iPvAuto.PropCompressionIntervalMethod;
+
+         /// <summary> Tageskompression Methode</summary>
+         this.PropCompressionDayMethod = iPvAuto.PropCompressionDayMethod;
+
+         /// <summary> Monatskompression Methode</summary>
+         this.PropCompressionMonthMethod = iPvAuto.PropCompressionMonthMethod;
+
+         /// <summary> Jahreskompression Methode</summary>
+         this.PropCompressionYearMethod = iPvAuto.PropCompressionYearMethod;
+
+         return true;
       }
 
       #region IVgAutoObject

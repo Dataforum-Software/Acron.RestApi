@@ -64,5 +64,9 @@ namespace Acron.RestApi.Interfaces.Configuration.Response
       [SwaggerExampleValue("ACRON user 'acron' (Program=Designer, HostIP=192.168.178.45, Port=55764, ClientID=333163802472019700, SessionID=my-id)")]
       string DisplayText { get; }
 
+      [SwaggerSchema("Current user has exclusive config access")]
+      [SwaggerExampleValue(true)]
+      bool AccessByMe { get; }
+
    }
 }

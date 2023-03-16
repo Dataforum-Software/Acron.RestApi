@@ -12,6 +12,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValCo
 
       [DataMember]
       public DateTimeOffset TimeStamp { get; set; }
+
       public DateTime TimeStamp_UTC 
       {
          get

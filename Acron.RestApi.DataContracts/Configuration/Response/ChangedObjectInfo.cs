@@ -11,6 +11,9 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
    {
       #region cTor
 
+      public ChangedObjectInfo()
+      { }
+
       public ChangedObjectInfo(ModificationMode mode, BaseObjectDefines.RestObjectTypeCode restTypeCode, int id, string shortName, string longName)
       {
          ModificationModeVal = mode;
@@ -22,10 +25,10 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
 
       #endregion cTor
 
-      public ModificationMode ModificationModeVal { get; private set; }
+      public ModificationMode ModificationModeVal { get; set; }
 
       /// <summary> Typ des Objects </summary>
-      public BaseObjectDefines.RestObjectTypeCode RestTypeCodeVal { get; private set; }
+      public BaseObjectDefines.RestObjectTypeCode RestTypeCodeVal { get; set; }
 
       [DataMember]
       public string RestTypeCode 
@@ -34,13 +37,13 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       }
 
       [DataMember]
-      public int Id { get; private set; }
+      public int Id { get; set; }
 
       [DataMember]
-      public string ShortName { get; private set; }
+      public string ShortName { get; set; }
 
       [DataMember]
-      public string LongName { get; private set; }
+      public string LongName { get; set; }
 
       [DataMember]
       public string ModificationMode 

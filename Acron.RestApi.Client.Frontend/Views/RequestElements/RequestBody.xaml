@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Acron.RestApi.Client.Frontend.Views.RequestElements.RequestBody"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Acron.RestApi.Client.Frontend.Views.RequestElements"
+             xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+             DataContext="{StaticResource ViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+   <Grid Margin="2">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="auto"/>
+         <RowDefinition/>
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0" Text="Body: " Margin="10,10,0,0" />
+      <TextBox Grid.Row="1" Margin="10" FontSize="12" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding SelectedItem.InputBodyText, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Visibility="{Binding SelectedItem.HttpMethod,Converter={StaticResource MethodBodyToVis}}"/>
+      <TextBlock Grid.Row="1" Margin="10" FontSize="12" Text="This HTTP method does not allow for a body in the request" Visibility="{Binding SelectedItem.HttpMethod,Converter={StaticResource InverseMethodBodyToVis}}"/>
+   </Grid>
+</UserControl>

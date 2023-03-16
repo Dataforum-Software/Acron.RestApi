@@ -69,9 +69,15 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// <summary>
       /// All directly subordinate base objects
       /// </summary>
-
       [SwaggerSchema("All subordinate base objects")]
       [SwaggerExampleValue("[300000002,300000003,300000004,300000005,300000006,300000007,300000008,300000009,300000010]")]
-      IEnumerable<int> ReferencedIBaseObjects { get; }
+      List<int> ReferencedIBaseObjects { get; }
+
+      [SwaggerSchema("Names of properties to be modified, must be filled when passing the object as part of a create or update request")]
+      [SwaggerExampleValue($"[{nameof(ShortName)}, {nameof(LongName)}, {nameof(ReferencedIBaseObjects)}]")]
+      List<string> ModifiedPropertyNames
+      { 
+         get; set; 
+      }
    }
 }

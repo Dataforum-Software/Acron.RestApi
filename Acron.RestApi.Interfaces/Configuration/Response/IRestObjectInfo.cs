@@ -1,5 +1,5 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
-using static Acron.RestApi.Interfaces.BaseObjects.BaseObjectDefines;
+using Acron.RestApi.Interfaces.BaseObjects;
 
 namespace Acron.RestApi.Interfaces.Configuration.Response
 {
@@ -7,12 +7,12 @@ namespace Acron.RestApi.Interfaces.Configuration.Response
    {
       /// <summary> Typ des Objects </summary>
       [SwaggerSchema("Object type")]
-      [SwaggerExampleValue(RestObjectTypeCode.Alert)]
+      [SwaggerExampleValue(BaseObjectDefines.RestObjectTypeCode.Alert)]
       string RestTypeCode { get; }
 
       /// <summary> Hauptgruppe des Objects / Bereich </summary>
       [SwaggerSchema("Default group this object belongs to")]
-      [SwaggerExampleValue(RestObjectTypeCode.AlertGroup)]
+      [SwaggerExampleValue(BaseObjectDefines.RestObjectTypeCode.AlertGroup)]
       string DefaultGroupType { get; }
 
       /// <summary>

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.YearData
 {
    [DataContract]
-   public class YearDataResult : IYearDataResult
+   public class YearDataResult : IYearDataResult<YearData, YearDataFlag>
    {
       [DataMember]
       public bool HasData
@@ -52,7 +52,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> TimeStamps_FORMATTED { get; set; }
 
       [DataMember]
-      public List<IYearData> Data { get; set; }
+      public List<YearData> Data { get; set; }
 
    }
 }

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
 {
    [DataContract]
-   public class MonthWeekDataResult : IMonthWeekDataResult
+   public class MonthWeekDataResult : IMonthWeekDataResult<MonthWeekData, MonthWeekDataFlag>
    {
       [DataMember]
       public bool HasData
@@ -50,7 +50,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> TimeStamps_FORMATTED { get; set; }
 
       [DataMember]
-      public List<IMonthWeekData> Data { get; set; }
+      public List<MonthWeekData> Data { get; set; }
 
    }
 }

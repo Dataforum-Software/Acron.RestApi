@@ -19,7 +19,7 @@
       <NoWarn>CA1416;CS1591;CS1587;</NoWarn>
       <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
       <WarningsAsErrors />
-      <OutputPath>..\..\..\progs\Debug\</OutputPath>
+      <OutputPath>$(BaseOutputPath)\Debug</OutputPath>
       <DebugType>full</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
@@ -29,7 +29,7 @@
       <NoWarn>CA1416;CS1591;CS1587;</NoWarn>
       <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
       <WarningsAsErrors />
-      <OutputPath>..\..\..\progs\Release\</OutputPath>
+      <OutputPath>$(BaseOutputPath)\Release</OutputPath>
       <DebugType>pdbonly</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
@@ -45,7 +45,8 @@
    </ItemGroup>
 
    <ItemGroup>
-     <Folder Include="Data\Response\HandValRawData\WriteHandValComments\" />
+     <Folder Include="Configuration\Request\CreateRequestResources\Event\" />
+     <Folder Include="Configuration\Request\UpdateRequestResources\Event\" />
    </ItemGroup>
 
 </Project>

@@ -1,0 +1,13 @@
+<Project>
+   <PropertyGroup>
+      <NeutralLanguage>de-DE</NeutralLanguage>
+      <ComVisible>false</ComVisible>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <SelfContained>false</SelfContained>
+	  <ReadyToRun>false</ReadyToRun>
+	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+      <BaseIntermediateOutputPath>$([MSBuild]::GetDirectoryNameOfFileAbove(".", "Directory.Build.props"))\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+	  <BaseOutputPath>$([MSBuild]::GetDirectoryNameOfFileAbove(".", "Directory.Build.props"))\bin</BaseOutputPath>
+   </PropertyGroup>
+</Project>

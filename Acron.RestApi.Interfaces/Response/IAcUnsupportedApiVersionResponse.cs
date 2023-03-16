@@ -6,10 +6,10 @@ namespace Acron.RestApi.Interfaces.Response
    {
       [SwaggerSchema("Exception error code")]
       [SwaggerExampleValue("")]
-      string ErrorCode { get; }
+      string ErrorCode { get; set; }
 
       [SwaggerSchema("Detailed error description")]
       [SwaggerExampleValue("")]
-      string ErrorDetail { get; }
+      string ErrorDetail { get; set; }
    }
 }

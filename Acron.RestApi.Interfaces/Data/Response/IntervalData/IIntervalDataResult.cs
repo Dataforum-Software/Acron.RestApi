@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
 {
-   public interface IIntervalDataResult
+   public interface IIntervalDataResult<IntervalDataType, IntervalDataFlagType> where IntervalDataType: IIntervalData<IntervalDataFlagType>
+                                                                                where IntervalDataFlagType : IIntervalDataFlag
    {
       [SwaggerSchema("Result contains values")]
       [SwaggerExampleValue("true")]
@@ -27,8 +28,8 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerExampleValue("[\"10.10.2022 02:00:00\", \"10.10.2022 04:00:00\", \"10.10.2022 06:00:00\"]")]
       List<string> TimeStamps_FORMATTED { get; set; }
 
-      [SwaggerSchema($"Collection of {nameof(IIntervalData)} objects, one per process variable")]
-      [SwaggerExampleValue(typeof(IIntervalData))]
-      List<IIntervalData> Data { get; set; }
+      [SwaggerSchema($"Collection of {nameof(IIntervalData<IIntervalDataFlag>)} objects, one per process variable")]
+      [SwaggerExampleValue(typeof(List<IIntervalData<IIntervalDataFlag>>))]
+      List<IntervalDataType> Data { get; set; }
    }
 }

@@ -1,5 +1,7 @@
 ﻿using Acron.RestApi.DataContracts.Data.GlobalDataDefines;
 using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValRawDataAndInfos;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +26,12 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValRa
          }
       }
 
+      [DataMember]
+      [JsonConverter(typeof(StringEnumConverter))]
       public WriteHandValRawDataAndInfoTypes ProvalType { get; private set; }
 
       [DataMember]
-      public short MilliSeconds { get; set; }
+      public short MilliSeconds { get { return (short)TimeStamp.Millisecond; } }
 
       private double _value = GlobalDataDef.NO_VALID;
       [DataMember]

@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
@@ -82,9 +84,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropQuitValChanges = 0;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvBaseObject iPvBase = baseObject as IPvBaseObject;
 
@@ -154,6 +157,162 @@ namespace Acron.RestApi.BaseObjects
 
          this.PropDifferentUnitAndLimit = iPvBase.PropDifferentUnitAndLimit;
          this.PropQuitValChanges = iPvBase.PropQuitValChanges;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvBaseObjectRequestResource iPvBase = baseObject as ICreatePvBaseObjectRequestResource;
+
+         this.PropKey = iPvBase.PropKey;
+         this.PropFormatVal = iPvBase.PropFormatVal;
+         this.PropFormatTime = iPvBase.PropFormatTime;
+         this.PropNk = iPvBase.PropNk;
+         this.PropUnitFormula = iPvBase.PropUnitFormula;
+         this.PropComment = iPvBase.PropComment;
+         this.PropGvalMin = iPvBase.PropGvalMin;
+         this.PropGvalMax = iPvBase.PropGvalMax;
+         this.PropCalculateUnits = iPvBase.PropCalculateUnits;
+
+         this.PropCompressionIntervalActive = iPvBase.PropCompressionIntervalActive;
+         this.PropCompressionIntervalNk = iPvBase.PropCompressionIntervalNk;
+         this.PropCompressionIntervalPercentil = iPvBase.PropCompressionIntervalPercentil;
+         this.PropCompressionIntervalRangeFrom = iPvBase.PropCompressionIntervalRangeFrom;
+         this.PropCompressionIntervalRangeTo = iPvBase.PropCompressionIntervalRangeTo;
+         this.PropCompressionIntervalUnitFormula = iPvBase.PropCompressionIntervalUnitFormula;
+         this.PropCompressionIntervalUsedIntervals = iPvBase.PropCompressionIntervalUsedIntervals;
+
+         this.PropCompressionDayActive = iPvBase.PropCompressionDayActive;
+         this.PropCompressionDayNk = iPvBase.PropCompressionDayNk;
+         this.PropCompressionDayPercentil = iPvBase.PropCompressionDayPercentil;
+         this.PropCompressionDayRangeFrom = iPvBase.PropCompressionDayRangeFrom;
+         this.PropCompressionDayRangeTo = iPvBase.PropCompressionDayRangeTo;
+         this.PropCompressionDayUnitFormula = iPvBase.PropCompressionDayUnitFormula;
+         this.PropCompressionDayUsedInterval = iPvBase.PropCompressionDayUsedInterval;
+
+         this.PropCompressionMonthActive = iPvBase.PropCompressionMonthActive;
+         this.PropCompressionMonthNk = iPvBase.PropCompressionMonthNk;
+         this.PropCompressionMonthPercentil = iPvBase.PropCompressionMonthPercentil;
+         this.PropCompressionMonthRangeFrom = iPvBase.PropCompressionMonthRangeFrom;
+         this.PropCompressionMonthRangeTo = iPvBase.PropCompressionMonthRangeTo;
+         this.PropCompressionMonthUnitFormula = iPvBase.PropCompressionMonthUnitFormula;
+
+         this.PropCompressionYearActive = iPvBase.PropCompressionYearActive;
+         this.PropCompressionYearNk = iPvBase.PropCompressionYearNk;
+         this.PropCompressionYearPercentil = iPvBase.PropCompressionYearPercentil;
+         this.PropCompressionYearRangeFrom = iPvBase.PropCompressionYearRangeFrom;
+         this.PropCompressionYearRangeTo = iPvBase.PropCompressionYearRangeTo;
+         this.PropCompressionYearUnitFormula = iPvBase.PropCompressionYearUnitFormula;
+
+         this.PropFloatingDayValue = iPvBase.PropFloatingDayValue;
+
+         this.PropProvidingValue = iPvBase.PropProvidingValue;
+         this.PropProvidingSum = iPvBase.PropProvidingSum;
+         this.PropProvidingMinMax = iPvBase.PropProvidingMinMax;
+         this.PropProvidingSDeviation = iPvBase.PropProvidingSDeviation;
+         this.PropProvidingPercentil = iPvBase.PropProvidingPercentil;
+         this.PropProvidingMDays = iPvBase.PropProvidingMDays;
+         this.PropProvidingFloatDayval = iPvBase.PropProvidingFloatDayval;
+         this.PropProvidingWWW = iPvBase.PropProvidingWWW;
+         this.PropProvidingLimits = iPvBase.PropProvidingLimits;
+         this.PropProvidingCoding = iPvBase.PropProvidingCoding;
+         this.PropProvidingMultiserver = iPvBase.PropProvidingMultiserver;
+         this.PropProvidingOpcDde = iPvBase.PropProvidingOpcDde;
+
+         this.PropProvidingDialogDay = iPvBase.PropProvidingDialogDay;
+         this.PropProvidingDialogMonth = iPvBase.PropProvidingDialogMonth;
+         this.PropProvidingDialogYear = iPvBase.PropProvidingDialogYear;
+
+         this.PropProvidingReleased = iPvBase.PropProvidingReleased;
+         this.PropProvidingValKeys = iPvBase.PropProvidingValKeys;
+
+         this.PropValKeys = iPvBase.PropValKeys;
+
+         this.PropDifferentUnitAndLimit = iPvBase.PropDifferentUnitAndLimit;
+         this.PropQuitValChanges = iPvBase.PropQuitValChanges;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvBaseObjectRequestResource iPvBase = baseObject as IUpdatePvBaseObjectRequestResource;
+
+         this.PropKey = iPvBase.PropKey;
+         this.PropFormatVal = iPvBase.PropFormatVal;
+         this.PropFormatTime = iPvBase.PropFormatTime;
+         this.PropNk = iPvBase.PropNk;
+         this.PropUnitFormula = iPvBase.PropUnitFormula;
+         this.PropComment = iPvBase.PropComment;
+         this.PropGvalMin = iPvBase.PropGvalMin;
+         this.PropGvalMax = iPvBase.PropGvalMax;
+         this.PropCalculateUnits = iPvBase.PropCalculateUnits;
+
+         this.PropCompressionIntervalActive = iPvBase.PropCompressionIntervalActive;
+         this.PropCompressionIntervalNk = iPvBase.PropCompressionIntervalNk;
+         this.PropCompressionIntervalPercentil = iPvBase.PropCompressionIntervalPercentil;
+         this.PropCompressionIntervalRangeFrom = iPvBase.PropCompressionIntervalRangeFrom;
+         this.PropCompressionIntervalRangeTo = iPvBase.PropCompressionIntervalRangeTo;
+         this.PropCompressionIntervalUnitFormula = iPvBase.PropCompressionIntervalUnitFormula;
+         this.PropCompressionIntervalUsedIntervals = iPvBase.PropCompressionIntervalUsedIntervals;
+
+         this.PropCompressionDayActive = iPvBase.PropCompressionDayActive;
+         this.PropCompressionDayNk = iPvBase.PropCompressionDayNk;
+         this.PropCompressionDayPercentil = iPvBase.PropCompressionDayPercentil;
+         this.PropCompressionDayRangeFrom = iPvBase.PropCompressionDayRangeFrom;
+         this.PropCompressionDayRangeTo = iPvBase.PropCompressionDayRangeTo;
+         this.PropCompressionDayUnitFormula = iPvBase.PropCompressionDayUnitFormula;
+         this.PropCompressionDayUsedInterval = iPvBase.PropCompressionDayUsedInterval;
+
+         this.PropCompressionMonthActive = iPvBase.PropCompressionMonthActive;
+         this.PropCompressionMonthNk = iPvBase.PropCompressionMonthNk;
+         this.PropCompressionMonthPercentil = iPvBase.PropCompressionMonthPercentil;
+         this.PropCompressionMonthRangeFrom = iPvBase.PropCompressionMonthRangeFrom;
+         this.PropCompressionMonthRangeTo = iPvBase.PropCompressionMonthRangeTo;
+         this.PropCompressionMonthUnitFormula = iPvBase.PropCompressionMonthUnitFormula;
+
+         this.PropCompressionYearActive = iPvBase.PropCompressionYearActive;
+         this.PropCompressionYearNk = iPvBase.PropCompressionYearNk;
+         this.PropCompressionYearPercentil = iPvBase.PropCompressionYearPercentil;
+         this.PropCompressionYearRangeFrom = iPvBase.PropCompressionYearRangeFrom;
+         this.PropCompressionYearRangeTo = iPvBase.PropCompressionYearRangeTo;
+         this.PropCompressionYearUnitFormula = iPvBase.PropCompressionYearUnitFormula;
+
+         this.PropFloatingDayValue = iPvBase.PropFloatingDayValue;
+
+         this.PropProvidingValue = iPvBase.PropProvidingValue;
+         this.PropProvidingSum = iPvBase.PropProvidingSum;
+         this.PropProvidingMinMax = iPvBase.PropProvidingMinMax;
+         this.PropProvidingSDeviation = iPvBase.PropProvidingSDeviation;
+         this.PropProvidingPercentil = iPvBase.PropProvidingPercentil;
+         this.PropProvidingMDays = iPvBase.PropProvidingMDays;
+         this.PropProvidingFloatDayval = iPvBase.PropProvidingFloatDayval;
+         this.PropProvidingWWW = iPvBase.PropProvidingWWW;
+         this.PropProvidingLimits = iPvBase.PropProvidingLimits;
+         this.PropProvidingCoding = iPvBase.PropProvidingCoding;
+         this.PropProvidingMultiserver = iPvBase.PropProvidingMultiserver;
+         this.PropProvidingOpcDde = iPvBase.PropProvidingOpcDde;
+
+         this.PropProvidingDialogDay = iPvBase.PropProvidingDialogDay;
+         this.PropProvidingDialogMonth = iPvBase.PropProvidingDialogMonth;
+         this.PropProvidingDialogYear = iPvBase.PropProvidingDialogYear;
+
+         this.PropProvidingReleased = iPvBase.PropProvidingReleased;
+         this.PropProvidingValKeys = iPvBase.PropProvidingValKeys;
+
+         this.PropValKeys = iPvBase.PropValKeys;
+
+         this.PropDifferentUnitAndLimit = iPvBase.PropDifferentUnitAndLimit;
+         this.PropQuitValChanges = iPvBase.PropQuitValChanges;
+
+         return true;
       }
 
       #region IPvBaseObject

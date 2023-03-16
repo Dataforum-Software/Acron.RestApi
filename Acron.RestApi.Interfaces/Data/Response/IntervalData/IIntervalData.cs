@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
 {
-   public interface IIntervalData
+   public interface IIntervalData<IntervalDataFlagType> where IntervalDataFlagType : IIntervalDataFlag
    {
       [SwaggerSchema("Numeric ID of process variable")]
       [SwaggerExampleValue("302000003")]
@@ -16,7 +16,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
 
       [SwaggerSchema("Extended properties of this value")]
       [SwaggerExampleValue(typeof(IIntervalDataFlag))]
-      List<IIntervalDataFlag> IDAT_FLAG { get; set; }
+      List<IntervalDataFlagType> IDAT_FLAG { get; set; }
 
       [SwaggerSchema("Interval value")]
       [SwaggerExampleValue("[2192.0, 2250.0, 2288.0]")]
@@ -101,6 +101,6 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerSchema("Number of process values")]
       [SwaggerExampleValue("[24, 24, 24]")]
       List<uint> IDAT_PCOUNT { get; set; }
-     
+
    }
 }

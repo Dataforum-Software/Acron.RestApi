@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -26,13 +28,40 @@ namespace Acron.RestApi.BaseObjects
          this.PropIdReferenceNumberTemplate = -1;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvCalcReferenceObject iKz = baseObject as IPvCalcReferenceObject;
 
          this.PropIdReferenceNumberTemplate = iKz.PropIdReferenceNumberTemplate;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvCalcReferenceObjectRequestResource iKz = baseObject as ICreatePvCalcReferenceObjectRequestResource;
+
+         this.PropIdReferenceNumberTemplate = iKz.PropIdReferenceNumberTemplate;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvCalcReferenceObjectRequestResource iKz = baseObject as IUpdatePvCalcReferenceObjectRequestResource;
+
+         this.PropIdReferenceNumberTemplate = iKz.PropIdReferenceNumberTemplate;
+
+         return true;
       }
 
       #region IVgCalcReferenceObject

@@ -18,7 +18,7 @@ namespace Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValRawDa
 
       [SwaggerSchema("Milliseconds")]
       [SwaggerExampleValue(65535)]
-      public short MilliSeconds { get; set; }
+      public short MilliSeconds { get; }
 
       [SwaggerSchema("Numeric value")]
       [SwaggerExampleValue(20)]

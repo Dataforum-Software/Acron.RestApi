@@ -11,11 +11,11 @@ namespace Acron.RestApi.Interfaces.Response.AccessToken
 
       [SwaggerSchema("Timestamp in UTC until which the token is valid")]
       [SwaggerExampleValue("2020-08-15T16:20:00")]
-      DateTime? ExpiresUTC { get; }
+      DateTime ExpiresUTC { get; }
 
       [SwaggerSchema("Timestamp in UTC when the token was issued")]
       [SwaggerExampleValue("2020-08-15T16:00:00")]
-      DateTime? IssuedUTC { get; }
+      DateTime  IssuedUTC { get; }
 
       [SwaggerSchema("Secondary token used to acquire a new Bearer token before it expires")]
       [SwaggerExampleValue("averylongbase64encodedstring")]
@@ -23,6 +23,6 @@ namespace Acron.RestApi.Interfaces.Response.AccessToken
 
       [SwaggerSchema("Timestamp in UTC until which the refresh token is valid")]
       [SwaggerExampleValue("2020-08-15T16:40:00")]
-      DateTime? RefreshTokenExpiresUTC { get; }
+      DateTime RefreshTokenExpiresUTC { get; }
    }
 }

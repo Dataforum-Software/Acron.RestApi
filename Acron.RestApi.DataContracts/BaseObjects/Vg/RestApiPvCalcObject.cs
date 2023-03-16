@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -47,9 +49,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropCompressionYearMethod = PvBaseDefines.CompMethod.Average;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvCalcObject iPvCalc = baseObject as IPvCalcObject;
 
@@ -100,6 +103,124 @@ namespace Acron.RestApi.BaseObjects
 
          /// <summary> Jahreskompression Methode</summary>
          this.PropCompressionYearMethod = iPvCalc.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvCalcObjectRequestResource iPvCalc = baseObject as ICreatePvCalcObjectRequestResource;
+
+         /// <summary>
+         /// Unter-Typ der RG - Standard, Temporär, LIVE
+         /// </summary>
+         this.PropCalculationType = iPvCalc.PropCalculationType;
+
+         this.PropFormulaEdit = iPvCalc.PropFormulaEdit;
+
+         this.PropSourceVal = iPvCalc.PropSourceVal;
+
+         #region Process for RG-Live 
+
+         /// <summary>
+         /// Auswertestufe 'Prozess'
+         /// </summary>
+         this.PropCompressionProcessActive = iPvCalc.PropCompressionProcessActive;
+
+         /// <summary> Prozessswerte GW von</summary>
+         this.PropCompressionProcessRangeFrom = iPvCalc.PropCompressionProcessRangeFrom;
+
+         /// <summary> Prozesswerte GW bis</summary>
+         this.PropCompressionProcessRangeTo = iPvCalc.PropCompressionProcessRangeTo;
+
+         /// <summary>Prozess Einheitsformel</summary>
+         this.PropCompressionProcessUnitFormula = iPvCalc.PropCompressionProcessUnitFormula;
+
+         /// <summary> Prozesswerte NK</summary>
+         this.PropCompressionProcessNk = iPvCalc.PropCompressionProcessNk;
+
+         #endregion Process for RG-Live 
+
+         /// <summary> Intervallkompression Methode</summary>
+         this.PropCompressionIntervalMethod = iPvCalc.PropCompressionIntervalMethod;
+
+         /// <summary> Tageskompression Methode</summary>
+         this.PropCompressionDayMethod = iPvCalc.PropCompressionDayMethod;
+
+         /// <summary> Tageskompression Sekunden für gleitende Tageswerte</summary>
+         this.PropCompressionDayFloatSeconds = iPvCalc.PropCompressionDayFloatSeconds;
+
+         /// <summary> Monatskompression Methode</summary>
+         this.PropCompressionMonthMethod = iPvCalc.PropCompressionMonthMethod;
+
+         /// <summary> Monatskompression Sekunden für gleitende Tageswerte</summary>
+         this.PropCompressionMonthFloatSeconds = iPvCalc.PropCompressionMonthFloatSeconds;
+
+         /// <summary> Jahreskompression Methode</summary>
+         this.PropCompressionYearMethod = iPvCalc.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvCalcObjectRequestResource iPvCalc = baseObject as IUpdatePvCalcObjectRequestResource;
+
+         /// <summary>
+         /// Unter-Typ der RG - Standard, Temporär, LIVE
+         /// </summary>
+         this.PropCalculationType = iPvCalc.PropCalculationType;
+
+         this.PropFormulaEdit = iPvCalc.PropFormulaEdit;
+
+         this.PropSourceVal = iPvCalc.PropSourceVal;
+
+         #region Process for RG-Live 
+
+         /// <summary>
+         /// Auswertestufe 'Prozess'
+         /// </summary>
+         this.PropCompressionProcessActive = iPvCalc.PropCompressionProcessActive;
+
+         /// <summary> Prozessswerte GW von</summary>
+         this.PropCompressionProcessRangeFrom = iPvCalc.PropCompressionProcessRangeFrom;
+
+         /// <summary> Prozesswerte GW bis</summary>
+         this.PropCompressionProcessRangeTo = iPvCalc.PropCompressionProcessRangeTo;
+
+         /// <summary>Prozess Einheitsformel</summary>
+         this.PropCompressionProcessUnitFormula = iPvCalc.PropCompressionProcessUnitFormula;
+
+         /// <summary> Prozesswerte NK</summary>
+         this.PropCompressionProcessNk = iPvCalc.PropCompressionProcessNk;
+
+         #endregion Process for RG-Live 
+
+         /// <summary> Intervallkompression Methode</summary>
+         this.PropCompressionIntervalMethod = iPvCalc.PropCompressionIntervalMethod;
+
+         /// <summary> Tageskompression Methode</summary>
+         this.PropCompressionDayMethod = iPvCalc.PropCompressionDayMethod;
+
+         /// <summary> Tageskompression Sekunden für gleitende Tageswerte</summary>
+         this.PropCompressionDayFloatSeconds = iPvCalc.PropCompressionDayFloatSeconds;
+
+         /// <summary> Monatskompression Methode</summary>
+         this.PropCompressionMonthMethod = iPvCalc.PropCompressionMonthMethod;
+
+         /// <summary> Monatskompression Sekunden für gleitende Tageswerte</summary>
+         this.PropCompressionMonthFloatSeconds = iPvCalc.PropCompressionMonthFloatSeconds;
+
+         /// <summary> Jahreskompression Methode</summary>
+         this.PropCompressionYearMethod = iPvCalc.PropCompressionYearMethod;
+
+         return true;
       }
 
       #region IVgCalcObject

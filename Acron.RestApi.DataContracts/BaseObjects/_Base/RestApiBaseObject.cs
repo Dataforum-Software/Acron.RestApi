@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Acron.RestApi.BaseObjects
 {
@@ -17,7 +22,7 @@ namespace Acron.RestApi.BaseObjects
 
       public RestApiBaseObject()
       {
-         throw new NotImplementedException("DO NOT USE THIS cTor - MISSING TYPECODE!!");
+         //throw new NotImplementedException("DO NOT USE THIS cTor - MISSING TYPECODE!!");
       }
 
       public RestApiBaseObject(BaseObjectDefines.RestObjectTypeCode typeCode)
@@ -37,7 +42,7 @@ namespace Acron.RestApi.BaseObjects
 
          memberMapper(source);
 
-         ModifiedProperties.Clear();
+//         ModifiedProperties.Clear();
       }
 
       #endregion cTor
@@ -47,9 +52,11 @@ namespace Acron.RestApi.BaseObjects
          this.Id = -1;
       }
 
-      protected virtual void memberMapper(object baseObject)
+      protected virtual bool memberMapperBaseObject(object baseObject)
       {
-         IBaseObject iBase = _sourceBaseObject as IBaseObject;
+         IBaseObject iBase = baseObject as IBaseObject;
+         if (iBase == null)
+            return false;
 
          _restTypeCode = iBase.RestTypeCode;
 
@@ -61,12 +68,96 @@ namespace Acron.RestApi.BaseObjects
 
          if (iBase.ReferencedIBaseObjects != null)
             _referencedIds = iBase.ReferencedIBaseObjects.ToList();
+
+         return true;
+      }
+
+      protected virtual bool memberMapperCreate(object baseObject)
+      {
+         ICreateBaseObjectRequestResource iCreate = baseObject as ICreateBaseObjectRequestResource;
+         if (iCreate == null)
+            return false;
+
+         _restTypeCode = iCreate.RestTypeCode;
+
+         this.Id = -1;
+
+         this.IdParent = iCreate.IdParent;
+         this.Position = iCreate.Position;
+         this.ShortName = iCreate.ShortName;
+         this.LongName = iCreate.LongName;
+
+         if (iCreate.ReferencedIBaseObjects != null)
+            _referencedIds = iCreate.ReferencedIBaseObjects.ToList();
+
+         return true;
+      }
+
+      protected virtual bool memberMapperUpdate(object baseObject)
+      {
+         IUpdateBaseObjectRequestResource iUpdate = baseObject as IUpdateBaseObjectRequestResource;
+
+         if (iUpdate == null) 
+            return false;
+
+         _restTypeCode = iUpdate.RestTypeCode;
+
+         this.Id = iUpdate.Id;
+         this.IdParent = iUpdate.IdParent;
+         this.Position = iUpdate.Position;
+         this.ShortName = iUpdate.ShortName;
+         this.LongName = iUpdate.LongName;
+
+         if (iUpdate.ReferencedIBaseObjects != null)
+            _referencedIds = iUpdate.ReferencedIBaseObjects.ToList();
+
+         return true;
+      }
+
+      protected void memberMapper(object baseObject)
+      {
+         if (memberMapperBaseObject(baseObject))
+         {
+            ModifiedProperties.Clear();
+            return;
+         }
+
+         if (memberMapperCreate(baseObject))
+         {
+            ModifiedProperties.Clear();
+
+            CreateBaseObjectRequestResource createResource = baseObject as CreateBaseObjectRequestResource;
+
+            this.ModifiedPropertyNames = createResource.ModifiedPropertyNames;
+            foreach(string propName in createResource.GetModifiedProperties())
+            {
+               this.ModifiedProperties.Add(propName);
+            }
+
+            return;
+         }
+
+         if (memberMapperUpdate(baseObject))
+         {
+            ModifiedProperties.Clear();
+
+            UpdateBaseObjectRequestResource updateResource = baseObject as UpdateBaseObjectRequestResource;
+
+            this.ModifiedPropertyNames = updateResource.ModifiedPropertyNames;
+            this.ModifiedPropertyNames = updateResource.ModifiedPropertyNames;
+            foreach (string propName in updateResource.GetModifiedProperties())
+            {
+               this.ModifiedProperties.Add(propName);
+            }
+
+            return;
+         }
       }
 
       protected object _sourceBaseObject=null;
 
       private List<string> _modifiedProperties = null;
-      public List<string> ModifiedProperties 
+      protected List<string> ModifiedProperties 
       {
          get 
          {
@@ -75,6 +166,14 @@ namespace Acron.RestApi.BaseObjects
 
             return _modifiedProperties;
          }
+      }
+
+      public List<string> GetModifiedProperties()
+      {
+         if (ModifiedPropertyNames != null)
+            return ModifiedPropertyNames as List<string>;
+
+         return ModifiedProperties;
       }
 
       #region IBaseObject
@@ -86,6 +185,7 @@ namespace Acron.RestApi.BaseObjects
       public BaseObjectDefines.RestObjectTypeCode RestTypeCode
       {
          get { return _restTypeCode; }
+         set { _restTypeCode = value; }
       }
 
       private int _idParent;
@@ -174,9 +274,29 @@ namespace Acron.RestApi.BaseObjects
       /// Alle direkt untergeordneten BOs
       /// </summary>
       [DataMember]
-      public IEnumerable<int> ReferencedIBaseObjects
+      public List<int> ReferencedIBaseObjects
       {
          get { return _referencedIds; }
+      }
+
+      private List<string> _modifiedPropertyNames = null;
+      /// <summary>
+      /// Optionaler Parameter - enthält alle vom Anwender geänderten Properties
+      /// </summary>
+      [DataMember]
+      public List<string> ModifiedPropertyNames
+      {
+         get
+         {
+            if (System.AppDomain.CurrentDomain.FriendlyName != "AcronRestAPIServer")
+               return ModifiedProperties;
+
+            return _modifiedPropertyNames;
+         }
+         set 
+         {
+            _modifiedPropertyNames = value;
+         }
       }
 
       #endregion IBaseObject

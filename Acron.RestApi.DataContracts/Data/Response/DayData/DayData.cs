@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Response.DayData
 {
    [DataContract]
-   public class DayData : IDayData
+   public class DayData : IDayData<DayDataFlag>
    {
       [DataMember]
       public uint PVID { get; set; }
@@ -18,7 +18,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
 
 
       [DataMember]
-      public List<IDayDataFlag> DDAT_FLAG { get; set; }
+      public List<DayDataFlag> DDAT_FLAG { get; set; }
 
       [DataMember]
       [FormatDoubleListMarker(nameof(DDAT_DVAL_FORMATTED), ValueFormatType.Day)]

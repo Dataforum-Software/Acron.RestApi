@@ -1,12 +1,14 @@
 ﻿using Acron.RestApi.Interfaces.Data.Response.DayData;
+using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.YearData
 {
-   public interface IYearDataResult
-   {
+   public interface IYearDataResult<YearDataType, YearDataFlagType> where YearDataType : IYearData<YearDataFlagType>
+                                                                    where YearDataFlagType : IYearDataFlag
+   {   
       [SwaggerSchema("Result contains values")]
       [SwaggerExampleValue("true")]
       public bool HasData { get; }
@@ -27,8 +29,8 @@ namespace Acron.RestApi.Interfaces.Data.Response.YearData
       [SwaggerExampleValue("[\"01.01.2021 00:00:00\", \"01.01.2022 00:00:00\", \"01.01.2023 00:00:00\"]")]
       public List<string> TimeStamps_FORMATTED { get; set; }
 
-      [SwaggerSchema($"Collection of {nameof(IYearData)} objects, one per process variable")]
-      [SwaggerExampleValue(typeof(IYearData))]
-      public List<IYearData> Data { get; set; }
+      [SwaggerSchema($"Collection of {nameof(IYearData<IYearDataFlag>)} objects, one per process variable")]
+      [SwaggerExampleValue(typeof(List<IYearData<IYearDataFlag>>))]
+      public List<YearDataType> Data { get; set; }
    }
 }

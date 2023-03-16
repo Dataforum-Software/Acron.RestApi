@@ -6,7 +6,6 @@
       <Platforms>x64</Platforms>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
       <SignAssembly>False</SignAssembly>
-      <AssemblyOriginatorKeyFile>SignKey.snk</AssemblyOriginatorKeyFile>
       <DelaySign>false</DelaySign>
       <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
       <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -19,7 +18,7 @@
       <NoWarn>CA1416;CS1591;CS1587;</NoWarn>
       <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
       <WarningsAsErrors />
-      <OutputPath>..\..\..\progs\Debug\</OutputPath>
+      <OutputPath>$(BaseOutputPath)\Debug</OutputPath>
       <DebugType>full</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
@@ -29,10 +28,14 @@
       <NoWarn>CA1416;CS1591;CS1587;</NoWarn>
       <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
       <WarningsAsErrors />
-      <OutputPath>..\..\..\progs\Release\</OutputPath>
+      <OutputPath>$(BaseOutputPath)\Release</OutputPath>
       <DebugType>pdbonly</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
+
+   <ItemGroup>
+     <Compile Remove="Data\Response\ProcessData\TData\TDataValueNum.cs" />
+   </ItemGroup>
 
    <ItemGroup>
       <ProjectReference Include="..\Acron.RestApi.Interfaces\Acron.RestApi.Interfaces.csproj" />
@@ -44,7 +47,20 @@
    </ItemGroup>
 
    <ItemGroup>
-     <Folder Include="Data\Response\HandValRawData\WriteHandValComments\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\Alert\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\Connection\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\Event\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\Pv\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\Unit\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\ProvExtVar\" />
+     <Folder Include="Configuration\Request\CreateRequestResource\_Base\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\Alert\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\Connection\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\Event\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\Unit\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\Pv\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\ProvExtVar\" />
+     <Folder Include="Configuration\Request\UpdateRequestResource\_Base\" />
      <Folder Include="Data\Response\HandValRawData\WriteHandValInfos\" />
    </ItemGroup>
 </Project>

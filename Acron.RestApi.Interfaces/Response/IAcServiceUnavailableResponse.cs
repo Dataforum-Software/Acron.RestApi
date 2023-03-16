@@ -6,6 +6,6 @@ namespace Acron.RestApi.Interfaces.Response
    {
       [SwaggerSchema("Send request again after timeout of n seconds")]
       [SwaggerExampleValue(10)]
-      int RetryAfterSeconds { get; }
+      int RetryAfterSeconds { get; set; }
    }
 }

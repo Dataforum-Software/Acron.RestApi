@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
@@ -24,9 +26,10 @@ namespace Acron.RestApi.BaseObjects
       /// Übernimmt alle Interface-Props aus dem BO in das aktuelle RestApi-BO
       /// </summary>
       /// <param name="baseObject">BO mit zu mappenden Eigenschaften</param>
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IConnectionObject iCon = baseObject as IConnectionObject;
 
@@ -38,6 +41,46 @@ namespace Acron.RestApi.BaseObjects
          this.PropFormatStringShort = iCon.PropFormatStringShort;
          this.PropFormatStringLong = iCon.PropFormatStringLong;
          this.PropNotOnServerPrefix = iCon.PropNotOnServerPrefix;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateConnectionObjectRequestResource iCon = baseObject as ICreateConnectionObjectRequestResource;
+
+         this.PropLoginName = iCon.PropLoginName;
+         this.PropServer = iCon.PropServer;
+         this.PropPort = iCon.PropPort;
+         this.PropConnectedSyncInterval = iCon.PropConnectedSyncInterval;
+         this.PropDisconnectedSyncInterval = iCon.PropDisconnectedSyncInterval;
+         this.PropFormatStringShort = iCon.PropFormatStringShort;
+         this.PropFormatStringLong = iCon.PropFormatStringLong;
+         this.PropNotOnServerPrefix = iCon.PropNotOnServerPrefix;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateConnectionObjectRequestResource iCon = baseObject as IUpdateConnectionObjectRequestResource;
+
+         this.PropLoginName = iCon.PropLoginName;
+         this.PropServer = iCon.PropServer;
+         this.PropPort = iCon.PropPort;
+         this.PropConnectedSyncInterval = iCon.PropConnectedSyncInterval;
+         this.PropDisconnectedSyncInterval = iCon.PropDisconnectedSyncInterval;
+         this.PropFormatStringShort = iCon.PropFormatStringShort;
+         this.PropFormatStringLong = iCon.PropFormatStringLong;
+         this.PropNotOnServerPrefix = iCon.PropNotOnServerPrefix;
+
+         return true;
       }
 
       /// <summary>

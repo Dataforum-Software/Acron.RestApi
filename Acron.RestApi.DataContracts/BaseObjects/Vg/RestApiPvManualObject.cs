@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
@@ -36,9 +38,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropCompressionYearMethod = PvManualDefines.CompYearMethod.Average;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvManualObject iPvHand = baseObject as IPvManualObject;
 
@@ -58,6 +61,62 @@ namespace Acron.RestApi.BaseObjects
          this.PropCompressionDayMethod = iPvHand.PropCompressionDayMethod;
          this.PropCompressionMonthMethod = iPvHand.PropCompressionMonthMethod;
          this.PropCompressionYearMethod = iPvHand.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvManualObjectRequestResource iPvHand = baseObject as ICreatePvManualObjectRequestResource;
+
+         this.PropHandValueTimeStamps.Clear();
+
+         foreach (KeyValuePair<int, int> kvp in iPvHand.PropHandValueTimeStamps)
+         {
+            this.PropHandValueTimeStamps.Add(kvp.Key, kvp.Value);
+         }
+
+         this.PropHValUseKey = iPvHand.PropHValUseKey;
+         this.PropIdExternalVariable = iPvHand.PropIdExternalVariable;
+         this.PropHedit = iPvHand.PropHedit;
+         this.PropHvalKey = iPvHand.PropHvalKey;
+
+         this.PropCompressionIntervalMethod = iPvHand.PropCompressionIntervalMethod;
+         this.PropCompressionDayMethod = iPvHand.PropCompressionDayMethod;
+         this.PropCompressionMonthMethod = iPvHand.PropCompressionMonthMethod;
+         this.PropCompressionYearMethod = iPvHand.PropCompressionYearMethod;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvManualObjectRequestResource iPvHand = baseObject as IUpdatePvManualObjectRequestResource;
+
+         this.PropHandValueTimeStamps.Clear();
+
+         foreach (KeyValuePair<int, int> kvp in iPvHand.PropHandValueTimeStamps)
+         {
+            this.PropHandValueTimeStamps.Add(kvp.Key, kvp.Value);
+         }
+
+         this.PropHValUseKey = iPvHand.PropHValUseKey;
+         this.PropIdExternalVariable = iPvHand.PropIdExternalVariable;
+         this.PropHedit = iPvHand.PropHedit;
+         this.PropHvalKey = iPvHand.PropHvalKey;
+
+         this.PropCompressionIntervalMethod = iPvHand.PropCompressionIntervalMethod;
+         this.PropCompressionDayMethod = iPvHand.PropCompressionDayMethod;
+         this.PropCompressionMonthMethod = iPvHand.PropCompressionMonthMethod;
+         this.PropCompressionYearMethod = iPvHand.PropCompressionYearMethod;
+
+         return true;
       }
 
       #region IVgHandObject
@@ -70,13 +129,17 @@ namespace Acron.RestApi.BaseObjects
          get 
          {
             if (_standardTimeStamps == null)
+            {
                _standardTimeStamps = new Dictionary<int, int>();
+               ModifiedProperties.Add(nameof(PropHandValueTimeStamps));
+            }
 
             return _standardTimeStamps;
          }
          set 
          {
             _standardTimeStamps = value;
+            ModifiedProperties.Add(nameof(PropHandValueTimeStamps));
          }
       }
 

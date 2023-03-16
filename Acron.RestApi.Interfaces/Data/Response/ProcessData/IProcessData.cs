@@ -2,11 +2,13 @@
 using Acron.RestApi.Interfaces.Data.Response.ProcessData.TData;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
-using static Acron.RestApi.Interfaces.Data.Response.ProcessData.TData.ITDataBase;
 
 namespace Acron.RestApi.Interfaces.Data.Response.ProcessData
 {
-   public interface IProcessData
+   public interface IProcessDataBase<TDataBaseType, ValueDataBitArrayType, StringValueDataBitArrayType> 
+                  where ValueDataBitArrayType : ITDataBitArrayNum
+                  where StringValueDataBitArrayType : ITDataBitArrayString 
+                  where TDataBaseType : ITDataBase<ValueDataBitArrayType, StringValueDataBitArrayType>                                                    
    {
       [SwaggerSchema("Numeric ID process value")]
       [SwaggerExampleValue(302000003)]
@@ -20,41 +22,43 @@ namespace Acron.RestApi.Interfaces.Data.Response.ProcessData
       [SwaggerExampleValue(DataTypes.Numeric)]
       public DataTypes DataType { get; }
 
-      //internal
-      IArrayHeader ValuesArrayHeader { get; }
+      [SwaggerSchema("Percentage of replaced values")]
+      [SwaggerExampleValue(0.0)]
+      float PercentageReplacement { get; }
+
+      [SwaggerSchema("Values element count")]
+      [SwaggerExampleValue(0)]
+      int ValuesElementCount { get; }
+
+
+
+
+
 
       [SwaggerSchema("Collection of process values")]
-      [SwaggerExampleValue(typeof(ITDataBase))]
-      List<ITDataBase> Values { get; }
+      [SwaggerExampleValue(typeof(ITDataBase<ITDataBitArrayNum, ITDataBitArrayString>))]
+      List<TDataBaseType> Values { get; set; }
 
       [SwaggerSchema("Last process value preceding selected time range")]
-      [SwaggerExampleValue(typeof(ITDataBase))]
-      ITDataBase PredecessorValue { get; }
-
-      //internal
-      IArrayHeader MinimaArrayHeader { get; }
+      [SwaggerExampleValue(typeof(ITDataBase<ITDataBitArrayNum, ITDataBitArrayString>))]
+      TDataBaseType PredecessorValue { get; set; }
 
       [SwaggerSchema("Minima element count")]
       [SwaggerExampleValue(0)]
       int MinimaElementCount { get; }
 
       [SwaggerSchema("List of min values")]
-      [SwaggerExampleValue(typeof(ITDataBase))]
-      List<ITDataBase> Minima { get; }
-
-      //internal
-      IArrayHeader MaximaArrayHeader { get; }
+      [SwaggerExampleValue(typeof(ITDataBase<ITDataBitArrayNum, ITDataBitArrayString>))]
+      List<TDataBaseType> Minima { get; set; }
 
       [SwaggerSchema("Maxima element count")]
       [SwaggerExampleValue(0)]
       int MaximaElementCount { get; }
 
       [SwaggerSchema("List of max values")]
-      [SwaggerExampleValue(typeof(ITDataBase))]
-      List<ITDataBase> Maxima { get; }
+      [SwaggerExampleValue(typeof(ITDataBase<ITDataBitArrayNum, ITDataBitArrayString>))]
+      List<TDataBaseType> Maxima { get; set; }
 
-      [SwaggerSchema("Percentage of replaced values")]
-      [SwaggerExampleValue(0.0)]
-      float PercentageReplacement { get; }
+
    }
 }

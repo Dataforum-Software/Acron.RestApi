@@ -486,10 +486,17 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 
          #endregion Save
 
+         #region Discard Changes
+
+         /// <summary> Rücksetzen nicht möglich - es gibt keine Änderungen </summary>
+         DiscardNoChanges = 420,
+
+         #endregion Discard Changes
+
          #region ChangeInfo
 
-            /// <summary> Es gibt keine Änderungen </summary>
-            ChangeInfoNothing = 450,
+         /// <summary> Es gibt keine Änderungen </summary>
+         ChangeInfoNothing = 450,
 
          #endregion ChangeInfo
 

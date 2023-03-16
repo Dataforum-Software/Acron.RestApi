@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
@@ -37,9 +39,10 @@ namespace Acron.RestApi.BaseObjects
          this.PropProValidDifference = BaseObjectDefines.NO_VALID;
       }
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IPvManualAutoBaseObject iPvBase = baseObject as IPvManualAutoBaseObject;
 
@@ -56,6 +59,53 @@ namespace Acron.RestApi.BaseObjects
          this.PropProHysteresis = iPvBase.PropProHysteresis;
          this.PropProValidDifference = iPvBase.PropProValidDifference;
 
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreatePvManualAutoBaseObjectRequestResource iPvBase = baseObject as ICreatePvManualAutoBaseObjectRequestResource;
+
+         this.PropUseMilliseconds = iPvBase.PropUseMilliseconds;
+         this.PropValueReAssess = iPvBase.PropValueReAssess;
+         this.PropValueFillUp = iPvBase.PropValueFillUp;
+         this.PropCounterManagement = iPvBase.PropCounterManagement;
+         this.PropMvalMin = iPvBase.PropMvalMin;
+         this.PropMvalMax = iPvBase.PropMvalMax;
+         this.PropProMethod = iPvBase.PropProMethod;
+         this.PropProOverflow = iPvBase.PropProOverflow;
+         this.PropProPositiveDifference = iPvBase.PropProPositiveDifference;
+         this.PropProDifferenceHandling = iPvBase.PropProDifferenceHandling;
+         this.PropProHysteresis = iPvBase.PropProHysteresis;
+         this.PropProValidDifference = iPvBase.PropProValidDifference;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdatePvManualAutoBaseObjectRequestResource iPvBase = baseObject as IUpdatePvManualAutoBaseObjectRequestResource;
+
+         this.PropUseMilliseconds = iPvBase.PropUseMilliseconds;
+         this.PropValueReAssess = iPvBase.PropValueReAssess;
+         this.PropValueFillUp = iPvBase.PropValueFillUp;
+         this.PropCounterManagement = iPvBase.PropCounterManagement;
+         this.PropMvalMin = iPvBase.PropMvalMin;
+         this.PropMvalMax = iPvBase.PropMvalMax;
+         this.PropProMethod = iPvBase.PropProMethod;
+         this.PropProOverflow = iPvBase.PropProOverflow;
+         this.PropProPositiveDifference = iPvBase.PropProPositiveDifference;
+         this.PropProDifferenceHandling = iPvBase.PropProDifferenceHandling;
+         this.PropProHysteresis = iPvBase.PropProHysteresis;
+         this.PropProValidDifference = iPvBase.PropProValidDifference;
+
+         return true;
       }
 
       #region IPvManualAutoBaseObject

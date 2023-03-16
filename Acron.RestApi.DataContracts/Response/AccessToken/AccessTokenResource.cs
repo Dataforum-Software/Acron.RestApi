@@ -17,13 +17,13 @@ namespace Acron.RestApi.DataContracts.Response.AccessToken
       /// Timestamp in UTC until which the token is valid
       /// </summary>
       [DataMember]
-      public DateTime? ExpiresUTC { get; set; }
+      public DateTime ExpiresUTC { get; set; }
 
       /// <summary>
       /// Timestamp in UTC when the token was issued
       /// </summary>       
       [DataMember]
-      public DateTime? IssuedUTC { get; set; }
+      public DateTime IssuedUTC { get; set; }
 
       /// <summary>
       /// Secondary token used to acquire a new Bearer token before it expires
@@ -35,6 +35,6 @@ namespace Acron.RestApi.DataContracts.Response.AccessToken
       /// Timestamp in UTC until which the refresh token is valid
       /// </summary>
       [DataMember]
-      public DateTime? RefreshTokenExpiresUTC { get; set; }
+      public DateTime RefreshTokenExpiresUTC { get; set; }
    }
 }

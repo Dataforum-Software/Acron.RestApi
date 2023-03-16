@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Acron.RestApi.Client.Frontend.Views.TreeViewUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Acron.RestApi.Client.Frontend.Views"
+             DataContext="{StaticResource ViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+   <Grid>
+      <TreeView  KeyDown="CommandList_KeyDown" SelectedItemChanged="CommandList_SelectedItemChanged" ItemsSource="{Binding CommandList}">
+         <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+               <TextBlock Text="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+         </TreeView.ItemTemplate>
+      </TreeView>
+   </Grid> 
+</UserControl>

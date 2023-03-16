@@ -1,4 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
@@ -19,13 +21,40 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      protected override void memberMapper(object baseObject)
+      protected override bool memberMapperBaseObject(object baseObject)
       {
-         base.memberMapper(baseObject);
+         if (!base.memberMapperBaseObject(baseObject))
+            return false;
 
          IProviderBaseObject iProvBase = baseObject as IProviderBaseObject;
 
          this.PropProviderId = iProvBase.PropProviderId;
+
+         return true;
+      }
+
+      protected override bool memberMapperCreate(object baseObject)
+      {
+         if (!base.memberMapperCreate(baseObject))
+            return false;
+
+         ICreateProviderBaseObjectRequestResource iProvBase = baseObject as ICreateProviderBaseObjectRequestResource;
+
+         this.PropProviderId = iProvBase.PropProviderId;
+
+         return true;
+      }
+
+      protected override bool memberMapperUpdate(object baseObject)
+      {
+         if (!base.memberMapperUpdate(baseObject))
+            return false;
+
+         IUpdateProviderBaseObjectRequestResource iProvBase = baseObject as IUpdateProviderBaseObjectRequestResource;
+
+         this.PropProviderId = iProvBase.PropProviderId;
+
+         return true;
       }
 
       #region IProviderBaseObject

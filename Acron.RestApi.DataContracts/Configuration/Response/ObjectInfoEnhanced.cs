@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.BaseObjects;
+﻿using Acron.RestApi.BaseObjects;
+using Acron.RestApi.Interfaces.BaseObjects;
 using Acron.RestApi.Interfaces.Configuration.Response;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -7,14 +8,16 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
 {
 
    [DataContract]
-   public class ObjectInfoEnhanced : IObjectInfoEnhanced
+   public class ObjectInfoEnhanced : IObjectInfoEnhanced<RestApiBaseObject>
    {
       #region cTor
 
-      public ObjectInfoEnhanced(IBaseObject baseObject) : this(baseObject, null, null)
+      public ObjectInfoEnhanced() { }
+
+      public ObjectInfoEnhanced(RestApiBaseObject baseObject) : this(baseObject, null, null)
       { }
 
-      public ObjectInfoEnhanced(IBaseObject baseObject, List<int> referencedObjects, List<int> objectUsages)
+      public ObjectInfoEnhanced(RestApiBaseObject baseObject, List<int> referencedObjects, List<int> objectUsages)
       {
          BaseObject = baseObject;
 
@@ -29,11 +32,18 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
             ObjectUsages = new List<int>();
       }
 
+      public ObjectInfoEnhanced(ObjectInfoEnhanced iObj)
+      {
+         BaseObject = iObj.BaseObject;
+         ReferencedObjects = iObj.ReferencedObjects;
+         ObjectUsages = iObj.ObjectUsages;
+      }
+
       #endregion cTor
 
       /// <summary> Ergebnis Object </summary>
       [DataMember]
-      public IBaseObject BaseObject { get; private set; }
+      public RestApiBaseObject BaseObject { get; private set; }
 
       /// <summary> Referenzierte Objecte (Ids) </summary>
       [DataMember]

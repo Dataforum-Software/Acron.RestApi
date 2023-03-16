@@ -8,7 +8,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.ProcessData.TData
    {
       public TDataBitArrayNum()
       {
-         base.DataType = ITDataBase.DataTypes.Numeric;
+         base.DataType = DataTypes.Numeric;
       }
 
       [DataMember]

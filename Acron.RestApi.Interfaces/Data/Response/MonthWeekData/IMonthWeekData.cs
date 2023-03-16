@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Acron.RestApi.Interfaces.Data.Response.MonthWeekData
 {
-   public interface IMonthWeekData
+   public interface IMonthWeekData<MonthWeekDataFlagType> where MonthWeekDataFlagType : IMonthWeekDataFlag
    {
       [SwaggerSchema("Numeric ID process variable")]
       [SwaggerExampleValue("302000003")]
@@ -23,7 +23,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.MonthWeekData
 
       [SwaggerSchema("Extended properties of this value")]
       [SwaggerExampleValue("[{}]")]
-      public List<IMonthWeekDataFlag> MDAT_FLAG { get; set; }
+      public List<MonthWeekDataFlagType> MDAT_FLAG { get; set; }
 
       //2   	MDAT_MVAL	            double         	Wert
       [SwaggerSchema("Monthly value")]

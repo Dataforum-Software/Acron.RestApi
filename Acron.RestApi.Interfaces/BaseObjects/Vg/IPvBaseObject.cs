@@ -350,7 +350,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// this dictionary will be replaced by correcponding values.
       /// </remarks>
       [SwaggerSchema("All Key-Value pairs of this process variable")]
-      //[SwaggerExampleValue("")]
+      [SwaggerExampleValue("{\"1\": \"trocken\", \"2\": \"Frost\", \"3\": \"Regen\"}")]
       Dictionary<double,string> PropValKeys { get; set; }
 
       #endregion ValKeys

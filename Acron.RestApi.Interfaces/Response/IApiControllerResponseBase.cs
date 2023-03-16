@@ -9,18 +9,35 @@ namespace Acron.RestApi.Interfaces.Response
    {
       [SwaggerSchema("HTTP status code as defined in RFC 9110")]
       [SwaggerExampleValue(200)]
-      HttpStatusCode HttpStatusCode { get; }
+      HttpStatusCode HttpStatusCode { get; set; }
 
       [SwaggerSchema("String representation of HTTP status code as defined in RFC 9110")]
       [SwaggerExampleValue("OK")]
-      string HttpStatusCodeMessage { get; }
+      string HttpStatusCodeMessage { get; set; }
 
       [SwaggerSchema("Return code of REST API methods")]
       [SwaggerExampleValue(ConfigDefines.ApiActionResult.ApiToBusy)]
-      ApiActionResult? ApiActionResult { get; }
+      ApiActionResult? ApiActionResult { get; set; }
 
       [SwaggerSchema("User friendly result message")]
       [SwaggerExampleValue("Example message.")]
-      string Message { get; }
+      string Message { get; set; }
    }   
+
+   public enum AcResponseTypes
+   {
+      Unknown,
+      AcAuthenticationFailedResponse,      
+      AcBadCreateUpdateResponse,
+      AcBadModelStateResponse,
+      AcBadRequestResponse,
+      AcExceptionResponse,
+      AcLicenceInfoResponse,
+      AcNotFoundResponse,
+      AcOkResponse,
+      AcServiceUnavailableResponse,
+      AcUnauthorizedResponse,
+      AcUnsupportedApiVersionResponse,
+   }
+
 }

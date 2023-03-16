@@ -11,6 +11,8 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
    {
       #region cTor
 
+      public RestObjectInfo() { }
+
       public RestObjectInfo(BaseObjectDefines.RestObjectTypeCode restTypeCode, DefaultGroupDefines.GroupType defaultGroupType, int configIdMin, int configIdMax, bool isReadOnly)
       {
          RestTypeCodeVal = restTypeCode;
@@ -31,21 +33,44 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
          ValidIDs = validIDs;
       }
 
+      public RestObjectInfo(IRestObjectInfo iRestObj)
+      {
+         RestTypeCode = iRestObj.RestTypeCode;
+         DefaultGroupType = iRestObj.DefaultGroupType;
+         IsReadOnly = iRestObj.IsReadOnly;
+         NumberRange = iRestObj.NumberRange;
+      }
+
       #endregion cTor
 
       /// <summary> Typ des Objects </summary>
       public BaseObjectDefines.RestObjectTypeCode RestTypeCodeVal { get; private set; }
 
+      private string _restTypeCode = null;
+
       /// <summary> Typ des Objects </summary>
       [DataMember]
       public string RestTypeCode
       {
-         get { return string.Format("{0} ({1})", (int)RestTypeCodeVal, RestTypeCodeVal.ToString());  }
-         private set { }
+         get 
+         { 
+            if (!string.IsNullOrEmpty(_restTypeCode)) 
+            {
+               return _restTypeCode;
+            }
+
+            return string.Format("{0} ({1})", (int)RestTypeCodeVal, RestTypeCodeVal.ToString());  
+         }
+         private set 
+         {
+            _restTypeCode = value;
+         }
       }
 
       /// <summary> Hauptgruppe des Objects / Bereich </summary>
       public DefaultGroupDefines.GroupType DefaultGroupTypeVal { get; private set; }
+
+      private string _defaultGroupType = null;
 
       /// <summary> Hauptgruppe des Objects / Bereich </summary>
       [DataMember]
@@ -53,12 +78,18 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       {
          get 
          {
+            if (!string.IsNullOrEmpty(_defaultGroupType))
+               return _defaultGroupType;
+
             if (DefaultGroupTypeVal == DefaultGroupDefines.GroupType.DefaultUnknown)
                return "n.a.";
 
             return string.Format("{0} ({1})", DefaultGroupTypeVal.ToString(), (int)DefaultGroupTypeVal); 
          }
-         private set { }
+         private set 
+         { 
+            _defaultGroupType = value;
+         }
       }
 
       /// <summary>
@@ -82,6 +113,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       [DataMember]
       public bool IsReadOnly { get; internal set; }
 
+      private string _numberRange = null;
       /// <summary>
       /// Alle gültigen IDs für diesen Objekt-Typ
       /// </summary>
@@ -90,6 +122,9 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       { 
          get
          {
+            if (!string.IsNullOrEmpty(_numberRange))
+               return _numberRange;
+
             if (ConfigIdMin != -1 && ConfigIdMax != -1)
                return string.Format("{0}  -  {1}", ConfigIdMin, ConfigIdMax);
 
@@ -103,6 +138,10 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
             }
 
             return result;
+         }
+         private set 
+         { 
+            _numberRange = value;
          }
       }
 
