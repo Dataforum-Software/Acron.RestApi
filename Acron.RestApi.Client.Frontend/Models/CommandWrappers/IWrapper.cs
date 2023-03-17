@@ -11,6 +11,9 @@ using static Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines.ConfigDe
 
 namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 {
+   /// <summary>
+   /// Implement this Interface for Command wrapping, Check GetIntervalDataWrapper for Implementation details
+   /// </summary>
    internal interface IWrapper
    {
       #region Properties

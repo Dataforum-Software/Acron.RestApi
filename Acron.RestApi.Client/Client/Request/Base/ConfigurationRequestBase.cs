@@ -40,8 +40,30 @@ namespace Acron.RestApi.Client.Client.Request.Base
       /// <returns></returns>
       public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result)> ReleaseAccess()
       {
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) result
-            = await Get_Request<PlantConfigUserInfo>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ReleaseAccess]}");
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) result = default;
+         DateTime startTime= DateTime.Now;
+
+         //Wait for possible PlantReload after discard changes (max 60s).
+         while (true)
+         {
+            result = await Get_Request<PlantConfigUserInfo>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ReleaseAccess]}");
+            if (result.ResponseBase == null)
+               return result;
+
+            if (result.HasError && result.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+            {
+               await Task.Delay(2500);
+
+               if (DateTime.Now - startTime >= TimeSpan.FromSeconds(60))
+               {
+                  break;
+               }
+            }
+            else
+            {
+               break;
+            }
+         }
 
          return result;
       }

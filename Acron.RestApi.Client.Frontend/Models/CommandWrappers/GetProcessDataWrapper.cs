@@ -25,7 +25,7 @@ using static Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines.ConfigDe
 
 namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 {
-   internal class GetProcessDataWrapper : ObservableObject, IWrapper, IOnlineGraphCapable
+   internal class GetProcessDataWrapper : ObservableObject, IOnlineGraphCapable
    {
       #region Ctor
       public GetProcessDataWrapper(RestClient? client = null)

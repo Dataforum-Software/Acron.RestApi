@@ -25,14 +25,32 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
    {
       static RestClient? client;
       /// <summary>
-      /// Entry Point
+      /// Entry Point, please uncomment the sections you want to test
+      /// All Methods written with the assumption of using the DemoPlant
       /// </summary>
       public static async void DoAction()
       {
-         AccessTokenLoginResource accessTokenLoginResource = new AccessTokenLoginResource() { AppName = "test", Password = "test" };
-         UserTokenLoginResource userTokenLoginResource = new UserTokenLoginResource() { AcronUser = "acron", Password = "", ClientName = "ClientName", HostOrIp = "localhost", Port = 23456, SessionId = "My Session Id" };
+         ///Replace the dummy AppName and Password with the one set in your REST API
+         AccessTokenLoginResource accessTokenLoginResource = new AccessTokenLoginResource()
+         {
+            AppName = "test",
+            Password = "test"
+         };
 
-         client = new RestClient($"ACRON RestDemoClient", "demoapi.address.local", 3900, 9.4f, accessTokenLoginResource, userTokenLoginResource, true);
+         ///Replace the dummy values with your user credentials
+         UserTokenLoginResource userTokenLoginResource = new UserTokenLoginResource()
+         {
+            AcronUser = "acron",
+            Password = "",
+            ClientName = "ClientName",
+            HostOrIp = "localhost",
+            Port = 23456,
+            SessionId = "My Session Id"
+         };
+
+         ///Replace the dummy API address and port with your specific values
+         client = new RestClient($"ACRON RestDemoClient", "your.address.local", 3900, 9.4f, accessTokenLoginResource, userTokenLoginResource, true);
+
          (bool HasError, string ErrorText) = await client.Connect();
          if (HasError)
          {
@@ -44,11 +62,14 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          //await DoConfigurationUnits();
          //await DoConfigurationAlert();
 
-         await DoConfigurationProcessConnection();
+         //await DoConfigurationProcessConnection();
          //await DoConfigurationProcessVariables();
+         //await DoCreateProcessVariablesSteps();
+
 
          //await DoConfigurationGeneralAction();
 
+         //await DoDataAction();
       }
 
       /// <summary>
@@ -142,10 +163,20 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          var createAccessResult = await request.CreateAccess();
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createAlertGroupResult
-            = await request.CreateGroup(new List<RestApiAlertGroupObject>() { new RestApiAlertGroupObject() { LongName = "TestAlertLongName", IdParent = 200000000 } });
+            = await request.CreateGroup(new List<RestApiAlertGroupObject>(){ new RestApiAlertGroupObject()
+               {
+                  LongName = "TestAlertLongName", IdParent = 200000000
+               }
+            });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createAlertResult
-            = await request.Create(new List<RestApiAlertObject>() { new RestApiAlertObject() { ShortName = "TestAlertShortname", LongName = "TestAlertLongName", PropState = Interfaces.BaseObjects.AlertDefines.AlertState.Message, IdParent = 200000003 } });
+            = await request.Create(new List<RestApiAlertObject>() { new RestApiAlertObject()
+               {
+                  ShortName = "TestAlertShortname", LongName = "TestAlertLongName",
+                  PropState = Interfaces.BaseObjects.AlertDefines.AlertState.Message,
+                  IdParent = 200000003
+               }
+            });
 
          int id = 200000001 + 3;
 
@@ -158,7 +189,12 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             }
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateAlertGroupResult
-            = await request.UpdateGroup(new List<RestApiAlertGroupObject>() { new RestApiAlertGroupObject() { Id = id, LongName = "TestAlertLongNameX" } });
+            = await request.UpdateGroup(new List<RestApiAlertGroupObject>() { new RestApiAlertGroupObject()
+               {
+                  Id = id,
+                  LongName = "TestAlertLongNameX"
+               }
+            });
 
          id = 202000000 + 3;
          if (!createAlertResult.HasError)
@@ -170,7 +206,15 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             }
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateAlertResult
-            = await request.Update(new List<RestApiAlertObject>() { new RestApiAlertObject() { Id = id, ShortName = "TestAlertShortnameX", LongName = "TestAlertLongNameX", PropState = Interfaces.BaseObjects.AlertDefines.AlertState.Message, IdParent = 200000003 } });
+            = await request.Update(new List<RestApiAlertObject>() { new RestApiAlertObject()
+               {
+                  Id = id,
+                  ShortName = "TestAlertShortnameX",
+                  LongName = "TestAlertLongNameX",
+                  PropState = Interfaces.BaseObjects.AlertDefines.AlertState.Message,
+                  IdParent = 200000003
+               }
+            });
 
          id = 0;
          if (createAlertResult.Result != null)
@@ -228,10 +272,21 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          var createAccessResult = await request.CreateAccess();
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createProviderResult
-            = await request.CreateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject() { IdParent = 100000000, PropProviderId = 10, LongName = "TestProvider001" } });
+            = await request.CreateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject()
+               {
+                  IdParent = 100000000,
+                  PropProviderId = 10,
+                  LongName = "TestProvider001"
+               }
+            });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
-            = await request.CreateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject() { IdParent = 100000002, LongName = "CreatedExtVarGroup" } });
+            = await request.CreateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject()
+               {
+                  IdParent = 100000002,
+                  LongName = "CreatedExtVarGroup"
+               }
+            });
 
          int id = 102000000 + 1;
          if (createGroupResult.Result != null)
@@ -241,7 +296,13 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                id = item.Id;
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createExtVarResult
-            = await request.CreateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject() { IdParent = id, ShortName = "TestExtVarShortname", LongName = "TestExtVarLongName" } });
+            = await request.CreateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject()
+               {
+                  IdParent = id,
+                  ShortName = "TestExtVarShortname",
+                  LongName = "TestExtVarLongName"
+               }
+            });
 
          id = 100000001 + 1;
          if (createProviderResult.Result != null)
@@ -251,7 +312,12 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                id = item.Id;
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateProviderResult
-            = await request.UpdateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject() { Id = id, LongName = "TestLongNameX" } });
+            = await request.UpdateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject()
+               {
+                  Id = id,
+                  LongName = "TestLongNameX"
+               }
+            });
 
          id = 102000000 + 4;
          if (createGroupResult.Result != null)
@@ -262,7 +328,12 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
-            = await request.UpdateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject() { Id = id, LongName = "TestLongNameX" } });
+            = await request.UpdateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject()
+               {
+                  Id = id,
+                  LongName = "TestLongNameX"
+               }
+            });
 
          id = 104000000 + 2;
          if (createExtVarResult.Result != null)
@@ -271,8 +342,15 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             if (item != null)
                id = item.Id;
          }
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateExtVarResult
-            = await request.UpdateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject() { Id = id, ShortName = "TestAlertShortnameX", LongName = "TestAlertLongNameX" } });
+            = await request.UpdateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject()
+               {
+                  Id = id,
+                  ShortName = "TestAlertShortnameX",
+                  LongName = "TestAlertLongNameX"
+               }
+            });
 
          id = 0;
          if (createExtVarResult.Result != null)
@@ -322,70 +400,120 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
          var createAccessResult = await request.CreateAccess();
 
+         if (createAccessResult.HasError)
+            return;
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
-            = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { IdParent = 300000000, LongName = "TestLongName" } });
+            = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject()
+               {
+                  IdParent = 300000000,
+                  LongName = "TestLongName"
+               }
+            });
 
          int id = 300000001 + 1;
          if (createGroupResult.Result != null)
          {
-            var item = createGroupResult.Result.Data.FirstOrDefault();
+            var item = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
                id = item.Id;
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvAutoResult
-            = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { ShortName = "TestAutoShortname", LongName = "TestAutoLongName" } });
+            = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject()
+               {
+                  IdParent = id,
+                  ShortName = "TestAutoShortname",
+                  LongName = "TestAutoLongName"
+               }
+            });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvManResult
-            = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { IdParent = id, ShortName = "TestManualShortname", LongName = "TestManualLongName" } });
+            = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject()
+               {
+                  IdParent = id,
+                  ShortName = "TestManualShortname",
+                  LongName = "TestManualLongName"
+               }
+            });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvCalcResult
-            = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { IdParent = id, ShortName = "TestCalcShortname", LongName = "TestCalcLongName" } });
+            = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject()
+               {
+                  IdParent = id,
+                  ShortName = "TestCalcShortname",
+                  LongName = "TestCalcLongName"
+               }
+            });
 
          id = 300000001 + 2;
          if (createGroupResult.Result != null)
          {
-            var item = createGroupResult.Result.Data.FirstOrDefault();
+            var item = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
                id = item.Id;
          }
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
-            = await request.UpdatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { Id = id, LongName = "TestLongNameX" } });
+            = await request.UpdatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject()
+               {
+                  Id = id,
+                  LongName = "TestLongNameX"
+               }
+            });
 
          id = 302000000 + 3;
          if (createPvAutoResult.Result != null)
          {
-            var item = createPvAutoResult.Result.Data.FirstOrDefault();
+            var item = createPvAutoResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
                id = item.Id;
          }
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvAutoResult
-            = await request.UpdatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { Id = id, LongName = "TestAutoLongNameXYZ" } });
+            = await request.UpdatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject()
+               {
+                  Id = id,
+                  LongName = "TestAutoLongNameXYZ"
+               }
+            });
 
          id = 302000000 + 3;
          if (createPvManResult.Result != null)
          {
-            var item = createPvManResult.Result.Data.FirstOrDefault();
+            var item = createPvManResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
                id = item.Id;
          }
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvManResult
-            = await request.UpdatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { Id = id, LongName = "TestManualLongNameXYZ" } });
+            = await request.UpdatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject()
+               {
+                  Id = id,
+                  LongName = "TestManualLongNameXYZ"
+               }
+            });
 
          id = 302000000 + 3;
          if (createPvCalcResult.Result != null)
          {
-            var item = createPvCalcResult.Result.Data.FirstOrDefault();
+            var item = createPvCalcResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
                id = item.Id;
          }
+
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvCalcResult
-            = await request.UpdatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { Id = id, LongName = "TestCalcLongNameXYZ" } });
+            = await request.UpdatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject()
+               { 
+                  Id = id,
+                  LongName = "TestCalcLongNameXYZ"
+               }
+            });
 
          id = 0;
          if (createPvAutoResult.Result != null)
          {
-            var item = createPvAutoResult.Result.Data.FirstOrDefault();
+            var item = createPvAutoResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
             if (item != null)
             {
                id = item.Id;
@@ -403,6 +531,79 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
       }
 
+      private static async Task DoCreateProcessVariablesSteps()
+      {
+         ConfigurationProcessVariablesRequests request = new ConfigurationProcessVariablesRequests(client);
+
+         #region CrUDe
+
+         var createAccessResult = await request.CreateAccess();
+
+         if (createAccessResult.HasError)
+         {
+            return;
+         }
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
+            = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { IdParent = 300000000, LongName = "TestLongName" } });
+
+         if (createGroupResult.HasError)
+         {
+            return;
+         }
+
+         int id = 300000001 + 1;
+         if (createGroupResult.Result != null)
+         {
+            var item = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
+            if (item != null)
+               id = item.Id;
+         }
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvAutoResult
+            = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { IdParent = id, ShortName = "TestAutoShortname", LongName = "TestAutoLongName" } });
+
+         if (createPvAutoResult.HasError)
+         {
+            return;
+         }
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<ErrorItem> Result) validate;
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, SaveInfo Result) save;
+
+         validate = await request.Validate();
+         save = await request.Save(new SaveRequestResource());
+
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvManResult
+            = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { IdParent = id, ShortName = "TestManualShortname", LongName = "TestManualLongName" } });
+
+         if (createPvManResult.HasError)
+         {
+            return;
+         }
+
+         validate = await request.Validate();
+         save = await request.Save(new SaveRequestResource());
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvCalcResult
+            = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { IdParent = id, ShortName = "TestCalcShortname", LongName = "TestCalcLongName" } });
+
+         if (createPvCalcResult.HasError)
+         {
+            return;
+         }
+
+         validate = await request.Validate();
+         save = await request.Save(new SaveRequestResource());
+
+         var releaseAccessResult = await request.ReleaseAccess();
+
+         #endregion CrUDe
+
+      }
+
+
       /// <summary>
       /// General Actions
       /// </summary>
@@ -412,11 +613,6 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          ConfigurationGeneralRequests configRequest = new ConfigurationGeneralRequests(client);
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) hasAccessResult1 = await configRequest.HasAccess();
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) createAccessResult = await configRequest.CreateAccess();
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) hasAccessResult2 = await configRequest.HasAccess();
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) releaseAccessResult = await configRequest.ReleaseAccess();
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) releaseAccessResult1 = await configRequest.ReleaseAccess();
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) hasAccessResult3 = await configRequest.HasAccess();
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, RestApiPvManualObject Result) defaultValuesResult
             = await configRequest.DefaultValues<RestApiPvManualObject>();
@@ -426,7 +622,11 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, ObjectInfoEnhanced Result) objectInfoEnhancedResult
             = await configRequest.ObjectInfoEnhanced(new DataContracts.Configuration.Request.ObjectInfoEnhancedRequestResource()
-            { BaseObjectID = 104000001, ShowObjectUsages = true, ShowReferencedObjects = true });
+            {
+               BaseObjectID = 104000001,
+               ShowObjectUsages = true,
+               ShowReferencedObjects = true
+            });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<RestApiBaseObject> Result) getSubObjectsResult
             = await configRequest.GetSubObjects(new DataContracts.Configuration.Request.GetSubObjectsRequestResource()
@@ -453,7 +653,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          {
             (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, PlantConfigUserInfo Result) createAccessResultX = await configRequest.CreateAccess();
 
-             (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, HasChangedInfo Result) hasChangedResult = await configRequest.DoIHaveChanges();
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, HasChangedInfo Result) hasChangedResult = await configRequest.DoIHaveChanges();
          }
          finally
          {
@@ -511,8 +711,16 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                ToTime = DateTime.UtcNow,
                PVDescriptions = new List<GetDayDataPVDescription>()
                {
-                 new GetDayDataPVDescription() { PVID = 302000006, DayWhat = new DayWhat(){  } },
-                  new GetDayDataPVDescription() { PVID = 302000007, DayWhat = new DayWhat(){  } },
+                  new GetDayDataPVDescription()
+                  {
+                     PVID = 302000006,
+                     DayWhat = new DayWhat(){}
+                  },
+                  new GetDayDataPVDescription() 
+                  {
+                     PVID = 302000007,
+                     DayWhat = new DayWhat(){}
+                  },
                }
             });
 
@@ -525,8 +733,16 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                ToTime = DateTime.UtcNow,
                PVDescriptions = new List<DataContracts.Data.Request.IntervalData.GetIntervalDataPVDescription>()
                {
-                  new DataContracts.Data.Request.IntervalData.GetIntervalDataPVDescription(){ PVID = 302000006, IntervalWhat = new DataContracts.Data.Request.IntervalData.IntervalWhat(){ } },
-                  new DataContracts.Data.Request.IntervalData.GetIntervalDataPVDescription(){ PVID = 302000007, IntervalWhat = new DataContracts.Data.Request.IntervalData.IntervalWhat(){ IDAT_IVAL=true } },
+                  new DataContracts.Data.Request.IntervalData.GetIntervalDataPVDescription()
+                  { 
+                     PVID = 302000006, 
+                     IntervalWhat = new DataContracts.Data.Request.IntervalData.IntervalWhat(){}
+                  },
+                  new DataContracts.Data.Request.IntervalData.GetIntervalDataPVDescription()
+                  { 
+                     PVID = 302000007, 
+                     IntervalWhat = new DataContracts.Data.Request.IntervalData.IntervalWhat(){ IDAT_IVAL=true }
+                  },
                }
             });
 
@@ -567,8 +783,16 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                ToTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50)),
                PVDescriptions = new List<DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription>()
                {
-                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() { PVID = 302000006, MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){ } },
-                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() { PVID = 302000029, MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){ } },
+                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() 
+                  { 
+                     PVID = 302000006, 
+                     MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){}
+                  },
+                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() 
+                  { 
+                     PVID = 302000029, 
+                     MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){}
+                  },
                }
             });
 
@@ -582,8 +806,16 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                ToTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50)),
                PVDescriptions = new List<DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription>()
                {
-                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() { PVID = 302000006, MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){ } },
-                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() { PVID = 302000029, MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){ } },
+                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription()
+                  { 
+                     PVID = 302000006, 
+                     MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){}
+                  },
+                  new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() 
+                  { 
+                     PVID = 302000029, 
+                     MonthWeekWhat = new DataContracts.Data.Request.MonthWeekData.MonthWeekWhat(){} 
+                  },
                }
             });
 
@@ -597,9 +829,21 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                YearType = Interfaces.Data.Request.YearData.YearTypes.DBN_YEAR_MONTH,
                PVDescriptions = new List<DataContracts.Data.Request.YearData.GetYearDataPVDescription>()
                {
-                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription(){ PVID = 302000006, YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){ } },
-                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription(){ PVID = 302000007, YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){ } },
-                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription(){ PVID = 302000029, YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){ } },
+                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription()
+                  { 
+                     PVID = 302000006, 
+                     YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){} 
+                  },
+                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription()
+                  { 
+                     PVID = 302000007, 
+                     YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){}
+                  },
+                  new DataContracts.Data.Request.YearData.GetYearDataPVDescription()
+                  { 
+                     PVID = 302000029, 
+                     YearWhat = new DataContracts.Data.Request.YearData.YearWhat(){}
+                  },
                }
             });
 
@@ -630,9 +874,9 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                      Provals = new List<DataContracts.Data.Request.HandValRawData.WriteHandValRawData.WriteHandValRawDataProval>()
                      {
                         new DataContracts.Data.Request.HandValRawData.WriteHandValRawData.WriteHandValRawDataProval()
-                        {                              
+                        {
                            TimeStamp = new DateTimeOffset(new DateTime(2022,10,3), TimeSpan.FromHours(1)),// + TimeSpan.FromMilliseconds(333)),
-                            Value = 12,
+                           Value = 12,
                         }
                      }
                   }

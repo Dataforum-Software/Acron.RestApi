@@ -44,10 +44,8 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       [JsonConverter(typeof(StringEnumConverter))]
       public BaseObjectDefines.RestObjectTypeCode RestTypeCode
       {
-         get
-         {
-            return _restTypeCode;
-         }
+         get { return _restTypeCode; }
+         set { _restTypeCode = value; }
       }
 
       private int _id;
@@ -56,6 +54,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       public int Id
       {
          get { return _id; }
+         set { _id = value; }
       }
 
       private string[] _affectedProperties = null;
@@ -64,6 +63,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       public string[] AffectedPropertyKey
       {
          get { return _affectedProperties; }
+         set { _affectedProperties = value; }  
       }
 
       private string _text = string.Empty;
@@ -72,6 +72,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Response
       public string Text
       {
          get { return _text; }
+         set { _text = value; }
       }
 
       #endregion IErrorItem

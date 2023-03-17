@@ -45,20 +45,6 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
 
       public Login myLogin { get; private set; }
 
-
-      private RelayCommand? _modifyLoginCommand;
-      public RelayCommand ModifyLoginCommand
-      {
-         get { return _modifyLoginCommand ??= new(ModifyLogin); }
-      }
-
-
-      private RelayCommand? _loginCommand;
-      public RelayCommand LoginCommand
-      {
-         get { return _loginCommand ??= new(Login); }
-      }
-
       private async void Login()
       {
          try
@@ -302,6 +288,20 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
       #endregion
 
       #region RelayCommands
+
+      private RelayCommand? _modifyLoginCommand;
+      public RelayCommand ModifyLoginCommand
+      {
+         get { return _modifyLoginCommand ??= new(ModifyLogin); }
+      }
+
+
+      private RelayCommand? _loginCommand;
+      public RelayCommand LoginCommand
+      {
+         get { return _loginCommand ??= new(Login); }
+      }
+
 
       private RelayCommand? _restoreDefaultsCommand;
       public RelayCommand RestoreDefaultsCommand

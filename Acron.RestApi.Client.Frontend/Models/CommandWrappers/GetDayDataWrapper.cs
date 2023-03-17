@@ -26,7 +26,7 @@ using static Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines.ConfigDe
 
 namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 {
-   internal class GetDayDataWrapper : ObservableObject, IWrapper, IOnlineGraphCapable
+   internal class GetDayDataWrapper : ObservableObject, IOnlineGraphCapable
    {
       #region ctor
       public GetDayDataWrapper(RestClient? client = null)
