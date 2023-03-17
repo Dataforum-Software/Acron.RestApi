@@ -1,5 +1,3 @@
-**COPYRIGHT**
-
 MIT License
 
 Copyright (c) 2023 DataForum Software GmbH
