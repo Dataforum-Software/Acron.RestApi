@@ -1,5 +1,5 @@
 # ACRON REST API
-The ACRON REST API is a programming interface that exposes a subset of ACRON functions to third-party applications.
+The ACRON REST API is a programming interface that exposes a subset of ACRON functions to third-party applications.  
 Details on configuration and usage can be found in the API developer documentation or the ACRON users guide included in your ACRON install.
 
 ## Demo Client
@@ -24,15 +24,15 @@ This sections concerns itself with how to get started using the provided **Acron
 1. **Initialise a client**  
     The Constructor of a RestClient takes several arguments:
 	
-		  Required | Name | Type | Description
-	 ------------|-----------|-----------|-----------------------------
-		 **required** | *pRestClientName* | **string** | Defines the name of the instantiated client.	 	
-		 **required** | *pHostName* | **string** | Sets the host-name of the target API for the client.
-		 **required** | *pPort* | **uint** | Sets the port of the target API for the client.
-		 **required** | *pVersion* | **float** | Sets the API version the client is targetting.	
-		 **required** | *accessTokenLoginResource* | **AccessTokenLoginResource** | Contains the application level login data AppName and **Password**.
-		 **required** | *userTokenLoginResource* | **UserTokenLoginResource** |Contains the user level login data Username: **AcronUser**, Password: **Password**, UserClientName: **ClientName**, User HostName or IP-Address: **HostOrIP**, Outgoing Port: **Port** and Self-defined **SessionId**	
-		 **optional** | *pKeepAlive* | **bool** | Sets whether the client should automatically refresh its authorization tokens. Default value is true.
+	| Required | Name | Type | Description |
+	|------------|-----------|-----------|-----------------------------|
+	| **required** | *pRestClientName* | **string** | Defines the name of the instantiated client. |
+	| **required** | *pHostName* | **string** | Sets the host-name of the target API for the client. |
+	| **required** | *pPort* | **uint** | Sets the port of the target API for the client. |
+	| **required** | *pVersion* | **float** | Sets the API version the client is targetting. |
+	| **required** | *accessTokenLoginResource* | **AccessTokenLoginResource** | Contains the application level login data AppName and **Password**.
+	| **required** | *userTokenLoginResource* | **UserTokenLoginResource** |Contains the user level login data Username: **AcronUser**, Password: **Password**, UserClientName: **ClientName**, User HostName or IP-Address: **HostOrIP**, Outgoing Port: **Port** and Self-defined **SessionId** |
+	| **optional** | *pKeepAlive* | **bool** | Sets whether the client should automatically refresh its authorization tokens. Default value is true. |
 		
 	At time of creation the client fetches initial Authorisation tokens based on the provided **AccessTokenLoginResource** and **UserTokenLoginResource**
 	
