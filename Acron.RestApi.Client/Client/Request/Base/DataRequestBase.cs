@@ -72,6 +72,26 @@ namespace Acron.RestApi.Client.Client.Request.Base
          }
          return true;
       }
+      /// <summary>
+      /// Sets the Timestamp Settings
+      /// </summary>
+      /// <param name="SettingsAsString">Either Acron or Culture</param>
+      /// <returns>True on success, false on failure</returns>
+      public bool SetTimestampSettingsHeader(string SettingsAsString)
+      {
+         Enum.TryParse(typeof(DataFormatter_DateTimeFormatTypes), SettingsAsString, out var Settings);
+         if (Settings is null)
+            return false;
+         var header = GetHeader(DataFormatter_HeaderKeys.FormatTimeStampSettings);
+         if (header.Key is null)
+            CustomHeaders.Add(new KeyValuePair<string, string>(DataFormatter_HeaderKeys.FormatTimeStampSettings.ToString(), Settings.ToString()));
+         else
+         {
+            CustomHeaders.Remove(header);
+            CustomHeaders.Add(new KeyValuePair<string, string>(DataFormatter_HeaderKeys.FormatTimeStampSettings.ToString(), Settings.ToString()));
+         }
+         return true;
+      }
 
       #endregion
 
@@ -83,6 +103,26 @@ namespace Acron.RestApi.Client.Client.Request.Base
       /// <returns>True on success, false on failure</returns>
       public bool SetFormatValueSettingsHeader(DataFormatter_ValueFormatTypes Settings)
       {
+         var header = GetHeader(DataFormatter_HeaderKeys.FormatValueSettings);
+         if (header.Key is null)
+            CustomHeaders.Add(new KeyValuePair<string, string>(DataFormatter_HeaderKeys.FormatValueSettings.ToString(), Settings.ToString()));
+         else
+         {
+            CustomHeaders.Remove(header);
+            CustomHeaders.Add(new KeyValuePair<string, string>(DataFormatter_HeaderKeys.FormatValueSettings.ToString(), Settings.ToString()));
+         }
+         return true;
+      }
+      /// <summary>
+      /// Sets the Formatting of Values
+      /// </summary>
+      /// <param name="SettingsAsString">Either Acron or Culture</param>
+      /// <returns>True on success, false on failure</returns>
+      public bool SetFormatValueSettingsHeader(string SettingsAsString)
+      {
+         Enum.TryParse(typeof(DataFormatter_ValueFormatTypes), SettingsAsString, out var Settings);
+         if (Settings is null)
+            return false;
          var header = GetHeader(DataFormatter_HeaderKeys.FormatValueSettings);
          if (header.Key is null)
             CustomHeaders.Add(new KeyValuePair<string, string>(DataFormatter_HeaderKeys.FormatValueSettings.ToString(), Settings.ToString()));

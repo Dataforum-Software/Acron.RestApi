@@ -69,8 +69,15 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
          /// <summary> Das BaseObject mit der angegebenen Id ist nicht in der Konfiguration enthalten </summary>
          { ApiActionResult.BaseObjectNotFound, "BaseObject with given id does not exist." },
 
-         /// <summary> Die RestAPI ist unter Vollast und kann keine Anfaragen beantworten </summary>
+         /// <summary> Die RestAPI ist unter Vollast und kann keine Anfragen beantworten </summary>
          { ApiActionResult.ApiToBusy, "RestAPI is busy.." },
+
+            /// <summary> Das Schreiben von Daten via REST API ist nicht gestattet </summary>
+         { ApiActionResult.NoWriteAccess, "No permission to write data." },
+
+            /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
+         { ApiActionResult.WaitingForReload, "Configuration has been changed and needs to be reloaded." },
+
 
          #region User Management
 
@@ -132,6 +139,13 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 
          #endregion Config Access Infos
 
+         #region Create and Update
+
+         /// <summary> Create / Update fehlgeschlagen </summary>
+         { ApiActionResult.CreateUpdateFailed, "Create or update acxtion failed" },
+
+         #endregion Create and Update
+
          #region Delete
 
          /// <summary> Das BaseObject konnte nicht gelöscht werden, da es von anderen BaseObjects verwendet wird </summary>
@@ -158,8 +172,33 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
          { ApiActionResult.SaveNoChanges, "Save config - no changes exist." },
          /// <summary> Speichern nicht möglich - Anlage wurde nicht validiert </summary>
          { ApiActionResult.SaveMissingValidation, "Save config - missing validation call." },
+         /// <summary> Speichern nicht möglich - Zeitstempel für Neukompression nicht valide.</summary>
+         { ApiActionResult.SaveInvalidTimeStamp, "Save config - invalid timestamp for data recalculation"},
 
          #endregion Save
+
+         #region Discard Changes
+
+         /// <summary> Rücksetzen nicht möglich - es gibt keine Änderungen </summary>
+         { ApiActionResult.DiscardNoChanges, "Discard changes failed - no changes available" },
+
+         #endregion Discard Changes
+
+         #region ChangeInfo
+
+         /// <summary> Es gibt keine Änderungen </summary>
+         { ApiActionResult.ChangeInfoNothing, "Configuration contains no changes" },
+
+         #endregion ChangeInfo
+
+         #region ApiDataRequest
+
+         /// <summary>
+         /// Wenn es einen Fehler gibt bei einer ProcessDatenabfrage
+         /// </summary>
+         { ApiActionResult.Error_DataRequest, "Get data failed" },
+
+         #endregion ApiDataRequest
 
         };
 
@@ -374,6 +413,9 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 
             /// <summary> Das Schreiben von Daten via REST API ist nicht gestattet </summary>
             NoWriteAccess = 8,
+
+            /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
+            WaitingForReload = 9,
 
             #region User Management
 

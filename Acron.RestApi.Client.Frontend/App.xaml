@@ -16,5 +16,6 @@
       <help:StatusCodeToColorConverter x:Key="HttpColorConverter"/>
       <help:DateTimeConverter x:Key="DateToString"/>
       <help:IsOnlineGraphCapableConverter x:Key="IsRealtime"/>
+      <help:TypeToNameConverter x:Key="TypeToName"/>
    </Application.Resources>
 </Application>

@@ -11,7 +11,7 @@ namespace Acron.RestApi.Client.Frontend
       public MainWindow()
       {
          InitializeComponent();
-         
+
          //Example_Method_Calls.Examples.DoAction();
       }
 

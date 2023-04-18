@@ -14,8 +14,11 @@ using Acron.RestApi.DataContracts.Request.UserToken;
 using Acron.RestApi.DataContracts.Response;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -33,23 +36,27 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          ///Replace the dummy AppName and Password with the one set in your REST API
          AccessTokenLoginResource accessTokenLoginResource = new AccessTokenLoginResource()
          {
-            AppName = "test",
-            Password = "test"
+            AppName = ConfigurationManager.AppSettings?.GetValues("AppName")?.FirstOrDefault() ?? string.Empty,
+            Password = ConfigurationManager.AppSettings?.GetValues("AppPassword")?.FirstOrDefault() ?? string.Empty,
          };
 
          ///Replace the dummy values with your user credentials
          UserTokenLoginResource userTokenLoginResource = new UserTokenLoginResource()
          {
-            AcronUser = "acron",
-            Password = "",
-            ClientName = "ClientName",
-            HostOrIp = "localhost",
-            Port = 23456,
-            SessionId = "My Session Id"
+            AcronUser = ConfigurationManager.AppSettings?.GetValues("AcronUser")?.FirstOrDefault() ?? string.Empty,
+            Password = ConfigurationManager.AppSettings?.GetValues("UserPassword")?.FirstOrDefault() ?? string.Empty,
+            ClientName = ConfigurationManager.AppSettings?.GetValues("ClientName")?.FirstOrDefault() ?? string.Empty,
+            HostOrIp = ConfigurationManager.AppSettings?.GetValues("HostOrIp")?.FirstOrDefault() ?? string.Empty,
+            Port = int.Parse(ConfigurationManager.AppSettings?.GetValues("UserPort")?.FirstOrDefault() ?? "1"),
+            SessionId = ConfigurationManager.AppSettings?.GetValues("SessionId")?.FirstOrDefault() ?? string.Empty
          };
 
-         ///Replace the dummy API address and port with your specific values
-         client = new RestClient($"ACRON RestDemoClient", "your.address.local", 3900, 9.4f, accessTokenLoginResource, userTokenLoginResource, true);
+         string url = ConfigurationManager.AppSettings?.GetValues("TargetUrl")?.FirstOrDefault() ?? string.Empty;
+         string clientName = ConfigurationManager.AppSettings?.GetValues("ClientName")?.FirstOrDefault() ?? string.Empty;
+         uint port = uint.Parse(ConfigurationManager.AppSettings?.GetValues("Port")?.FirstOrDefault() ?? "0");
+         float version = float.Parse(ConfigurationManager.AppSettings?.GetValues("Version")?.FirstOrDefault() ?? "0",CultureInfo.InvariantCulture);
+         bool keepAlive = bool.Parse(ConfigurationManager.AppSettings?.GetValues("True")?.FirstOrDefault() ?? "True");
+         client = new RestClient(clientName,url,port,version,accessTokenLoginResource, userTokenLoginResource, keepAlive);
 
          (bool HasError, string ErrorText) = await client.Connect();
          if (HasError)
@@ -64,7 +71,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
          //await DoConfigurationProcessConnection();
          //await DoConfigurationProcessVariables();
-         //await DoCreateProcessVariablesSteps();
+         await DoCreateProcessVariablesSteps();
 
 
          //await DoConfigurationGeneralAction();
@@ -544,58 +551,388 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             return;
          }
 
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
-            = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { IdParent = 300000000, LongName = "TestLongName" } });
+         string grpNameDef = "TestGrpName";
+         string pvAutoNameDef = "TestPvAuto";
+         string pvManNameDef = "TestPvMan";
+         string pvCalcNameDef = "TestPvCalc";
 
-         if (createGroupResult.HasError)
+         string name = string.Empty;
+         bool breakMainLoop = false;
+         bool doLoop = false;
+
+         for (int idx = 1; idx <= 25; idx++)
          {
-            return;
+
+            #region Create
+
+            name = string.Format("{0}_{1:D3}", grpNameDef, idx);
+
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult = (false, "", new ApiControllerResponseBase(), new CreateUpdateResult());
+
+            doLoop = true;
+            while (doLoop)
+            {
+               doLoop = false;
+            
+               createGroupResult = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { IdParent = 300000000, LongName = name } });
+
+               if (createGroupResult.HasError)
+               {
+                  if (createGroupResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+                     switch (createGroupResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<ErrorItem> Result) validate;
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, SaveInfo Result) save;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            int id = 300000001 + 1;
+            if (createGroupResult.Result != null)
+            {
+               var item = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
+               if (item != null)
+                  id = item.Id;
+            }
+
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvAutoResult = (false, "", new ApiControllerResponseBase(), new CreateUpdateResult());
+
+            name = string.Format("{0}_{1:D3}", pvAutoNameDef, idx);
+
+            doLoop = true;
+            while (doLoop)
+            {
+               doLoop = false;
+               createPvAutoResult = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { IdParent = id, ShortName = name, LongName = name } });
+
+               if (createPvAutoResult.HasError)
+               {
+                  if (createPvAutoResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+                     switch (createPvAutoResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            name = string.Format("{0}_{1:D3}", pvManNameDef, idx);
+
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvManResult = (false, "", new ApiControllerResponseBase(), new CreateUpdateResult());
+
+            doLoop = true;
+            while (doLoop)
+            {
+               doLoop = false;
+
+               createPvManResult = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { IdParent = id, ShortName = name, LongName = name } });
+
+               if (createPvManResult.HasError)
+               {
+                  if (createPvManResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+
+                     switch (createPvManResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvCalcResult = (false, "", new ApiControllerResponseBase(), new CreateUpdateResult());
+
+            name = string.Format("{0}_{1:D3}", pvCalcNameDef, idx);
+
+            doLoop = true;
+
+            while (doLoop)
+            {
+               doLoop = false;
+
+               createPvCalcResult = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { IdParent = id, ShortName = name, LongName = name } });
+
+               if (createPvCalcResult.HasError)
+               {
+                  if (createPvCalcResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+                     switch (createPvCalcResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            #endregion Create
+
+            #region Update
+
+            var grpItem = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
+            if (grpItem == null)
+               break;
+
+            id = grpItem.Id;
+            name = string.Format("{0}_{1:D3}_xyz", grpNameDef, idx);
+
+            doLoop = true;
+
+            while (doLoop)
+            {
+               doLoop = false;
+
+               (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
+               = await request.UpdatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { Id = id, LongName = name } });
+
+               if (updateGroupResult.HasError)
+               {
+                  if (updateGroupResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+
+                     switch (updateGroupResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            var pvAutoItem = createPvAutoResult.Result.Data.FirstOrDefault(d => d.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success);
+            if (pvAutoItem == null)
+               break;
+
+            id = pvAutoItem.Id;
+            name = string.Format("{0}_{1:D3}_xyz", pvAutoNameDef, idx);
+
+            doLoop = true;
+
+            while (doLoop)
+            {
+               doLoop = false;
+
+               (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvAutoResult
+               = await request.UpdatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { Id = id, ShortName = name, LongName = name } });
+
+               if (updatePvAutoResult.HasError)
+               {
+                  if (updatePvAutoResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+
+                     switch (updatePvAutoResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            var pvManItem = createPvManResult.Result.Data.FirstOrDefault(d => d.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success);
+            if (pvManItem == null)
+               break;
+
+            id = pvManItem.Id;
+            name = string.Format("{0}_{1:D3}_xyz", pvManNameDef, idx);
+
+            doLoop = true;
+
+            while (doLoop)
+            {
+               doLoop = false;
+
+               (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvManResult
+               = await request.UpdatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { Id = id, ShortName = name, LongName = name } });
+
+               if (updatePvManResult.HasError)
+               {
+                  if (updatePvManResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+
+                     switch (updatePvManResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            var pvCalcItem = createPvCalcResult.Result.Data.FirstOrDefault(d => d.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success);
+            if (pvCalcItem == null)
+               break;
+
+            id = pvCalcItem.Id;
+            name = string.Format("{0}_{1:D3}_xyz", pvCalcNameDef, idx);
+
+            doLoop = true;
+
+            while (doLoop)
+            {
+               doLoop = false;
+
+               (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvCalcResult
+               = await request.UpdatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { Id = id, ShortName = name, LongName = name } });
+
+               if (updatePvCalcResult.HasError)
+               {
+                  if (updatePvCalcResult.ResponseBase.HttpStatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                  {
+                     doLoop = true;
+                     Thread.Sleep(2500);
+                  }
+                  else
+                  {
+                     switch (updatePvCalcResult.ResponseBase.ApiActionResult)
+                     {
+                        case Interfaces.Configuration.GlobalConfigDefines.ConfigDefines.ApiActionResult.WaitingForReload:
+                           doLoop = true;
+                           Thread.Sleep(2500);
+                           break;
+                        default:
+                           doLoop = false;
+                           breakMainLoop = true;
+                           break;
+                     }
+                  }
+
+               }
+            }
+
+            if (breakMainLoop)
+               break;
+
+            validate = await request.Validate();
+            save = await request.Save(new SaveRequestResource());
+
+            #endregion Update
+
          }
 
-         int id = 300000001 + 1;
-         if (createGroupResult.Result != null)
-         {
-            var item = createGroupResult.Result.Data.Where(res => res.State == Interfaces.Configuration.Response.CreateUpdateResultStates.Success).FirstOrDefault();
-            if (item != null)
-               id = item.Id;
-         }
-
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvAutoResult
-            = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { IdParent = id, ShortName = "TestAutoShortname", LongName = "TestAutoLongName" } });
-
-         if (createPvAutoResult.HasError)
-         {
-            return;
-         }
-
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<ErrorItem> Result) validate;
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, SaveInfo Result) save;
-
-         validate = await request.Validate();
-         save = await request.Save(new SaveRequestResource());
-
-
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvManResult
-            = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { IdParent = id, ShortName = "TestManualShortname", LongName = "TestManualLongName" } });
-
-         if (createPvManResult.HasError)
-         {
-            return;
-         }
-
-         validate = await request.Validate();
-         save = await request.Save(new SaveRequestResource());
-
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvCalcResult
-            = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { IdParent = id, ShortName = "TestCalcShortname", LongName = "TestCalcLongName" } });
-
-         if (createPvCalcResult.HasError)
-         {
-            return;
-         }
-
-         validate = await request.Validate();
-         save = await request.Save(new SaveRequestResource());
+         var discardChangesResult = await request.DiscardChanges();
 
          var releaseAccessResult = await request.ReleaseAccess();
 

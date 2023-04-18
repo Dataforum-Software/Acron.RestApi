@@ -14,7 +14,10 @@
          <RowDefinition/>
       </Grid.RowDefinitions>
       <TextBlock Grid.Row="0" Text="Body: " Margin="10,10,0,0" />
-      <TextBox Grid.Row="1" Margin="10" FontSize="12" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding SelectedItem.InputBodyText, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Visibility="{Binding SelectedItem.HttpMethod,Converter={StaticResource MethodBodyToVis}}"/>
+      <Grid Grid.Row="1" Visibility="{Binding SelectedItem.HttpMethod,Converter={StaticResource MethodBodyToVis}}">
+         <TextBox Grid.Row="1" Margin="10" FontSize="12" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding SelectedItem.InputBodyText, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Visibility="{Binding SelectedGeneric,Converter={StaticResource NullToVis}}"/>
+         <ComboBox ItemsSource="{Binding TypeCodes,Converter={StaticResource TypeToName}}" SelectedItem="{Binding SelectedGeneric.TestType,Converter={StaticResource TypeToName}}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="21" Height="50" Width="200" Visibility="{Binding SelectedGeneric,Converter={StaticResource NullToCollapsed}}"/>
+      </Grid>
       <TextBlock Grid.Row="1" Margin="10" FontSize="12" Text="This HTTP method does not allow for a body in the request" Visibility="{Binding SelectedItem.HttpMethod,Converter={StaticResource InverseMethodBodyToVis}}"/>
    </Grid>
 </UserControl>

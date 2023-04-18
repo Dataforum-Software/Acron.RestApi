@@ -14,8 +14,13 @@
          <ColumnDefinition Width="4*"/>
       </Grid.ColumnDefinitions>
       <Grid Grid.Column="0" Visibility="{Binding SelectedItem.VisualizedCollection,Converter={StaticResource NullToCollapsed}}">
-         <local:VisualizationGraph Visibility="{Binding ShowResultsAsList,Converter={StaticResource InverseBoolToVis}}"/>
-         <local:VisualizationList Visibility="{Binding ShowResultsAsList,Converter={StaticResource BoolToVis}}"/>
+         <Grid Visibility="{Binding SelectedItem.HasError,Converter={StaticResource InverseBoolToVis}}">
+            <local:VisualizationGraph Visibility="{Binding ShowResultsAsList,Converter={StaticResource InverseBoolToVis}}"/>
+            <local:VisualizationList Visibility="{Binding ShowResultsAsList,Converter={StaticResource BoolToVis}}"/>
+         </Grid>
+         <Grid Visibility="{Binding SelectedItem.HasError,Converter={StaticResource BoolToVis}}">
+            <local:ResponseStatus Grid.Column="0"/>
+         </Grid>
       </Grid>
       <local:ResponseStatus Grid.Column="0" Visibility="{Binding SelectedItem.VisualizedCollection,Converter={StaticResource NullToVis}}"/>
       <local:ResponseBody Grid.Column="1"/>

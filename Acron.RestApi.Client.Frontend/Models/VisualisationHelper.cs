@@ -16,6 +16,7 @@ namespace Acron.RestApi.Client.Frontend.Models
          IValue = GlobalDataDef.NO_VALID;
          _minValue = GlobalDataDef.NO_VALID;
          _maxValue = GlobalDataDef.NO_VALID;
+         _textValue = string.Empty; 
       }
       #endregion
 
@@ -23,6 +24,7 @@ namespace Acron.RestApi.Client.Frontend.Models
       public DateTime _timeStamp;
       private double _iValue;
       private double _maxValue;
+      private string _textValue;
       #endregion
 
       #region AccessResults
@@ -60,6 +62,14 @@ namespace Acron.RestApi.Client.Frontend.Models
          }
       }
 
+      public string TextValue
+      {
+         get { return _textValue; }
+         set
+         {
+            _textValue = value;
+         }
+      }
 
       private double _minValue;
       public double MinValue

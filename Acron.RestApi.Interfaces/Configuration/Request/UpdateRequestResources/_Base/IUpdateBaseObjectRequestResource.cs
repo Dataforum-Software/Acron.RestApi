@@ -75,7 +75,7 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
       List<int> ReferencedIBaseObjects { get; }
 
       [SwaggerSchema("Names of properties to be modified, must be filled when passing the object as part of a create or update request")]
-      [SwaggerExampleValue($"[{nameof(ShortName)}, {nameof(LongName)}, {nameof(ReferencedIBaseObjects)}]")]
+      [SwaggerExampleValue($"[\"{nameof(ShortName)}\", \"{nameof(LongName)}\", \"{nameof(ReferencedIBaseObjects)}]\"")]
       List<string> ModifiedPropertyNames
       {
          get; set;
