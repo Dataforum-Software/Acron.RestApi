@@ -1,5 +1,6 @@
 ﻿using Acron.RestApi.BaseObjects;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationAler
       {
          Input = new();
       }
-      public override string InputBodyText
+      public override string? InputBodyText
       {
          get
          {
@@ -27,7 +28,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationAler
          {
             try
             {
-               var jsonstring = JsonConvert.DeserializeObject<List<RestApiAlertObject>>(value);
+               var jsonstring = JsonConvert.DeserializeObject<List<CreateAlertObjectRequestResource>>(value);
                if (jsonstring is not null)
                   Input = jsonstring;
             }
@@ -36,7 +37,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationAler
             }
          }
       }
-      public List<RestApiAlertObject> Input { get; set; }
+      public List<CreateAlertObjectRequestResource> Input { get; set; }
 
       public override async Task ExecuteMethod()
       {

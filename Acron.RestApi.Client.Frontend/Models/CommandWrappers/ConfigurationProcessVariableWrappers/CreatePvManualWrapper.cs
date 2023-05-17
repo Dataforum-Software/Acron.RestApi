@@ -1,5 +1,6 @@
 ﻿using Acron.RestApi.BaseObjects;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationProc
          {
             try
             {
-               var jsonstring = JsonConvert.DeserializeObject<List<RestApiPvManualObject>>(value);
+               var jsonstring = JsonConvert.DeserializeObject<List<CreatePvManualObjectRequestResource>>(value);
                if (jsonstring is not null)
                   Input = jsonstring;
             }
@@ -36,7 +37,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationProc
             }
          }
       }
-      public List<RestApiPvManualObject> Input { get; set; }
+      public List<CreatePvManualObjectRequestResource> Input { get; set; }
 
       public override async Task ExecuteMethod()
       {

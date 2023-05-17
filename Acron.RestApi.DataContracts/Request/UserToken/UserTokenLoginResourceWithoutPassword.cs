@@ -21,7 +21,7 @@ namespace Acron.RestApi.DataContracts.Request.UserToken
       public string HostOrIp { get; set; }
 
       [DataMember]
-      [Range(1, 65535)]
+      [Range(0, 65535)]
       public int Port { get; set; }
 
       [DataMember]

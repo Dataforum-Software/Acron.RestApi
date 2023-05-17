@@ -6,58 +6,132 @@
              xmlns:local="clr-namespace:Acron.RestApi.Client.Frontend.Views"
              DataContext="{StaticResource ViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
    <Grid Margin="7">
-      <Grid.ColumnDefinitions>
-         <ColumnDefinition/>
-         <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
-         <RowDefinition/>
+         <RowDefinition Height="3*"/>
+         <RowDefinition Height="2*"/>
+         <RowDefinition Height="3*"/>
          <RowDefinition/>
       </Grid.RowDefinitions>
+
+      <GroupBox Margin="0,10" Grid.Row="0" Header="Rest Api Server Address" BorderThickness="3">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition/>
+               <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+               <RowDefinition/>
+               <RowDefinition/>
+               <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Text="Server Name or IP: " Grid.Row="0" Margin="3" Height="30"/>
+            <Grid Grid.Row="0" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.HostName,Converter={StaticResource EmptyStringCheck},UpdateSourceTrigger=PropertyChanged}"/>
+               <TextBox Text="{Binding myLogin.HostName,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+
+            <TextBlock Text="Server Port: " Grid.Row="1" Margin="3" Height="30"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required Port 1 - 65535" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.Port,Converter={StaticResource PortCheck},UpdateSourceTrigger=PropertyChanged}"/>
+               <TextBox Text="{Binding myLogin.Port,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+
+            <TextBlock Text="Api Version: " Grid.Row="2" Margin="3" Height="30"/>
+            <TextBox Text="{Binding myLogin.Version}" Grid.Row="2" Grid.Column="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}" IsEnabled="False"/>
+         </Grid>
+      </GroupBox>
+
+      <GroupBox Margin="0,10" Grid.Row="1" Header="Rest Api Application Credentials" BorderThickness="3">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition/>
+               <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+               <RowDefinition/>
+               <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="App Name: " Grid.Row="0"  Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            <Grid Grid.Row="0" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.AppName,Converter={StaticResource EmptyStringCheck}}"/>
+               <TextBox Text="{Binding myLogin.AppName,UpdateSourceTrigger=PropertyChanged}" Margin="3" Grid.Row="1" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+
+            <TextBlock Text="App Password: " Grid.Row="1" Margin="3" Height="30"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.AppPassword,Converter={StaticResource EmptyStringCheck}}"/>
+               <TextBox Text="{Binding myLogin.AppPassword,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+         </Grid>
+      </GroupBox>
+
+
+
+      <GroupBox Margin="0,10" Grid.Row="2" Header="Acron User Credentials" BorderThickness="3">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition/>
+               <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+               <RowDefinition/>
+               <RowDefinition/>
+               <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Acron User: " Grid.Row="0" Margin="3" Height="30"/>
+            <Grid Grid.Row="0" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.AcronUser,Converter={StaticResource EmptyStringCheck}}"/>
+               <TextBox Text="{Binding myLogin.AcronUser,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+
+            <TextBlock Text="User Password: " Grid.Row="1" Margin="3" Height="30"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBox Text="{Binding myLogin.UserPassword,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+
+
+            <TextBlock Text="Client Name: " Grid.Row="2" Margin="3" Height="30"/>
+            <Grid Grid.Row="2" Grid.Column="1">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+               </Grid.RowDefinitions>
+               <TextBlock Text="Required" Foreground="Red" Grid.Row="0" MaxHeight="{Binding MaxFieldHeightLoginMask}" Margin="3,0,0,-2" Visibility="{Binding myLogin.ClientName,Converter={StaticResource EmptyStringCheck},UpdateSourceTrigger=PropertyChanged}"/>
+               <TextBox Text="{Binding myLogin.ClientName,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="3" MaxHeight="{Binding MaxFieldHeightLoginMask}"/>
+            </Grid>
+         </Grid>
+      </GroupBox>
+
       
-      <TextBlock Text="Client Name: " Margin="3"/>
-      <TextBox Text="{Binding myLogin.ClientName}" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Host Name: " Grid.Row="1" Margin="3"/>
-      <TextBox Text="{Binding myLogin.HostName}" Grid.Row="1" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Port: " Grid.Row="2" Margin="3"/>
-      <TextBox Text="{Binding myLogin.Port}" Grid.Row="2" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Version: " Grid.Row="3" Margin="3"/>
-      <TextBox Text="{Binding myLogin.Version}" Grid.Row="3" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="App Name: " Grid.Row="4"  Margin="3"/>
-      <TextBox Text="{Binding myLogin.AppName}" Grid.Row="4" Grid.Column="1" Margin="3"/>
-      <TextBlock Text="App Password: " Grid.Row="5" Margin="3"/>
-      <TextBox Text="{Binding myLogin.AppPassword}" Grid.Row="5" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Acron User: " Grid.Row="6" Margin="3"/>
-      <TextBox Text="{Binding myLogin.AcronUser}" Grid.Row="6" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="User Password: " Grid.Row="7" Margin="3"/>
-      <TextBox Text="{Binding myLogin.UserPassword}" Grid.Row="7" Grid.Column="1" Margin="3"/>
-      <TextBlock Text="Client Host or IP: " Grid.Row="8" Margin="3"/>
-      <TextBox Text="{Binding myLogin.HostOrIP}" Grid.Row="8" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Client Port: " Grid.Row="9" Margin="3"/>
-      <TextBox Text="{Binding myLogin.ClientPort}" Grid.Row="9" Grid.Column="1" Margin="3"/>
-      
-      <TextBlock Text="Session ID: " Grid.Row="10" Margin="3"/>
-      <TextBox Text="{Binding myLogin.SessionID}" Grid.Row="10" Grid.Column="1" Margin="3"/>
-      
-      <Button Content="Login" Command="{Binding LoginCommand}" Grid.ColumnSpan="2" Grid.Row="11" Margin="10,3"/>
+            
+      <Button Content="Connect to Acron REST API" Command="{Binding LoginCommand}" Grid.ColumnSpan="2" Grid.Row="11" Margin="10,3"/>
    </Grid>
 </UserControl>

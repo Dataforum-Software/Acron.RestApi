@@ -42,6 +42,8 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #endregion
 
       #region Properties
+      protected int? _targetID;
+      public virtual int? TargetID { get; set; }
       public string Url { get; init; }
       public string Name { get; init; }
 
@@ -109,7 +111,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 
 
 
-      public virtual string InputBodyText
+      public virtual string? InputBodyText
       {
          get { return string.Empty; }
          set { }

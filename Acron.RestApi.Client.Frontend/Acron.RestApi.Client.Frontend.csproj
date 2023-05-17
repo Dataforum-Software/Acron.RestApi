@@ -29,10 +29,4 @@
       <ProjectReference Include="..\Acron.RestApi.Client\Acron.RestApi.Client.csproj" />
    </ItemGroup>
 
-   <ItemGroup>
-     <None Update="App.config">
-       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     </None>
-   </ItemGroup>
-
 </Project>

@@ -128,7 +128,8 @@ namespace Acron.RestApi.BaseObjects
 
             CreateBaseObjectRequestResource createResource = baseObject as CreateBaseObjectRequestResource;
 
-            this.ModifiedPropertyNames = createResource.ModifiedPropertyNames;
+            //this.ModifiedPropertyNames = createResource.ModifiedPropertyNames;
+
             foreach(string propName in createResource.GetModifiedProperties())
             {
                this.ModifiedProperties.Add(propName);
@@ -143,8 +144,8 @@ namespace Acron.RestApi.BaseObjects
 
             UpdateBaseObjectRequestResource updateResource = baseObject as UpdateBaseObjectRequestResource;
 
-            this.ModifiedPropertyNames = updateResource.ModifiedPropertyNames;
-            this.ModifiedPropertyNames = updateResource.ModifiedPropertyNames;
+            //this.ModifiedPropertyNames = updateResource.ModifiedPropertyNames;
+
             foreach (string propName in updateResource.GetModifiedProperties())
             {
                this.ModifiedProperties.Add(propName);
@@ -284,6 +285,7 @@ namespace Acron.RestApi.BaseObjects
       /// Optionaler Parameter - enthält alle vom Anwender geänderten Properties
       /// </summary>
       [DataMember]
+      [Obsolete]
       public List<string> ModifiedPropertyNames
       {
          get
@@ -291,11 +293,14 @@ namespace Acron.RestApi.BaseObjects
             if (System.AppDomain.CurrentDomain.FriendlyName != "AcronRestAPIServer")
                return ModifiedProperties;
 
+            if (_modifiedPropertyNames == null)
+               _modifiedPropertyNames = new List<string>();
+
             return _modifiedPropertyNames;
          }
          set 
          {
-            _modifiedPropertyNames = value;
+         //   _modifiedPropertyNames = value;
          }
       }
 

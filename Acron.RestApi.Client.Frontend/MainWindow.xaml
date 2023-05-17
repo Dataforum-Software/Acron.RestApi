@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Acron.RestApi.Client.Frontend"
         xmlns:view="clr-namespace:Acron.RestApi.Client.Frontend.Views"
+        Closing="Window_Closing"
         mc:Ignorable="d"
-        DataContext="{StaticResource ViewModel}"
-        Title="MainWindow" Height="450" Width="800">
-   <Grid>
+        DataContext="{StaticResource ViewModel}"        
+        Title="MainWindow" Height="600" Width="800">
+   <Grid x:Name="Main">
       <Grid Visibility="{Binding IsLoggedIn,Converter={StaticResource InverseBoolToVis}}">
          <view:LoginMask/>
       </Grid>
@@ -31,6 +32,13 @@
             <view:DefaultRequestUserControl Grid.Row="0" Visibility="{Binding SelectedItem,Converter={StaticResource NullToCollapsed}}" BorderThickness="1,0,0,1" BorderBrush="Black"/>
             <view:DefaultResponseUserControl Grid.Row="1" Visibility="{Binding SelectedItem,Converter={StaticResource NullToCollapsed}}" BorderThickness="1,0,0,0" BorderBrush="Black"/>
          </Grid>
+      </Grid>
+      <Grid Visibility="Collapsed" x:Name="Discard">
+         <Label Background="Beige" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <Label.Content>
+               <TextBlock FontSize="30" TextWrapping="Wrap" Text="API Access was not properly released, to prevent lockout the democlient automatically discards changes and releases access on closing, we highly recommend manual handling."/>
+            </Label.Content>
+         </Label>
       </Grid>
    </Grid>
 </Window>

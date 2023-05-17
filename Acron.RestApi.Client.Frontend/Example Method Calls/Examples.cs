@@ -1,7 +1,10 @@
 ﻿using Acron.RestApi.BaseObjects;
 using Acron.RestApi.Client.Client.Request.ConfigurationRequests;
 using Acron.RestApi.Client.Client.Request.DataRequests;
+using Acron.RestApi.Client.Frontend.Models;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Acron.RestApi.DataContracts.Configuration.Response;
 using Acron.RestApi.DataContracts.Data.Request.DayData;
 using Acron.RestApi.DataContracts.Data.Request.ProcessData;
@@ -12,10 +15,12 @@ using Acron.RestApi.DataContracts.Data.Response.ProcessData;
 using Acron.RestApi.DataContracts.Request.AccessToken;
 using Acron.RestApi.DataContracts.Request.UserToken;
 using Acron.RestApi.DataContracts.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,39 +29,49 @@ using System.Windows;
 
 namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 {
+   
+
    internal static class Examples
    {
+      const string DefaultSerialisationString = "C:/ProgramData/Acron/APIDemoClient/Serialisation";
       static RestClient? client;
       /// <summary>
       /// Entry Point, please uncomment the sections you want to test
       /// All Methods written with the assumption of using the DemoPlant
       /// </summary>
+      /// 
+
       public static async void DoAction()
       {
          ///Replace the dummy AppName and Password with the one set in your REST API
          AccessTokenLoginResource accessTokenLoginResource = new AccessTokenLoginResource()
          {
-            AppName = ConfigurationManager.AppSettings?.GetValues("AppName")?.FirstOrDefault() ?? string.Empty,
-            Password = ConfigurationManager.AppSettings?.GetValues("AppPassword")?.FirstOrDefault() ?? string.Empty,
+            AppName = string.Empty,
+            Password = string.Empty,
          };
 
          ///Replace the dummy values with your user credentials
          UserTokenLoginResource userTokenLoginResource = new UserTokenLoginResource()
          {
-            AcronUser = ConfigurationManager.AppSettings?.GetValues("AcronUser")?.FirstOrDefault() ?? string.Empty,
-            Password = ConfigurationManager.AppSettings?.GetValues("UserPassword")?.FirstOrDefault() ?? string.Empty,
-            ClientName = ConfigurationManager.AppSettings?.GetValues("ClientName")?.FirstOrDefault() ?? string.Empty,
-            HostOrIp = ConfigurationManager.AppSettings?.GetValues("HostOrIp")?.FirstOrDefault() ?? string.Empty,
-            Port = int.Parse(ConfigurationManager.AppSettings?.GetValues("UserPort")?.FirstOrDefault() ?? "1"),
-            SessionId = ConfigurationManager.AppSettings?.GetValues("SessionId")?.FirstOrDefault() ?? string.Empty
+            AcronUser = string.Empty,
+            Password = string.Empty,
+            ClientName = string.Empty,
+            HostOrIp = string.Empty,
+            Port = 3900,
+            SessionId = string.Empty
          };
 
-         string url = ConfigurationManager.AppSettings?.GetValues("TargetUrl")?.FirstOrDefault() ?? string.Empty;
-         string clientName = ConfigurationManager.AppSettings?.GetValues("ClientName")?.FirstOrDefault() ?? string.Empty;
-         uint port = uint.Parse(ConfigurationManager.AppSettings?.GetValues("Port")?.FirstOrDefault() ?? "0");
-         float version = float.Parse(ConfigurationManager.AppSettings?.GetValues("Version")?.FirstOrDefault() ?? "0",CultureInfo.InvariantCulture);
-         bool keepAlive = bool.Parse(ConfigurationManager.AppSettings?.GetValues("True")?.FirstOrDefault() ?? "True");
-         client = new RestClient(clientName,url,port,version,accessTokenLoginResource, userTokenLoginResource, keepAlive);
+         string url =string.Empty;
+         string clientName = string.Empty;
+         uint port = 0;
+         float version = 9.4f;
+         bool keepAlive = true;
+
+
+         if (string.IsNullOrEmpty(url))
+            client = CreateClient();
+         else
+            client = new RestClient(clientName,url,port,version,accessTokenLoginResource, userTokenLoginResource, keepAlive);
 
          (bool HasError, string ErrorText) = await client.Connect();
          if (HasError)
@@ -78,6 +93,61 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
          //await DoDataAction();
       }
+
+
+      private static Login DeserializeLogin()
+      {
+         string json = File.ReadAllText(DefaultSerialisationString + "/Login.json");
+         return JsonConvert.DeserializeObject<Login>(json, new JsonSerializerSettings()
+         {
+            TypeNameHandling = TypeNameHandling.Objects,
+         }) ?? new();
+      }
+
+      private static RestClient CreateClient()
+      {
+         Login myLogin = new();
+         if (File.Exists(DefaultSerialisationString + "/Login.json"))
+         {
+            myLogin = DeserializeLogin();
+         }
+         else
+         {
+            myLogin = new()
+            {
+               AppName = string.Empty,
+               AppPassword = string.Empty,
+               ClientPort = 0,
+               AcronUser = string.Empty,
+               SessionID = string.Empty,
+               ClientName = string.Empty,
+               HostName = string.Empty,
+               HostOrIP = string.Empty,
+               Port = 3900,
+               UserPassword = string.Empty,
+               Version = 9.4f,
+            };
+         }
+
+         AccessTokenLoginResource appTokenRessource = new()
+         {
+            AppName = myLogin.AppName,
+            Password = myLogin.AppPassword,
+         };
+         UserTokenLoginResource userTokenRessource = new()
+         {
+            AcronUser = myLogin.AcronUser ?? string.Empty,
+            Password = myLogin.UserPassword ?? string.Empty,
+            ClientName = myLogin.ClientName ?? string.Empty,
+            HostOrIp = myLogin.HostOrIP ?? string.Empty,
+            Port = (int)myLogin.ClientPort,
+            SessionId = myLogin.SessionID ?? string.Empty,
+         };
+
+         return new RestClient(myLogin.ClientName, myLogin.HostName, myLogin.Port, myLogin.Version, appTokenRessource, userTokenRessource);
+
+      }
+
 
       /// <summary>
       /// Connections
@@ -170,14 +240,14 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          var createAccessResult = await request.CreateAccess();
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createAlertGroupResult
-            = await request.CreateGroup(new List<RestApiAlertGroupObject>(){ new RestApiAlertGroupObject()
+            = await request.CreateGroup(new List<CreateAlertGroupObjectRequestResource>(){ new CreateAlertGroupObjectRequestResource()
                {
                   LongName = "TestAlertLongName", IdParent = 200000000
                }
             });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createAlertResult
-            = await request.Create(new List<RestApiAlertObject>() { new RestApiAlertObject()
+            = await request.Create(new List<CreateAlertObjectRequestResource>() { new CreateAlertObjectRequestResource()
                {
                   ShortName = "TestAlertShortname", LongName = "TestAlertLongName",
                   PropState = Interfaces.BaseObjects.AlertDefines.AlertState.Message,
@@ -196,7 +266,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             }
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateAlertGroupResult
-            = await request.UpdateGroup(new List<RestApiAlertGroupObject>() { new RestApiAlertGroupObject()
+            = await request.UpdateGroup(new List<UpdateAlertGroupObjectRequestResource>() { new UpdateAlertGroupObjectRequestResource()
                {
                   Id = id,
                   LongName = "TestAlertLongNameX"
@@ -213,7 +283,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             }
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateAlertResult
-            = await request.Update(new List<RestApiAlertObject>() { new RestApiAlertObject()
+            = await request.Update(new List<UpdateAlertObjectRequestResource>() { new UpdateAlertObjectRequestResource()
                {
                   Id = id,
                   ShortName = "TestAlertShortnameX",
@@ -279,7 +349,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          var createAccessResult = await request.CreateAccess();
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createProviderResult
-            = await request.CreateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject()
+            = await request.CreateProvider(new List<CreateProviderObjectRequestResource>() { new CreateProviderObjectRequestResource()
                {
                   IdParent = 100000000,
                   PropProviderId = 10,
@@ -288,7 +358,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
-            = await request.CreateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject()
+            = await request.CreateExtVarGroup(new List<CreateExtVarGroupObjectRequestResource>() { new CreateExtVarGroupObjectRequestResource()
                {
                   IdParent = 100000002,
                   LongName = "CreatedExtVarGroup"
@@ -303,7 +373,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                id = item.Id;
          }
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createExtVarResult
-            = await request.CreateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject()
+            = await request.CreateExtVar(new List<CreateExtVarObjectRequestResource>() { new CreateExtVarObjectRequestResource()
                {
                   IdParent = id,
                   ShortName = "TestExtVarShortname",
@@ -318,14 +388,14 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             if (item != null)
                id = item.Id;
          }
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateProviderResult
+        /* (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateProviderResult
             = await request.UpdateProvider(new List<RestApiProviderObject>() { new RestApiProviderObject()
                {
                   Id = id,
                   LongName = "TestLongNameX"
                }
             });
-
+        */
          id = 102000000 + 4;
          if (createGroupResult.Result != null)
          {
@@ -335,7 +405,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
-            = await request.UpdateExtVarGroup(new List<RestApiExtVarGroupObject>() { new RestApiExtVarGroupObject()
+            = await request.UpdateExtVarGroup(new List<UpdateExtVarGroupObjectRequestResource>() { new UpdateExtVarGroupObjectRequestResource()
                {
                   Id = id,
                   LongName = "TestLongNameX"
@@ -351,7 +421,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateExtVarResult
-            = await request.UpdateExtVar(new List<RestApiExtVarObject>() { new RestApiExtVarObject()
+            = await request.UpdateExtVar(new List<UpdateExtVarObjectRequestResource>() { new UpdateExtVarObjectRequestResource()
                {
                   Id = id,
                   ShortName = "TestAlertShortnameX",
@@ -411,7 +481,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             return;
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createGroupResult
-            = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject()
+            = await request.CreatePvGroup(new List<CreatePvVarGroupObjectRequestResource>() { new CreatePvVarGroupObjectRequestResource()
                {
                   IdParent = 300000000,
                   LongName = "TestLongName"
@@ -427,7 +497,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvAutoResult
-            = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject()
+            = await request.CreatePvAuto(new List<CreatePvAutoObjectRequestResource>() { new CreatePvAutoObjectRequestResource()
                {
                   IdParent = id,
                   ShortName = "TestAutoShortname",
@@ -436,7 +506,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvManResult
-            = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject()
+            = await request.CreatePvManual(new List<CreatePvManualObjectRequestResource>() { new CreatePvManualObjectRequestResource()
                {
                   IdParent = id,
                   ShortName = "TestManualShortname",
@@ -445,7 +515,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             });
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) createPvCalcResult
-            = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject()
+            = await request.CreatePvCalc(new List<CreatePvCalcObjectRequestResource>() { new CreatePvCalcObjectRequestResource()
                {
                   IdParent = id,
                   ShortName = "TestCalcShortname",
@@ -462,7 +532,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
-            = await request.UpdatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject()
+            = await request.UpdatePvGroup(new List<UpdatePvVarGroupObjectRequestResource>() { new UpdatePvVarGroupObjectRequestResource()
                {
                   Id = id,
                   LongName = "TestLongNameX"
@@ -478,7 +548,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvAutoResult
-            = await request.UpdatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject()
+            = await request.UpdatePvAuto(new List<UpdatePvAutoObjectRequestResource>() { new UpdatePvAutoObjectRequestResource()
                {
                   Id = id,
                   LongName = "TestAutoLongNameXYZ"
@@ -494,7 +564,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvManResult
-            = await request.UpdatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject()
+            = await request.UpdatePvManual(new List<UpdatePvManualObjectRequestResource>() { new UpdatePvManualObjectRequestResource()
                {
                   Id = id,
                   LongName = "TestManualLongNameXYZ"
@@ -510,7 +580,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          }
 
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updPvCalcResult
-            = await request.UpdatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject()
+            = await request.UpdatePvCalc(new List<UpdatePvCalcObjectRequestResource>() { new UpdatePvCalcObjectRequestResource()
                { 
                   Id = id,
                   LongName = "TestCalcLongNameXYZ"
@@ -574,7 +644,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             {
                doLoop = false;
             
-               createGroupResult = await request.CreatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { IdParent = 300000000, LongName = name } });
+               createGroupResult = await request.CreatePvGroup(new List<CreatePvVarGroupObjectRequestResource>() { new CreatePvVarGroupObjectRequestResource() { IdParent = 300000000, LongName = name } });
 
                if (createGroupResult.HasError)
                {
@@ -622,7 +692,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             while (doLoop)
             {
                doLoop = false;
-               createPvAutoResult = await request.CreatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { IdParent = id, ShortName = name, LongName = name } });
+               createPvAutoResult = await request.CreatePvAuto(new List<CreatePvAutoObjectRequestResource>() { new CreatePvAutoObjectRequestResource() { IdParent = id, ShortName = name, LongName = name } });
 
                if (createPvAutoResult.HasError)
                {
@@ -663,7 +733,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             {
                doLoop = false;
 
-               createPvManResult = await request.CreatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { IdParent = id, ShortName = name, LongName = name } });
+               createPvManResult = await request.CreatePvManual(new List<CreatePvManualObjectRequestResource>() { new CreatePvManualObjectRequestResource() { IdParent = id, ShortName = name, LongName = name } });
 
                if (createPvManResult.HasError)
                {
@@ -706,7 +776,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             {
                doLoop = false;
 
-               createPvCalcResult = await request.CreatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { IdParent = id, ShortName = name, LongName = name } });
+               createPvCalcResult = await request.CreatePvCalc(new List<CreatePvCalcObjectRequestResource>() { new CreatePvCalcObjectRequestResource() { IdParent = id, ShortName = name, LongName = name } });
 
                if (createPvCalcResult.HasError)
                {
@@ -756,7 +826,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                doLoop = false;
 
                (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updateGroupResult
-               = await request.UpdatePvGroup(new List<RestApiPvVarGroupObject>() { new RestApiPvVarGroupObject() { Id = id, LongName = name } });
+               = await request.UpdatePvGroup(new List<UpdatePvVarGroupObjectRequestResource>() { new UpdatePvVarGroupObjectRequestResource() { Id = id, LongName = name } });
 
                if (updateGroupResult.HasError)
                {
@@ -800,7 +870,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                doLoop = false;
 
                (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvAutoResult
-               = await request.UpdatePvAuto(new List<RestApiPvAutoObject>() { new RestApiPvAutoObject() { Id = id, ShortName = name, LongName = name } });
+               = await request.UpdatePvAuto(new List<UpdatePvAutoObjectRequestResource>() { new UpdatePvAutoObjectRequestResource() { Id = id, ShortName = name, LongName = name } });
 
                if (updatePvAutoResult.HasError)
                {
@@ -848,7 +918,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                doLoop = false;
 
                (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvManResult
-               = await request.UpdatePvManual(new List<RestApiPvManualObject>() { new RestApiPvManualObject() { Id = id, ShortName = name, LongName = name } });
+               = await request.UpdatePvManual(new List<UpdatePvManualObjectRequestResource>() { new UpdatePvManualObjectRequestResource() { Id = id, ShortName = name, LongName = name } });
 
                if (updatePvManResult.HasError)
                {
@@ -895,7 +965,7 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
                doLoop = false;
 
                (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) updatePvCalcResult
-               = await request.UpdatePvCalc(new List<RestApiPvCalcObject>() { new RestApiPvCalcObject() { Id = id, ShortName = name, LongName = name } });
+               = await request.UpdatePvCalc(new List<UpdatePvCalcObjectRequestResource>() { new UpdatePvCalcObjectRequestResource() { Id = id, ShortName = name, LongName = name } });
 
                if (updatePvCalcResult.HasError)
                {

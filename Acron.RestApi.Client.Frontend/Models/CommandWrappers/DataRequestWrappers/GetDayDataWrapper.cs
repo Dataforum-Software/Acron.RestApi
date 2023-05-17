@@ -273,6 +273,18 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
          private set;
       }
 
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
+
       #endregion
 
       #region Methods

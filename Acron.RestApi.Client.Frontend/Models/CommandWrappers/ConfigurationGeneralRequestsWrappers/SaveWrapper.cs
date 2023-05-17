@@ -1,5 +1,5 @@
-﻿using Acron.RestApi.DataContracts.Configuration.Request;
-using Microsoft.AspNetCore.Http;
+﻿using Acron.RestApi.Client.Client.Request.ConfigurationRequests;
+using Acron.RestApi.DataContracts.Configuration.Request;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,15 +9,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationConnectionRequestWrappers
+namespace Acron.RestApi.Client.Frontend.Models
 {
-   internal class GetAllGroupsWrapper : ConfigConnectionWrapper
+   class SaveWrapper : ConfigGeneralWrapper
    {
-      public GetAllGroupsWrapper(RestClient client) : base(client)
+      #region ctor
+      public SaveWrapper() : base()
       {
-         Input = new();
       }
-      public override string? InputBodyText
+
+      public SaveWrapper(ConfigurationGeneralRequests re) : base(re)
+      {
+         _myConfigurationRequest = re;
+      }
+
+      #endregion
+
+      #region Properties
+      public SaveRequestResource Input { get; set; }
+
+
+      public override string InputBodyText
       {
          get
          {
@@ -27,7 +39,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationConn
          {
             try
             {
-               var jsonstring = JsonConvert.DeserializeObject<GetAllRequestResource>(value);
+               var jsonstring = JsonConvert.DeserializeObject<SaveRequestResource>(value);
                if (jsonstring is not null)
                   Input = jsonstring;
             }
@@ -36,13 +48,14 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationConn
             }
          }
       }
-      public GetAllRequestResource Input { get; set; }
+      #endregion
 
+      #region Methods
       public override async Task ExecuteMethod()
       {
          if (_myConfigurationRequest == null)
             return;
-         (HasError, ErrorText, Response, Result) = await _myConfigurationRequest.GetAllGroups(Input);
+         (HasError, ErrorText, Response, Result) = await _myConfigurationRequest.Save(Input);
          if (HasError && Response is null)
          {
             Debug.WriteLine(ErrorText);
@@ -53,7 +66,9 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationConn
             ReadOutResponse();
             StatusCode = Response.HttpStatusCode;
             ApiResponse = Response.ApiActionResult;
+            Debug.WriteLine(Response.Message);
          }
       }
+      #endregion
    }
 }

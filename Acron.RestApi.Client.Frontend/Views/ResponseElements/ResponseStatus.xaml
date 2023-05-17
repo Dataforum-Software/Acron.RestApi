@@ -16,11 +16,11 @@
          <ColumnDefinition/>
          <ColumnDefinition/>
       </Grid.ColumnDefinitions>
-      <TextBox Text="Api Action Result: " Grid.Row="0"/>
+      <TextBox IsReadOnly="True"  Text="Api Action Result: " Grid.Row="0"/>
       <TextBox IsReadOnly="True" Text="{Binding Response.ApiActionResult}" Grid.Row="0" Grid.Column="1"/>
-      <TextBox Text="Message: " Grid.Row="1" TextWrapping="Wrap" Visibility="{Binding HasError,Converter={StaticResource InverseBoolToVis}}"/>
+      <TextBox IsReadOnly="True"  Text="Message: " Grid.Row="1" TextWrapping="Wrap" Visibility="{Binding HasError,Converter={StaticResource InverseBoolToVis}}"/>
       <TextBox IsReadOnly="True" Text="{Binding Response.Message}" Grid.Row="1" Grid.Column="1" Visibility="{Binding HasError,Converter={StaticResource InverseBoolToVis}}"/>
-      <TextBox Text="ErrorText: " Grid.Row="1" Visibility="{Binding HasError,Converter={StaticResource BoolToVis}}"/>
+      <TextBox IsReadOnly="True"  Text="ErrorText: " Grid.Row="1" Visibility="{Binding HasError,Converter={StaticResource BoolToVis}}"/>
       <TextBox IsReadOnly="True" Text="{Binding ErrorText}" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Visibility="{Binding HasError,Converter={StaticResource BoolToVis}}"/>
    </Grid>
 </UserControl>

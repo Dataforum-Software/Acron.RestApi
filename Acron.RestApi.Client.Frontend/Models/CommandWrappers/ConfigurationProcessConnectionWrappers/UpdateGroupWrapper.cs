@@ -1,4 +1,5 @@
 ﻿using Acron.RestApi.BaseObjects;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,28 +16,46 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationProc
       public UpdateGroupWrapper(RestClient client) : base(client)
       {
          Input = new();
+         _targetID = -1;
+      }
+
+      public override int? TargetID
+      {
+         get { return _targetID; }
+         set
+         {
+            SetProperty(ref _targetID, value);
+         }
       }
       public override string InputBodyText
       {
          get
          {
-            return JsonConvert.SerializeObject(Input, Formatting.Indented);
+            if (Input == null)
+            {
+               return null;
+            }
+            return JsonConvert.SerializeObject(Input, Formatting.Indented, ExcludeObsoletePropertiesResolver.NoObsolete);
          }
          set
          {
             try
             {
-               var jsonstring = JsonConvert.DeserializeObject<List<RestApiExtVarGroupObject>>(value);
+               var jsonstring = JsonConvert.DeserializeObject<List<UpdateExtVarGroupObjectRequestResource>>(value);
                if (jsonstring is not null)
+               {
                   Input = jsonstring;
+               }
+               OnPropertyChanged(nameof(Input));
+               OnPropertyChanged(nameof(InputBodyText));
             }
             catch
             {
             }
          }
       }
-      public List<RestApiExtVarGroupObject> Input { get; set; }
-
+      public List<UpdateExtVarGroupObjectRequestResource> Input { get; set; }
+    
       public override async Task ExecuteMethod()
       {
          if (_myConfigurationRequest == null)

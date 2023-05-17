@@ -12,15 +12,18 @@ namespace Acron.RestApi.Interfaces.Request.UserToken
       [SwaggerExampleValue("WIN10-DEVMACHINE")]
       string ClientName { get; }
 
-      [SwaggerSchema(Description = "Hostname or IP Address of the client device")]
+      [SwaggerSchema(Description = "Hostname or IP Address of the client device.<br> " +
+                                   "**This Parameter is optional and not currently used.**")]
       [SwaggerExampleValue("192.168.178.45")]
       string HostOrIp { get; }
 
-      [SwaggerSchema(Description = "Client-side outgoing port of connection")]
+      [SwaggerSchema(Description = "Client-side outgoing port of connection.<br> " +
+                                   "**This Parameter is optional and not currently used.**")]
       [SwaggerExampleValue(55764)]
       int Port { get; }
 
-      [SwaggerSchema(Description = "Self-defined session identifier for use in subsequent api calls")]
+      [SwaggerSchema(Description = "Self-defined session identifier for use in subsequent api calls.<br> " +
+                                   "**This Parameter is optional and not currently used.**")]
       [SwaggerExampleValue("my-id")]
       string SessionId { get; }
    }

@@ -17,7 +17,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationAler
       {
          Input = new();
       }
-      public override string InputBodyText
+      public override string? InputBodyText
       {
          get
          {

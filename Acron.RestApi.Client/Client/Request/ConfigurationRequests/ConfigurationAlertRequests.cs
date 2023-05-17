@@ -2,6 +2,8 @@
 using Acron.RestApi.Client.Client.Defines;
 using Acron.RestApi.Client.Client.Request.Base;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Acron.RestApi.DataContracts.Configuration.Response;
 using Acron.RestApi.DataContracts.Response;
 using System;
@@ -106,10 +108,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="restApiAlertGroupObjectList"></param>
       /// <returns>A list of results, one for each group created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateGroup(List<RestApiAlertGroupObject> restApiAlertGroupObjectList)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateGroup(List<CreateAlertGroupObjectRequestResource> restApiAlertGroupObjectList)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiAlertGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_CreateGroup]}",
+            = await Post_Request<List<CreateAlertGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_CreateGroup]}",
                                                                                     restApiAlertGroupObjectList);
 
          return result;
@@ -120,10 +122,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="RestApiAlertObjectList"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> Create(List<RestApiAlertObject> RestApiAlertObjectList)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> Create(List<CreateAlertObjectRequestResource> RestApiAlertObjectList)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiAlertObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_Create]}",
+            = await Post_Request<List<CreateAlertObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_Create]}",
                                                                                RestApiAlertObjectList);
 
          return result;
@@ -138,10 +140,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="restApiAlertGroupObjectList"></param>
       /// <returns>A list of results, one for each group created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateGroup(List<RestApiAlertGroupObject> restApiAlertGroupObjectList)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateGroup(List<UpdateAlertGroupObjectRequestResource> restApiAlertGroupObjectList)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiAlertGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_UpdateGroup]}",
+            = await Post_Request<List<UpdateAlertGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_UpdateGroup]}",
                                                                                     restApiAlertGroupObjectList);
 
          return result;
@@ -152,10 +154,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="RestApiAlertObjectList"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> Update(List<RestApiAlertObject> RestApiAlertObjectList)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> Update(List<UpdateAlertObjectRequestResource> RestApiAlertObjectList)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiAlertObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_Update]}",
+            = await Post_Request<List<UpdateAlertObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.Alert_Update]}",
                                                                                RestApiAlertObjectList);
 
          return result;

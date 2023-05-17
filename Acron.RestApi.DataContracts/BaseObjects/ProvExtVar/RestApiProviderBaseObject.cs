@@ -68,7 +68,7 @@ namespace Acron.RestApi.BaseObjects
          set 
          {
             _propProviderId = value;
-            ModifiedProperties.Add(nameof(PropProviderId));
+            ModifiedProperties.Add(nameof(PropProviderId)); 
          }
       }
 

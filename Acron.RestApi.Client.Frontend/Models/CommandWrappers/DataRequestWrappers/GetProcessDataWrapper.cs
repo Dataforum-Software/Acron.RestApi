@@ -62,6 +62,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #endregion
 
       #region Properties
+
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
+
       private int _maxLength = 50;
       public int MaxLength
       {

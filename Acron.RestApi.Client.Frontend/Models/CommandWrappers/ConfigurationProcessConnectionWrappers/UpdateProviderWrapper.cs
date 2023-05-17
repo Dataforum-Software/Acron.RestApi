@@ -1,10 +1,13 @@
 ﻿using Acron.RestApi.BaseObjects;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Response;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,28 +18,47 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationProc
    {
       public UpdateProviderWrapper(RestClient client) : base(client)
       {
-         Input = new();
+         Input = null;
+         _targetID = -1;
       }
-      public override string InputBodyText
+
+      public override int? TargetID
+      {
+         get { return _targetID; }
+         set
+         {
+            SetProperty(ref _targetID, value);
+         }
+      }
+
+      public override string? InputBodyText
       {
          get
          {
-            return JsonConvert.SerializeObject(Input, Formatting.Indented);
+            if(Input == null)
+            {
+               return null;
+            }
+            return JsonConvert.SerializeObject(Input, Formatting.Indented, ExcludeObsoletePropertiesResolver.NoObsolete);
          }
          set
          {
             try
             {
-               var jsonstring = JsonConvert.DeserializeObject<List<RestApiProviderObject>>(value);
+               var jsonstring = JsonConvert.DeserializeObject<List<UpdateProviderObjectRequestResource>>(value);
                if (jsonstring is not null)
+               {
                   Input = jsonstring;
+               }
+               OnPropertyChanged(nameof(Input));
+               OnPropertyChanged(nameof(InputBodyText));
             }
             catch
             {
             }
          }
       }
-      public List<RestApiProviderObject> Input { get; set; }
+      public List<UpdateProviderObjectRequestResource>? Input { get; set; }
 
       public override async Task ExecuteMethod()
       {
@@ -50,6 +72,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers.ConfigurationProc
          }
          else
          {
+            OnPropertyChanged(nameof(InputBodyText));
             ReadOutResponse();
             StatusCode = Response.HttpStatusCode;
             ApiResponse = Response.ApiActionResult;

@@ -51,6 +51,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #endregion
 
       #region Properties
+
+
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
       public string Name
       {
          get; init;

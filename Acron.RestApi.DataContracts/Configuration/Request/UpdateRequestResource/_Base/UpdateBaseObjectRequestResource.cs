@@ -50,8 +50,8 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
 
       public List<string> GetModifiedProperties()
       {
-         if (ModifiedPropertyNames != null)
-            return ModifiedPropertyNames as List<string>;
+         //if (ModifiedPropertyNames != null)
+         //   return ModifiedPropertyNames as List<string>;
 
          return ModifiedProperties;
       }
@@ -151,6 +151,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       }
 
       private List<int> _referencedIds = null;
+
       /// <summary>
       /// Alle direkt untergeordneten BOs
       /// </summary>
@@ -158,26 +159,6 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       public List<int> ReferencedIBaseObjects
       {
          get { return _referencedIds; }
-      }
-
-      private List<string> _modifiedPropertyNames = null;
-      /// <summary>
-      /// Optionaler Parameter - enthält alle vom Anwender geänderten Properties
-      /// </summary>
-      [DataMember]
-      public List<string> ModifiedPropertyNames
-      {
-         get
-         {
-            if (System.AppDomain.CurrentDomain.FriendlyName != "AcronRestAPIServer")
-               return ModifiedProperties;
-
-            return _modifiedPropertyNames;
-         }
-         set
-         {
-            _modifiedPropertyNames = value;
-         }
       }
 
       #endregion IBaseObject

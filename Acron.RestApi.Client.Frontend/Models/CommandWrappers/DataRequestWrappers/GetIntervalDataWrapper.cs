@@ -54,6 +54,17 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #region Properties
       public GetIntervalDataRequestResource Input { get; set; }
 
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
       public bool TimeVisible
       {
          get
@@ -328,15 +339,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                return;
             _visualizedCollection ??= new();
             _visualizedCollection.Clear();
-            if(cResult.TimeStampsCount != cResult.PVCount)
-               return;
-            for (int i = 0; i < cResult.TimeStampsCount; i++)
+            //if(cResult.TimeStampsCount != cResult.PVCount)
+            //   return;
+
+            if (cResult.Data != null && cResult.Data.Any() && cResult.Data[0].IDAT_IVAL != null && cResult.Data[0].IDAT_IVAL.Any())
             {
-               VisualizedCollection.Add(new VisualisationHelper()
+               for (int i = 0; i < cResult.TimeStampsCount; i++)
                {
-                  TimesStamp = cResult.TimeStamps[i],
-                  IValue = cResult.Data[0].IDAT_IVAL[i]
-               });
+                  VisualizedCollection.Add(new VisualisationHelper()
+                  {
+                     TimesStamp = cResult.TimeStamps[i],
+                     IValue = cResult.Data[0].IDAT_IVAL[i]
+                  });
+               }
             }
          }
       }

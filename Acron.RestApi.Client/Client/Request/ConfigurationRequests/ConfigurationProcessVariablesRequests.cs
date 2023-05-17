@@ -2,6 +2,8 @@
 using Acron.RestApi.Client.Client.Defines;
 using Acron.RestApi.Client.Client.Request.Base;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Acron.RestApi.DataContracts.Configuration.Response;
 using Acron.RestApi.DataContracts.Response;
 using System;
@@ -84,11 +86,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="groups"></param>
       /// <returns>A list of results, one for each group created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvGroup(List<RestApiPvVarGroupObject> groups)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvGroup(List<CreatePvVarGroupObjectRequestResource> groups)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvVarGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreateGroup]}",
-                                                                                    groups);
+            = await Post_Request<List<CreatePvVarGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreateGroup]}", groups);
 
          return result;
       }
@@ -98,10 +99,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="autoPvs"></param>
       /// <returns>A list of results, one for each variable created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvAuto(List<RestApiPvAutoObject> autoPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvAuto(List<CreatePvAutoObjectRequestResource> autoPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvAutoObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvAuto]}",
+            = await Post_Request<List<CreatePvAutoObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvAuto]}",
                                                                                autoPvs);
 
          return result;
@@ -111,11 +112,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="manualPvs"></param>
       /// <returns>A list of results, one for each variable created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvManual(List<RestApiPvManualObject> manualPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvManual(List<CreatePvManualObjectRequestResource> manualPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvManualObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvManual]}",
-                                                                               manualPvs);
+            = await Post_Request<List<CreatePvManualObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvManual]}", manualPvs);
 
          return result;
       }
@@ -124,10 +124,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="calcPvs"></param>
       /// <returns>A list of results, one for each variable created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvCalc(List<RestApiPvCalcObject> calcPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreatePvCalc(List<CreatePvCalcObjectRequestResource> calcPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvCalcObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvCalc]}",
+            = await Post_Request<List<CreatePvCalcObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_CreatePvCalc]}",
                                                                                calcPvs);
 
          return result;
@@ -141,24 +141,23 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="groups"></param>
       /// <returns>A list of results, one for each group updated, failed to process, or failed to update</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvGroup(List<RestApiPvVarGroupObject> groups)
+
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvGroup(List<UpdatePvVarGroupObjectRequestResource> groups)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvVarGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdateGroup]}",
-                                                                                    groups);
+            = await Post_Request<List<UpdatePvVarGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdateGroup]}", groups);
 
          return result;
       }
-
       /// <summary>
       /// Attempts to update all automatic process variables specified in the input parameter
       /// </summary>
       /// <param name="autoPvs"></param>
       /// <returns>A list of results, one for each variable updated, failed to process, or failed to update</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvAuto(List<RestApiPvAutoObject> autoPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvAuto(List<UpdatePvAutoObjectRequestResource> autoPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvAutoObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvAuto]}",
+            = await Post_Request<List<UpdatePvAutoObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvAuto]}",
                                                                                autoPvs);
 
          return result;
@@ -168,10 +167,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="manualPvs"></param>
       /// <returns>A list of results, one for each variable updated, failed to process, or failed to update</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvManual(List<RestApiPvManualObject> manualPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvManual(List<UpdatePvManualObjectRequestResource> manualPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvManualObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvManual]}",
+            = await Post_Request<List<UpdatePvManualObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvManual]}",
                                                                                manualPvs);
 
          return result;
@@ -181,14 +180,15 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="calcPvs"></param>
       /// <returns>A list of results, one for each variable updated, failed to process, or failed to update</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvCalc(List<RestApiPvCalcObject> calcPvs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdatePvCalc(List<UpdatePvCalcObjectRequestResource> calcPvs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiPvCalcObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvCalc]}",
+            = await Post_Request<List<UpdatePvCalcObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessVariables_UpdatePvCalc]}",
                                                                                calcPvs);
 
          return result;
       }
+
 
       #endregion UpdateBaseObjects
 
