@@ -209,19 +209,6 @@ namespace Acron.RestApi.Client
                tasks[1] = RefreshUserTokenByTime(UserTokenTime);
 
                await Task.WhenAll(tasks);
-               /*
-               if (i % 10 == 0)
-               {
-                  i = 1;
-                  RefreshTokens();
-               }
-
-               if (!KeepAlive)
-                  break;
-
-               Thread.Sleep(10000);
-               i++;
-               */
             }
          });
 
@@ -288,68 +275,6 @@ namespace Acron.RestApi.Client
          }
 
       }
-      /*
-      private void RefreshTokens()
-      {
-         if (CurrentAccessToken != null)
-         {
-            if (CurrentAccessToken.ExpiresUTC - DateTime.UtcNow < TimeSpan.FromSeconds(60))
-            {
-               bool hasSemaphore = false;
-               try
-               {
-                  _semaphore.Wait(35000);
-                  hasSemaphore = true;
-                  (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, AccessTokenResource AccessToken) = TokenRequest.RefreshAccessToken(CurrentAccessToken).Result;
-                  if (HasError)
-                     throw new Exception(ErrorText);
-
-                  if (AccessToken != null)
-                  {
-                     AccessTokenTime = (AccessToken.ExpiresUTC - DateTime.UtcNow - TimeSpan.FromSeconds(30));
-                  }
-               }
-               finally
-               {
-                  if (!hasSemaphore)
-                  {
-                     _semaphore.Release();
-                     hasSemaphore = false;
-                  }
-               }
-            }
-         }
-
-         if (CurrentUserToken != null)
-         {
-            if (CurrentUserToken.ExpiresUTC - DateTime.UtcNow < TimeSpan.FromSeconds(60))
-            {
-               bool hasSemaphore = false;
-               try
-               {
-                  _semaphore.Wait(35000);
-                  hasSemaphore = true;
-                  (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, UserTokenResource UserToken) = TokenRequest.RefreshUserToken(CurrentUserToken).Result;
-                  if (HasError)
-                     throw new Exception(ErrorText);
-
-                  if (UserToken != null)
-                  {
-                     UserTokenTime = (UserToken.ExpiresUTC - DateTime.UtcNow - TimeSpan.FromSeconds(30));
-                  }
-               }
-               finally
-               {
-                  if (!hasSemaphore)
-                  {
-                     _semaphore.Release();
-                     hasSemaphore = false;
-                  }
-               }
-            }
-         }
-      }
-      */
       #endregion KeepAlive, KeepAliveThread, RefreshAllTokens
 
       #region Methods

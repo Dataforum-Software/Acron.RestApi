@@ -27,6 +27,7 @@ namespace Acron.RestApi.BaseObjects
       {
          base.setDefaultValues();
 
+         this.PropProviderId = 1;
          this.PropIdDriver = ProviderObjectDefines.DrvSimulate;
          this.PropReadingInterval = 3600;
       }

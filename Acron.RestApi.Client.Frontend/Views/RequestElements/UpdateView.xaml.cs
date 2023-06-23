@@ -13,15 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Acron.RestApi.Client.Frontend.Views
+namespace Acron.RestApi.Client.Frontend.Views.RequestElements
 {
    /// <summary>
-   /// Interaktionslogik für LoginMask.xaml
+   /// Interaktionslogik für UpdateView.xaml
    /// </summary>
-   public partial class LoginMask : UserControl
+   public partial class UpdateView : UserControl
    {
-
-      public LoginMask()
+      public UpdateView()
       {
          InitializeComponent();
       }

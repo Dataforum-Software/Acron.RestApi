@@ -2,6 +2,8 @@
 using Acron.RestApi.Client.Client.Defines;
 using Acron.RestApi.Client.Client.Request.Base;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources;
+using Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources;
 using Acron.RestApi.DataContracts.Configuration.Response;
 using Acron.RestApi.DataContracts.Response;
 using System;
@@ -93,10 +95,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="provs"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateProvider(List<RestApiProviderObject> provs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateProvider(List<CreateProviderObjectRequestResource> provs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiProviderObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateProvider]}",
+            = await Post_Request<List<CreateProviderObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateProvider]}",
                                                                                     provs);
 
          return result;
@@ -106,11 +108,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="groups"></param>
       /// <returns>A list of results, one for each group created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateExtVarGroup(List<RestApiExtVarGroupObject> groups)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateExtVarGroup(List<CreateExtVarGroupObjectRequestResource> groups)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiExtVarGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateGroup]}",
-                                                                                    groups);
+            = await Post_Request<List<CreateExtVarGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateGroup]}", groups);
 
          return result;
       }
@@ -119,10 +120,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="extVars"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateExtVar(List<RestApiExtVarObject> extVars)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> CreateExtVar(List<CreateExtVarObjectRequestResource> extVars)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiExtVarObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateExtVar]}",
+            = await Post_Request<List<CreateExtVarObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_CreateExtVar]}",
                                                                                extVars);
 
          return result;
@@ -136,11 +137,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="provs"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateProvider(List<RestApiProviderObject> provs)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateProvider(List<UpdateProviderObjectRequestResource> provs)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiProviderObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateProvider]}",
-                                                                                    provs);
+            = await Post_Request<List<UpdateProviderObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateProvider]}", provs);
 
          return result;
       }
@@ -149,11 +149,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="groups"></param>
       /// <returns>A list of results, one for each group created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateExtVarGroup(List<RestApiExtVarGroupObject> groups)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateExtVarGroup(List<UpdateExtVarGroupObjectRequestResource> groups)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiExtVarGroupObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateGroup]}",
-                                                                                    groups);
+            = await Post_Request<List<UpdateExtVarGroupObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateGroup]}",   groups);
 
          return result;
       }
@@ -162,10 +161,10 @@ namespace Acron.RestApi.Client.Client.Request.ConfigurationRequests
       /// </summary>
       /// <param name="extVars"></param>
       /// <returns>A list of results, one for each object created, failed to process, or failed to create</returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateExtVar(List<RestApiExtVarObject> extVars)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result)> UpdateExtVar(List<UpdateExtVarObjectRequestResource> extVars)
       {
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, CreateUpdateResult Result) result
-            = await Post_Request<List<RestApiExtVarObject>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateExtVar]}",
+            = await Post_Request<List<UpdateExtVarObjectRequestResource>, CreateUpdateResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.ProcessConnection_UpdateExtVar]}",
                                                                                extVars);
 
          return result;

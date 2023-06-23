@@ -25,6 +25,7 @@ using Acron.RestApi.BaseObjects;
 using Acron.RestApi.Client.Frontend.Models.CommandWrappers;
 using Acron.RestApi.Interfaces.BaseObjects;
 using Acron.RestApi.DataContracts.Configuration.Request;
+using Acron.RestApi.DataContracts.Response;
 
 namespace Acron.RestApi.Client.Frontend.ViewModels
 {
@@ -41,8 +42,8 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
          { "ClientName", "TestClient" },
          { "HostOrIp","localhost" },
          { "UserPort","12345" },
-         {"SessionId", "MySession" },
-         {"TargetUrl", "test-api-adress.com" },
+         { "SessionId", "MySession" },
+         { "TargetUrl", "test-api-adress.com" },
          { "Port", "3900"},
          { "Version", "9.4" },
          { "KeepAlive", "True" }
@@ -58,8 +59,15 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
 
       #region Login
       public bool IsLoggedIn { get; set; } = false;
-
-      public Login myLogin { get; private set; }
+      private Login _myLogin;
+      public Login myLogin
+      {
+         get { return _myLogin; }
+         set
+         {
+            SetProperty(ref _myLogin, value);
+         }
+      }
 
       private async void Login()
       {
@@ -91,6 +99,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                OnPropertyChanged(nameof(IsLoggedIn));
                if (_restClient is not null)
                   FillWithCommandWrappers(_restClient);
+               CanClose= false;
             }
          }
          catch (Exception ex)
@@ -129,10 +138,36 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
       private Login DeserializeLogin()
       {
          string json = File.ReadAllText(DefaultSerialisationString + "/Login.json");
-         return JsonConvert.DeserializeObject<Login>(json, new JsonSerializerSettings()
+         try
          {
-            TypeNameHandling = TypeNameHandling.Objects,
-         }) ?? new();
+            return JsonConvert.DeserializeObject<Login>(json, new JsonSerializerSettings()
+            {
+               TypeNameHandling = TypeNameHandling.Objects,
+            }) ?? new();
+         }
+         catch (Exception ex)
+         {
+            MessageBox.Show("Json could not be deserialised: " + Environment.NewLine + ex.Message);
+            return new()
+            {
+               AppName = string.Empty,
+               AppPassword = string.Empty,
+
+               AcronUser = string.Empty,
+               UserPassword = string.Empty,
+
+               HostName = string.Empty,
+
+
+
+               HostOrIP = Dns.GetHostAddresses(Dns.GetHostName()).OrderBy(x => x.AddressFamily).First().ToString(),
+               ClientName = Environment.MachineName + "-RestAPI",
+               SessionID = string.Empty,
+               ClientPort = 123,
+               Port = 3900,
+               Version = 9.4f,
+            };
+         }
       }
 
       public void FillWithCommandWrappers(RestClient client)
@@ -154,11 +189,16 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   Name = "Enhanced Object Info",
                   Input = new DataContracts.Configuration.Request.ObjectInfoEnhancedRequestResource()
                   { BaseObjectID = 104000001, ShowObjectUsages = true, ShowReferencedObjects = true }
-               }
+               },
+               new SaveWrapper(conf){ Name = "Save", Input = new SaveRequestResource(){RecalculateFrom=DateTime.UtcNow},},
+               new DiscardChangesWrapper(conf){Name="Discard Changes"},
+               new DoIHaveChangesWrapper(conf){Name= "Do I Have Changes"},
+               new GetMyChangedObjectsWrapper(conf){Name="Get Changed Objects"},
+               new ValidateWrapper(conf) {Name="Validate"}
             }
 
          };
-         CommandList.Add(folder);         
+         CommandList.Add(folder);
          Folders folder2 = new()
          {
             Name = "Data Requests",
@@ -166,7 +206,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
             {
                new GetIntervalDataWrapper(_restClient!)
                {
-                  Name = "Data",
+                  Name = "Get Interval Data",
                   Input = new DataContracts.Data.Request.IntervalData.GetIntervalDataRequestResource()
                   {
                      IntervalType = Interfaces.Data.Request.IntervalData.IntervalTypes.DBN_INT_1,
@@ -181,7 +221,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                },
                new GetProcessDataWrapper(_restClient!)
                {
-                  Name = "Process",
+                  Name = "Get Process Data",
                   Input = new DataContracts.Data.Request.ProcessData.GetProcessDataRequestResource()
                   {
                      FromTime = new DateTimeOffset(DateTime.Now, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now - TimeSpan.FromMinutes(1))) - TimeSpan.FromMinutes(1),
@@ -223,30 +263,28 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
             }
          };
          CommandList.Add(folder2);
-         
+
          Folders folder3 = new()
          {
-            Name = "Alert Wrappers",
+            Name = "Alert Requests",
             Children = new()
             {
-               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.CreateGroupWrapper(client) { Name="Create Group", Input = new List<RestApiAlertGroupObject>(){new RestApiAlertGroupObject()
+               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.CreateGroupWrapper(client) { Name="Create Group", Input = new(){new()
                {
                   LongName ="TestAlertLong",IdParent = 200000000
                }}},
-               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.CreateWrapper(client){Name="Create", Input=new List<RestApiAlertObject>(){new RestApiAlertObject() { ShortName="TestAlertShort",  LongName = "TestAlertLongName",
+               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.CreateWrapper(client){Name="Create", Input=new(){new()
+               {
+                  ShortName="TestAlertShort",  LongName = "TestAlertLongName",
                   PropState = AlertDefines.AlertState.Message,
                   IdParent = 200000003
                }}},
-               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.DeleteWrapper(client){Name= "Delete",Input = new DeleteRequestResource(){ BaseObjectID = 200000004 } },
+               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.DeleteWrapper(client){Name= "Delete",Input = new DeleteRequestResource(){ BaseObjectID = 202000004 } },
                new Models.CommandWrappers.ConfigurationAlertRequestWrappers.GetAllGroupsWrapper(client){Name="Get All Groups",Input= new(){ShowLockedAlerts=true, SmallObjects=false }},
                new Models.CommandWrappers.ConfigurationAlertRequestWrappers.GetAllObjectsWrapper(client){Name="Get All Objects",Input= new(){ShowLockedAlerts=true, SmallObjects=false }},
                new Models.CommandWrappers.ConfigurationAlertRequestWrappers.GetAllWrapper(client){Name="Get All",Input= new(){ShowLockedAlerts=true, SmallObjects=false }},
-               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.UpdateWrapper(client){Name="Update",Input = new(){ new() {
-                  Id = 200000004,
-                  ShortName = "TestAlertShortnameX",
-                  LongName = "TestAlertLongNameX",
-                  PropState = AlertDefines.AlertState.Message,
-                  IdParent = 200000003} }},
+               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.UpdateWrapper(client){Name="Update Alert", TargetID =202000001},
+               new Models.CommandWrappers.ConfigurationAlertRequestWrappers.UpdateGroupWrapper(client){Name="Update Group", TargetID = 200000003},
                new Models.CommandWrappers.ConfigurationAlertRequestWrappers.ValidateWrapper(client){ Name = "Validate"}
             }
          };
@@ -264,7 +302,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
          CommandList.Add(folder4);
          Folders folder5 = new()
          {
-            Name = "Process Connections",
+            Name = "Process Connection Requests",
             Children = new()
             {
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.GetAllGroupsWrapper(client){Name="Get All Groups",Input= new(){SmallObjects=false }},
@@ -276,7 +314,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   Name = "CreateProvider",
                   Input = new()
                   {
-                     new RestApiProviderObject(){IdParent=100000000,PropProviderId=10,LongName="TestProvider1337"}
+                     new(){IdParent=100000000,PropProviderId=10,LongName="TestProvider1337"}
                   }
                },
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.CreateGroupWrapper(client)
@@ -284,7 +322,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   Name = "Create External Variable Group",
                   Input=new()
                   {
-                     new RestApiExtVarGroupObject(){IdParent = 100000002, LongName = "CreatedExtVarGroup"}
+                     new(){IdParent = 100000003, LongName = "CreatedExtVarGroup"}
                   }
                },
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.CreateExtVarWrapper(client)
@@ -292,50 +330,33 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   Name = "Create External Variable",
                   Input = new()
                   {
-                     new RestApiExtVarObject(){IdParent=102000000 + 1, ShortName="TestExtVarShortName",LongName="TestExtVarLongName"}
+                     new (){IdParent=102000002 , ShortName="TestExtVarShortName",LongName="TestExtVarLongName"}
                   }
                },
-               new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.GetProviderDriverWrapper(client){Name = "Validate"},
+               new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.GetProviderDriverWrapper(client){Name = "Get Provider Driver"},
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.UpdateGroupWrapper(client)
                {
-                  Name = "Update External Variable Group",
-                  Input = new()
-                  {
-                     new RestApiExtVarGroupObject(){ Id = 102000004, LongName="TestLongNameX" }
-                  }
+                  Name = "Update External Variable Group",                  
+                  TargetID =102000002,
                },
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.UpdateExtVarWrapper(client)
                {
                   Name = "Update External Variable",
-                  Input = new()
-                  {
-                     new RestApiExtVarObject()
-                     {
-                        IdParent = 102000001,
-                        ShortName = "TestExtVarShortname",
-                        LongName = "TestExtVarLongName"
-                     }
-                  }
+                  TargetID = 104000003
                },
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.UpdateProviderWrapper(client)
                {
                   Name = "Update Provider",
-                  Input = new()
-                  {
-                     new RestApiProviderObject()
-                     {
-                        Id = 100000002,
-                        LongName = "TestLongNameX"
-                     }
-                  }
-               }
+                  TargetID = 100000003,
+               },
+               new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.ValidateWrapper(client){Name="Validate"},
             }
          };
          CommandList.Add(folder5);
          Folders folder6 = new()
          {
-            Name= "Process Variables",
-            Children= new()
+            Name = "Process Variable Requests",
+            Children = new()
             {
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.GetAllGroupsWrapper(client){Name="Get All Groups",Input= new(){SmallObjects=false }},
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.GetAllObjectsWrapper(client){Name="Get All Objects",Input= new(){SmallObjects=false }},
@@ -348,7 +369,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   {
                      new()
                      {
-                        IdParent=302000002,
+                        IdParent=300000002,
                         ShortName="TestAutoShortName",
                         LongName="TestAutoLongName"
                      }
@@ -361,7 +382,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   {
                      new()
                      {
-                        IdParent=302000002,
+                        IdParent=300000002,
                         ShortName="TestCalcShortName",
                         LongName="TestCalcLongName"
                      }
@@ -374,8 +395,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   {
                      new()
                      {
-                        IdParent=302000002,
-                        ShortName="TestGroupShortName",
+                        IdParent=300000000,
                         LongName="TestGroupLongName"
                      }
                   }
@@ -387,7 +407,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   {
                      new()
                      {
-                        IdParent=302000002,
+                        IdParent=300000002,
                         ShortName="TestManualShortName",
                         LongName="TestManualLongName"
                      }
@@ -396,68 +416,36 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.UpdatePvAutoWrapper(client)
                {
                   Name="Update Auto",
-                  Input= new()
-                  {
-                     new()
-                     {
-                        IdParent=302000002,
-                        ShortName="TestAutoShortNameX32",
-                        LongName="TestAutoLongNameX32"
-                     }
-                  }
+                  TargetID = 302000004,
                },
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.UpdatePvCalcWrapper(client)
                {
                   Name="Update Calc",
-                  Input= new()
-                  {
-                     new()
-                     {
-                        IdParent=302000002,
-                        ShortName="TestCalcShortNameX32",
-                        LongName="TestCalcLongNameX32"
-                     }
-                  }
+                  TargetID = 302000028,
                },
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.UpdateGroupWrapper(client)
                {
                   Name="Update Group",
-                  Input= new()
-                  {
-                     new()
-                     {
-                        IdParent=302000002,
-                        ShortName="TestGroupShortNamex32",
-                        LongName="TestGroupLongNamex32"
-                     }
-                  }
+                  TargetID = 300000002,
                },
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.UpdatePvManualWrapper(client)
                {
                   Name="Update Manual",
-                  Input= new()
-                  {
-                     new()
-                     {
-                        IdParent=302000002,
-                        ShortName="TestManualShortNamex64",
-                        LongName="TestManualLongNamex64"
-                     }
-                  }
+                  TargetID = 302000001
                },
                new Models.CommandWrappers.ConfigurationProcessVariableWrappers.ValidateWrapper(client)
                {
-                  Name="Validate Units",                  
+                  Name="Validate",
                }
             }
          };
          CommandList.Add(folder6);
          Folders folder7 = new()
          {
-            Name = "Units",
+            Name = "Unit Requests",
             Children = new()
             {
-               new Models.CommandWrappers.ConfigurationUnitWrappers.ValidateWrapper(client){ Name="Validate Units"}, 
+               new Models.CommandWrappers.ConfigurationUnitWrappers.ValidateWrapper(client){ Name="Validate Units"},
                new Models.CommandWrappers.ConfigurationUnitWrappers.GetAllBaseUnitsWrapper(client){Name="Get All Groups",Input= new(){SmallObjects=false }},
                new Models.CommandWrappers.ConfigurationUnitWrappers.GetAllObjectsWrapper(client){Name="Get All Objects",Input= new(){SmallObjects=false }},
                new Models.CommandWrappers.ConfigurationUnitWrappers.GetAllWrapper(client){Name="Get All",Input= new(){ SmallObjects=false }},
@@ -475,6 +463,8 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
       #endregion
 
       #region Properties
+      public int MaxFieldHeightLoginMask { get; } = 25;
+
       public ObservableCollection<Folders> CommandList { get; set; }
 
       private bool _showResultsAsList = false;
@@ -496,8 +486,12 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
       private void FillTypeCodes()
       {
 
-         List<Type> ret = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => !x.IsInterface && x.IsAssignableTo(typeof(IBaseObject))).ToList();
-         _typeCodes = ret;
+         List<Type> ret = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => !x.IsAbstract && !x.IsInterface && x.IsAssignableTo(typeof(IBaseObject))).ToList();
+         _typeCodes = ret.Where(x => !x.Name.Contains("Base") || (x.Name == nameof(RestApiBaseObject) || x.Name == nameof(RestApiBaseUnitObject))).ToList();
+         _typeCodes.Remove(typeof(RestApiBaseObject));
+         _typeCodes.Remove(typeof(RestApiProviderDriverObject));
+         _typeCodes.Remove(typeof(RestApiDefaultGroupObject));
+         _typeCodes.Remove(typeof(RestApiPlantObject));
          OnPropertyChanged(nameof(TypeCodes));
       }
 
@@ -540,6 +534,17 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
             return SelectedItem as IGenericMethodWrapper;
          }
       }
+      private bool _hasChanges;
+      public bool HasChanges
+      {
+         get { return _hasChanges; }
+         set
+         {
+            SetProperty(ref _hasChanges, value);
+         }
+      }
+
+      public bool CanClose { get; set; } = true;
 
       private bool _resend;
       public bool Resend
@@ -675,21 +680,77 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
          {
             myLogin = new()
             {
-               AppName = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               AppPassword = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               ClientPort = uint.Parse(System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? "3900"),
-               AcronUser = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               SessionID = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               ClientName = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               HostName = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               HostOrIP = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               Port = uint.Parse(System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? "123"),
-               UserPassword = System.Configuration.ConfigurationManager.AppSettings["AppName"] ?? string.Empty,
-               Version = float.Parse(System.Configuration.ConfigurationManager.AppSettings["AppName"]?? "1")
+               AppName = string.Empty,
+               AppPassword = string.Empty,
+
+               AcronUser = string.Empty,
+               UserPassword = string.Empty,
+
+               HostName = string.Empty,
+
+
+
+               HostOrIP = Dns.GetHostAddresses(Dns.GetHostName()).OrderBy(x => x.AddressFamily).First().ToString(),
+               ClientName = Environment.MachineName + "-RestAPI",
+               SessionID = string.Empty,
+               ClientPort = 123,
+               Port = 3900,
+               Version = 9.4f,
             };
 
 
          }
+      }
+      private AsyncRelayCommand _returnAccessCommand;
+      public AsyncRelayCommand ReturnAccessCommand
+      {
+         get { return _returnAccessCommand ??= new(async () => await ReturnAccess()); }
+      }
+
+
+      private async Task ReturnAccess()
+      {
+         IWrapper changes = CommandList?.FirstOrDefault(x => x.Children.Any(x => x.Name == "Do I Have Changes"))?.Children?.FirstOrDefault(x => x.Name == "Do I Have Changes");
+         if (changes is null)
+         {
+            CanClose = true;
+            return;
+         }
+         IWrapper discard = CommandList?.FirstOrDefault(x => x.Children.Any(x => x.Name == "Discard Changes"))?.Children?.FirstOrDefault(x => x.Name == "Discard Changes");
+         if (discard is null)
+         {
+            CanClose = true;
+            return;
+         }
+         IWrapper release = CommandList?.FirstOrDefault(x => x.Children.Any(x => x.Name == "Release Access"))?.Children?.FirstOrDefault(x => x.Name == "Release Access");
+         if (release is null)
+         {
+            CanClose = true;
+            return;
+         }
+         await changes.ExecuteMethod();
+         if(changes!.Response?.Message == "Configuration has changed.")
+            await discard.ExecuteMethod();
+         await release.ExecuteMethod();
+         CanClose = true;
+      }
+
+      private RelayCommand _getCommand;
+      public RelayCommand GetCommand
+      {
+         get { return _getCommand ??= new(Get); }
+      }
+
+      private async void Get()
+      {
+         if (_restClient == null)
+            return;
+         var help = new ObjectInfoWrapper(new(_restClient)) { Input = { BaseObjectID = SelectedItem?.TargetID } };
+         await help.ExecuteMethod();
+         if (SelectedItem == null || help.HasError)
+            return;
+         var eh = new List<object?> { (help.Response as AcOkResponse)?.Result };
+         SelectedItem.InputBodyText = JsonConvert.SerializeObject(eh);
       }
 
       private RelayCommand? _deleteSelectedCommand;

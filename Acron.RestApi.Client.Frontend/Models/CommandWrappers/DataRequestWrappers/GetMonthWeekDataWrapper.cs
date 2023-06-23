@@ -51,12 +51,25 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #endregion
 
       #region Properties
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
       public string Name
-      {get;init;
+      {
+         get; init;
       }
 
       public string Url
-      {get;init;
+      {
+         get; init;
       }
 
       public Methods HttpMethod
@@ -300,7 +313,7 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
             return;
          UpdateCustoms();
          (HasError, ErrorText, Response, Result) = await _myMonthWeekDataRequest.GetMonthWeekData(Input);
-         if (HasError && Response is null)   
+         if (HasError && Response is null)
          {
             Debug.WriteLine(ErrorText);
             MessageBox.Show(ErrorText, "Error");
@@ -314,19 +327,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                return;
             _visualizedCollection ??= new();
             _visualizedCollection.Clear();
-            if(cResult.HasData && cResult.TimeStampsCount== cResult.PVCount)
+            if (cResult.Data is null || !cResult.Data.Any() || cResult.Data[0].MDAT_MVAL is null || cResult.Data[0].MDAT_IMAX is null || cResult.Data[0].MDAT_IMIN is null)
+               return;
+
+            for (int i = 0; i < cResult.PVCount; i++)
             {
-               for(int i=0;i<cResult.PVCount;i++)
-               {
-                  VisualisationHelper vh = new();
-                  if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_MVAL)
-                     vh.IValue = cResult.Data[0].MDAT_MVAL[i];
-                  if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_IMIN)
-                     vh.MinValue = cResult.Data[0].MDAT_IMIN[i];
-                  if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_IMAX)
-                     vh.MaxValue = cResult.Data[0].MDAT_IMAX[i];
-                  VisualizedCollection?.Add(vh);
-               }
+               VisualisationHelper vh = new();
+               if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_MVAL)
+                  vh.IValue = cResult.Data[0].MDAT_MVAL[i];
+               if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_IMAX)
+                  vh.MinValue = cResult.Data[0].MDAT_IMIN[i];
+               if (Input.PVDescriptions[0].MonthWeekWhat.MDAT_IMAX)
+                  vh.MaxValue = cResult.Data[0].MDAT_IMAX[i];
+               VisualizedCollection?.Add(vh);
             }
             OnPropertyChanged(nameof(TimeVisible));
             OnPropertyChanged(nameof(DateVisible));

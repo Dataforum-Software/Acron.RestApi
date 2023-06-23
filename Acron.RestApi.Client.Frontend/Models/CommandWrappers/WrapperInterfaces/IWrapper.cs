@@ -17,13 +17,14 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
    internal interface IWrapper
    {
       #region Properties
+      public int? TargetID { get; set; }
       public string Name { get; init; }
 
       public string Url { get; init; }
 
       public Methods HttpMethod { get; }
 
-      public string InputBodyText { get; set; }
+      public string? InputBodyText { get; set; }
 
       public ApiControllerResponseBase? Response { get; set; }
 

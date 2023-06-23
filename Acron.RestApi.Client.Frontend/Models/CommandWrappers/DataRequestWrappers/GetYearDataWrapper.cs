@@ -51,6 +51,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
       #endregion
 
       #region Properties
+
+
+      public int? TargetID
+      {
+         get
+         {
+            return null;
+         }
+
+         set
+         {
+         }
+      }
       public string Name
       {
          get; init;
@@ -317,19 +330,19 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
                return;
             _visualizedCollection ??= new();
             _visualizedCollection.Clear();
-            if (cResult.HasData && cResult.TimeStampsCount == cResult.PVCount)
+            if (cResult.Data is null || !cResult.Data.Any() || cResult.Data[0].YDAT_YVAL is null || cResult.Data[0].YDAT_IMAX is null || cResult.Data[0].YDAT_IMIN is null)
+               return;
+
+            for (int i = 0; i < cResult.PVCount; i++)
             {
-               for (int i = 0; i < cResult.PVCount; i++)
-               {
-                  VisualisationHelper vh = new();
-                  if (Input.PVDescriptions[0].YearWhat.YDAT_YVAL)
-                     vh.IValue = cResult.Data[0].YDAT_YVAL[i];
-                  if (Input.PVDescriptions[0].YearWhat.YDAT_IMIN)
-                     vh.MinValue = cResult.Data[0].YDAT_IMIN[i];
-                  if (Input.PVDescriptions[0].YearWhat.YDAT_IMAX)
-                     vh.MaxValue = cResult.Data[0].YDAT_IMAX[i];
-                  VisualizedCollection?.Add(vh);
-               }
+               VisualisationHelper vh = new();
+               if (Input.PVDescriptions[0].YearWhat.YDAT_YVAL)
+                  vh.IValue = cResult.Data[0].YDAT_YVAL[i];
+               if (Input.PVDescriptions[0].YearWhat.YDAT_IMIN)
+                  vh.MinValue = cResult.Data[0].YDAT_IMIN[i];
+               if (Input.PVDescriptions[0].YearWhat.YDAT_IMAX)
+                  vh.MaxValue = cResult.Data[0].YDAT_IMAX[i];
+               VisualizedCollection?.Add(vh);
             }
             OnPropertyChanged(nameof(TimeVisible));
             OnPropertyChanged(nameof(DateVisible));
