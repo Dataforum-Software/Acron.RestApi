@@ -45,10 +45,11 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public const int DrvAcronToAcron = 8000034;
       public const int DrvSimulate64 = 8000035;
       public const int DrvWinccUni64 = 8000036;
-      //public const int DrvSysInfo64 = 8000037;
+      public const int DrvSysInfo64 = 8000037;
+      public const int DrvOpcclientua64 = 8000038; // NEU - 64Bit und immer mit TS
 
       public const int MinDriverId = DrvZenon;
-      public const int MaxDriverId = DrvWinccUni64; // !!! Always compensate the last driver !!!
+      public const int MaxDriverId = DrvOpcclientua64; // !!! Always compensate the last driver !!!
 
       #endregion Driver IDs
    }
@@ -98,6 +99,15 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       [SwaggerSchema("Driver parameter 4")]
       [SwaggerExampleValue("1")]
       string PropDriverParameter4
+      {
+         get; set;
+      }
+
+      /// <summary> Driver parameter 5 </summary>
+      /// 
+      [SwaggerSchema("Driver parameter 5")]
+      [SwaggerExampleValue("1")]
+      string PropDriverParameter5
       {
          get; set;
       }

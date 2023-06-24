@@ -171,8 +171,8 @@ namespace Acron.RestApi.BaseObjects
 
       public List<string> GetModifiedProperties()
       {
-         if (ModifiedPropertyNames != null)
-            return ModifiedPropertyNames as List<string>;
+         //if (ModifiedPropertyNames != null)
+         //   return ModifiedPropertyNames as List<string>;
 
          return ModifiedProperties;
       }
@@ -278,30 +278,6 @@ namespace Acron.RestApi.BaseObjects
       public List<int> ReferencedIBaseObjects
       {
          get { return _referencedIds; }
-      }
-
-      private List<string> _modifiedPropertyNames = null;
-      /// <summary>
-      /// Optionaler Parameter - enthält alle vom Anwender geänderten Properties
-      /// </summary>
-      [DataMember]
-      [Obsolete]
-      public List<string> ModifiedPropertyNames
-      {
-         get
-         {
-            if (System.AppDomain.CurrentDomain.FriendlyName != "AcronRestAPIServer")
-               return ModifiedProperties;
-
-            if (_modifiedPropertyNames == null)
-               _modifiedPropertyNames = new List<string>();
-
-            return _modifiedPropertyNames;
-         }
-         set 
-         {
-         //   _modifiedPropertyNames = value;
-         }
       }
 
       #endregion IBaseObject

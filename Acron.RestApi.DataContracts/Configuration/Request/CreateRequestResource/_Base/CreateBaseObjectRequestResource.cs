@@ -53,9 +53,6 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResourc
 
       public List<string> GetModifiedProperties()
       {
-         //if (ModifiedPropertyNames != null)
-         //   return ModifiedPropertyNames as List<string>;
-
          return ModifiedProperties;
       }
 

@@ -1,5 +1,13 @@
 <Project>
    <PropertyGroup>
+      <ParentDirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove("Directory.Build.props", "$(MSBuildThisFileDirectory)..\"))</ParentDirectoryBuildPropsPath>
+   </PropertyGroup>
+   
+   <ImportGroup>
+      <Import Project="$(ParentDirectoryBuildPropsPath)"/>
+   </ImportGroup>
+
+   <PropertyGroup Condition="$(ParentDirectoryBuildPropsPath)==''">
       <NeutralLanguage>de-DE</NeutralLanguage>
       <ComVisible>false</ComVisible>
       <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

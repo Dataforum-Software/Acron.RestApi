@@ -52,6 +52,15 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses
          get; set;
       }
 
+      /// <summary> Driver parameter 5 </summary>
+      /// 
+      [SwaggerSchema("Driver parameter 5")]
+      [SwaggerExampleValue("1")]
+      string PropDriverParameter5
+      {
+         get; set;
+      }
+
       /// <summary> Measurement interval (ms) </summary>
       /// 
       [SwaggerSchema("Measurement interval (ms)")]

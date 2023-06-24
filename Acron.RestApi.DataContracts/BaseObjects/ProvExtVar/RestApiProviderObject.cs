@@ -45,6 +45,7 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter2 = iProv.PropDriverParameter2;
          this.PropDriverParameter3 = iProv.PropDriverParameter3;
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
+         this.PropDriverParameter5 = iProv.PropDriverParameter5;
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
@@ -73,6 +74,7 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter2 = iProv.PropDriverParameter2;
          this.PropDriverParameter3 = iProv.PropDriverParameter3;
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
+         this.PropDriverParameter5 = iProv.PropDriverParameter5;
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
@@ -101,6 +103,7 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter2 = iProv.PropDriverParameter2;
          this.PropDriverParameter3 = iProv.PropDriverParameter3;
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
+         this.PropDriverParameter5 = iProv.PropDriverParameter5;
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
@@ -182,6 +185,19 @@ namespace Acron.RestApi.BaseObjects
          {
             _propDriverParameter4 = value;
             ModifiedProperties.Add(nameof(PropDriverParameter4));
+         }
+      }
+
+      private string _propDriverParameter5;
+      [DataMember]
+      [DefaultValue("")]
+      public string PropDriverParameter5
+      {
+         get { return _propDriverParameter5; }
+         set
+         {
+            _propDriverParameter5 = value;
+            ModifiedProperties.Add(nameof(PropDriverParameter5));
          }
       }
 

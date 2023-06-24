@@ -50,9 +50,6 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
 
       public List<string> GetModifiedProperties()
       {
-         //if (ModifiedPropertyNames != null)
-         //   return ModifiedPropertyNames as List<string>;
-
          return ModifiedProperties;
       }
 
@@ -151,7 +148,6 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       }
 
       private List<int> _referencedIds = null;
-
       /// <summary>
       /// Alle direkt untergeordneten BOs
       /// </summary>

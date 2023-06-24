@@ -20,9 +20,6 @@ namespace Acron.RestApi.BaseObjects
          : base(BaseObjectDefines.RestObjectTypeCode.VgCalc)
       { }
 
-      public RestApiPvCalcObject(BaseObjectDefines.RestObjectTypeCode source)
-         : base(source)
-      { }
       public RestApiPvCalcObject(object source)
          : base(source)
       { }

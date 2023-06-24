@@ -95,6 +95,19 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResourc
          }
       }
 
+      private string _propDriverParameter5;
+      [DataMember]
+      [DefaultValue("")]
+      public string PropDriverParameter5
+      {
+         get { return _propDriverParameter5; }
+         set
+         {
+            _propDriverParameter5 = value;
+            ModifiedProperties.Add(nameof(PropDriverParameter5));
+         }
+      }
+
       private int _propReadingInterval;
       [DataMember]
       [DefaultValue(3600)]

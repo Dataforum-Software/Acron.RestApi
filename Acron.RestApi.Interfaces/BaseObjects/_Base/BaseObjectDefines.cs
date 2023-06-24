@@ -59,6 +59,10 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("Base units group")]
          BaseUnit = 1024,
 
+         /// <summary>ProviderRestApi group</summary>
+         [SwaggerEnumInfo("Auto generated provider for rest api variables")]
+         ProviderRestApi = 1025,
+
          #endregion group based
 
          #region simple
