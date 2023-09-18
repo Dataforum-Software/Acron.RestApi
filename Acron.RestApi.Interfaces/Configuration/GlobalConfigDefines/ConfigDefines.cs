@@ -386,8 +386,6 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
             ErrorLoadPlantException = -500,
             /// <summary> Exception beim neu Laden der Anlage </summary>
             ErrorReloadPlantException = -501,
-            /// <summary> Mehrfaches neu Laden der Anlage </summary>
-            ErrorReloadPlantMulticall = -502,
 
 
             /// <summary> Speichern der Anlage schlug fehl </summary>
