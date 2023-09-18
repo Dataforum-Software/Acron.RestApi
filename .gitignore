@@ -2,3 +2,4 @@
 bin/
 obj/
 .svn/
+/Acron.RestApi.Client.Frontend/App.config
