@@ -70,5 +70,21 @@
       public DateTimeFormatType FormatType { get { return _formatType; } }
    }
 
+   public sealed class FormatDateOnlyAttribute : FormatBaseAttribute
+   {
+      public FormatDateOnlyAttribute(string targetPropertyName)
+               : this(targetPropertyName, DateTimeFormatType.Default)
+      { }
+
+      public FormatDateOnlyAttribute(string targetPropertyName, DateTimeFormatType formatType)
+               : base(targetPropertyName)
+      {
+         _formatType = formatType;
+      }
+
+      private DateTimeFormatType _formatType;
+      public DateTimeFormatType FormatType { get { return _formatType; } }
+   }
+
 
 }

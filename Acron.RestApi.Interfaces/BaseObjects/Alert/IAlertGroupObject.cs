@@ -5,7 +5,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
    /// <summary>
    /// Interface for alert groups
    /// </summary>
-   public interface IAlertGroupObject : IGroupBaseObject
+   public interface IAlertGroupObject : IRealGroupObject
    {
       /// <summary>
       /// Type of alert group - custom or predefined by ACRON

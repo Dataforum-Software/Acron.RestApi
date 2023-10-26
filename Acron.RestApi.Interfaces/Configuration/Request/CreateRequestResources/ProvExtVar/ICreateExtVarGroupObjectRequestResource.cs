@@ -6,7 +6,7 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses
    /// <summary>
    /// Interface for groups of external variables
    /// </summary>
-   public interface ICreateExtVarGroupObjectRequestResource : ICreateGroupBaseObjectRequestResource
+   public interface ICreateExtVarGroupObjectRequestResource : ICreateRealGroupObjectRequestResource
    {
       void SetProviderId(int providerId);
 
@@ -17,5 +17,6 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses
       {
          get;
       }
+
    }
 }

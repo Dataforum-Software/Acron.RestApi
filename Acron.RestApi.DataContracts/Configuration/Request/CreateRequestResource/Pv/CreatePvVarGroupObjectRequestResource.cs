@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources
 {
    [DataContract]
-   public class CreatePvVarGroupObjectRequestResource : CreateGroupBaseObjectRequestResource, ICreatePvVarGroupObjectRequestResource
+   public class CreatePvVarGroupObjectRequestResource : CreateRealGroupObjectRequestResource, ICreatePvVarGroupObjectRequestResource
    {
       #region cTor
 

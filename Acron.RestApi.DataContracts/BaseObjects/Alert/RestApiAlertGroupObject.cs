@@ -3,13 +3,17 @@ using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
 using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Acron.RestApi.BaseObjects
 {
    
    [DataContract]
-   public class RestApiAlertGroupObject : RestApiGroupBaseObject, IAlertGroupObject
+   public class RestApiAlertGroupObject : RestApiRealGroupObject, IAlertGroupObject
    {
       #region cTor
 
@@ -57,6 +61,14 @@ namespace Acron.RestApi.BaseObjects
          this._propGroupType = iAlGrp.PropGroupType;
 
          return true;
+      }
+
+      public void SetReferencedObjects(List<int> referencedIds)
+      {
+         if (referencedIds == null || !referencedIds.Any())
+            _referencedIds = null;
+         else
+            _referencedIds = new List<int>(referencedIds);
       }
 
       #region IAlertGroupObject

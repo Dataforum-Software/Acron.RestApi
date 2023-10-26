@@ -32,6 +32,8 @@ namespace Acron.RestApi.Client.Client.Defines
             {RouteKeys.GetIntervalData,"Acron/Data/IntervalData/GetIntervalData" },
             {RouteKeys.GetMonthWeekData,"Acron/Data/MonthWeekData/GetMonthWeekData" },
             {RouteKeys.GetYearData,"Acron/Data/YearData/GetYearData" },
+            {RouteKeys.GetStringCompData,"Acron/Data/StringCompData/GetStringCompData" },
+            {RouteKeys.WriteProcessData,"Acron/Data/ProcessData/WriteProcessData" },
 
             //acron/Data/HandValRawData
             {RouteKeys.GetHandValRawData, "Acron/Data/HandValRawData/GetHandValRawData" },
@@ -154,6 +156,10 @@ namespace Acron.RestApi.Client.Client.Defines
          GetIntervalData,
          GetMonthWeekData,
          GetYearData,
+         GetStringCompData,
+
+         //WriteData
+         WriteProcessData,
 
          //acron/Data/HandValRawData
          GetHandValRawData,

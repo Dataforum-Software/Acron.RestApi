@@ -47,7 +47,7 @@ namespace Acron.RestApi.Client
          HostName = pHostName;
          Port = pPort;
 
-         BaseAddress = $"https://{HostName}:{Port}/Api/V{pVersion.ToString(CultureInfo.InvariantCulture)}/";
+         BaseAddress = $"https://{HostName}:{Port}/Api/V{pVersion.ToString("N1",CultureInfo.InvariantCulture)}/";
 
          AccessTokenLoginResource = accessTokenLoginResource;
          UserTokenLoginResource = userTokenLoginResource;
@@ -71,7 +71,7 @@ namespace Acron.RestApi.Client
       internal HttpClient _HttpClient { get; set; }
 
       public float Version { get; private set; }
-      public string VersionAsString { get { return Version.ToString(CultureInfo.InvariantCulture); } }
+      public string VersionAsString { get { return Version.ToString("N1",CultureInfo.InvariantCulture); } }
 
       internal TokenHandlingRequest TokenRequest { get; private set; }
 

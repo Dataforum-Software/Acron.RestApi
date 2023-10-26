@@ -34,6 +34,12 @@
    </PropertyGroup>
 
    <ItemGroup>
+     <Compile Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
+     <EmbeddedResource Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
+     <None Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
+   </ItemGroup>
+
+   <ItemGroup>
      <Compile Remove="Data\Response\ProcessData\TData\TDataValueNum.cs" />
    </ItemGroup>
 
@@ -42,7 +48,7 @@
    </ItemGroup>
 
    <ItemGroup>
-     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.13" />
+     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.21" />
      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
    </ItemGroup>
 
@@ -53,14 +59,11 @@
      <Folder Include="Configuration\Request\CreateRequestResource\Pv\" />
      <Folder Include="Configuration\Request\CreateRequestResource\Unit\" />
      <Folder Include="Configuration\Request\CreateRequestResource\ProvExtVar\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\_Base\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\Alert\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\Connection\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\Event\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\Unit\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\Pv\" />
      <Folder Include="Configuration\Request\UpdateRequestResource\ProvExtVar\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\_Base\" />
-     <Folder Include="Data\Response\HandValRawData\WriteHandValInfos\" />
    </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ namespace Acron.RestApi.Client.Frontend.Models
          ClientName = string.Empty;
          HostName = string.Empty;
          Port = uint.MinValue;
-         Version = 9.4f;
+         Version = 10.0f;
          AppName = string.Empty;
          AppPassword = string.Empty;
          AcronUser = string.Empty;
@@ -32,7 +32,7 @@ namespace Acron.RestApi.Client.Frontend.Models
          ClientName = data.FirstOrDefault(x => x.Key == nameof(ClientName))?.Value ?? string.Empty;
          HostName = data.FirstOrDefault(x => x.Key == nameof(HostName))?.Value ?? string.Empty;
          Port = uint.Parse(data.FirstOrDefault(x => x.Key == nameof(Port))?.Value ?? string.Empty, CultureInfo.InvariantCulture);
-         Version = float.Parse(data.FirstOrDefault(x => x.Key == nameof(Version))?.Value ?? "9.4", CultureInfo.InvariantCulture);
+         Version = float.Parse(data.FirstOrDefault(x => x.Key == nameof(Version))?.Value ?? "10.0", CultureInfo.InvariantCulture);
          AppName = data.FirstOrDefault(x => x.Key == nameof(AppName))?.Value ?? string.Empty;
          AppPassword = data.FirstOrDefault(x => x.Key == nameof(AppPassword))?.Value ?? string.Empty;
          AcronUser = data.FirstOrDefault(x => x.Key == nameof(AcronUser))?.Value ?? string.Empty;

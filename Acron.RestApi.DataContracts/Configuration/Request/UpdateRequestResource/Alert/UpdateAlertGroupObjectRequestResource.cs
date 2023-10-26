@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources
 {
    [DataContract]
-   public class UpdateAlertGroupObjectRequestResource : UpdateGroupBaseObjectRequestResource, IUpdateAlertGroupObjectRequestResource
+   public class UpdateAlertGroupObjectRequestResource : UpdateRealGroupObjectRequestResource, IUpdateAlertGroupObjectRequestResource
    {
       #region cTor
 

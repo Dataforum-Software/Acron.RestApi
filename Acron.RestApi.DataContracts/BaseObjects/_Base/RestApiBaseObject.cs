@@ -67,7 +67,10 @@ namespace Acron.RestApi.BaseObjects
          this.LongName = iBase.LongName;
 
          if (iBase.ReferencedIBaseObjects != null)
-            _referencedIds = iBase.ReferencedIBaseObjects.ToList();
+         {
+            //if ( ! lockReferences )
+               _referencedIds = iBase.ReferencedIBaseObjects.ToList();
+         }
 
          return true;
       }
@@ -270,7 +273,7 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
-      private List<int> _referencedIds = null;
+      protected List<int> _referencedIds = null;
       /// <summary>
       /// Alle direkt untergeordneten BOs
       /// </summary>

@@ -20,7 +20,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
 
       #region IUnitObject
 
-      private UnitDefines.UnitType _restApiUnitType;
+      private const UnitDefines.UnitType _restApiUnitType = UnitDefines.UnitType.Default;
 
       /// <summary>
       /// Type of unit (DaFo defined, user defined...)

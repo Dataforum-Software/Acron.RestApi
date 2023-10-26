@@ -45,7 +45,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
          { "SessionId", "MySession" },
          { "TargetUrl", "test-api-adress.com" },
          { "Port", "3900"},
-         { "Version", "9.4" },
+         { "Version", "10.0" },
          { "KeepAlive", "True" }
       };
       public MainViewModel()
@@ -99,7 +99,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                OnPropertyChanged(nameof(IsLoggedIn));
                if (_restClient is not null)
                   FillWithCommandWrappers(_restClient);
-               CanClose= false;
+               CanClose = false;
             }
          }
          catch (Exception ex)
@@ -165,7 +165,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                SessionID = string.Empty,
                ClientPort = 123,
                Port = 3900,
-               Version = 9.4f,
+               Version = 10.0f,
             };
          }
       }
@@ -259,6 +259,37 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                         }
                      }
                   }
+               },
+               new GetStringCompDataWrapper(_restClient)
+               {
+                  Name = "Get String Data",
+                  Input = new DataContracts.Data.Request.StringCompData.GetStringCompDataRequestResource()
+                  {
+                     CompType = Interfaces.Data.Request.StringCompData.GetStringCompDataCompTypes.DAY_1,
+                     FromTime = DateTimeOffset.Now.AddDays(-10),
+                     ToTime= DateTimeOffset.Now,
+                     PVIDs = new()
+                     {
+                        302_000_028
+                     }
+                  }
+               },
+               new WriteProcessDataWrapper(_restClient)
+               {
+                  Name = "Write Process Data",
+                  Input = new DataContracts.Data.Request.ProcessData.WriteProcessDataRequestResource()
+                  {
+                     ProcessDataDescriptions = new List<DataContracts.Data.Request.ProcessData.WriteProcessDataDescription>()
+                     {
+                        new()
+                        {
+                           ExtVarID = 104_000_010,
+                           TimeStamp = DateTimeOffset.Now,
+                           DataValueType = Interfaces.Data.Request.ProcessData.IWriteProcessDataDescription.DataValueTypes.IS_NUM,
+                           Value = 25.0,
+                        }
+                     }
+                  }
                }
             }
          };
@@ -336,7 +367,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.GetProviderDriverWrapper(client){Name = "Get Provider Driver"},
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.UpdateGroupWrapper(client)
                {
-                  Name = "Update External Variable Group",                  
+                  Name = "Update External Variable Group",
                   TargetID =102000002,
                },
                new Models.CommandWrappers.ConfigurationProcessConnectionWrappers.UpdateExtVarWrapper(client)
@@ -695,7 +726,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                SessionID = string.Empty,
                ClientPort = 123,
                Port = 3900,
-               Version = 9.4f,
+               Version = 10.0f,
             };
 
 
@@ -729,7 +760,7 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
             return;
          }
          await changes.ExecuteMethod();
-         if(changes!.Response?.Message == "Configuration has changed.")
+         if (changes!.Response?.Message == "Configuration has changed.")
             await discard.ExecuteMethod();
          await release.ExecuteMethod();
          CanClose = true;

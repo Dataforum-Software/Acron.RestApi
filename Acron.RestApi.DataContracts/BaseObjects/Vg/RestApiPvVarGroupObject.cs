@@ -1,11 +1,14 @@
 ﻿using Acron.RestApi.Interfaces.BaseObjects;
+using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
+using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.BaseObjects
 {
    
    [DataContract]
-   public class RestApiPvVarGroupObject : RestApiGroupBaseObject, IPvVarGroupObject
+   public class RestApiPvVarGroupObject : RestApiRealGroupObject, IPvVarGroupObject
    {
       #region cTor
 
@@ -19,6 +22,9 @@ namespace Acron.RestApi.BaseObjects
 
       #endregion cTor
 
-      // Keine Zusatz-Properties => kein mapper erforderlich
+
+      #region IPvVarGroupObject
+
+      #endregion IPvVarGroupObject
    }
 }

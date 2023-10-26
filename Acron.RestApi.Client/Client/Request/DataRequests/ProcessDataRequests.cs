@@ -5,6 +5,7 @@ using Acron.RestApi.DataContracts.Data.Request.ProcessData;
 using Acron.RestApi.DataContracts.Data.Response.IntervalData;
 using Acron.RestApi.DataContracts.Data.Response.ProcessData;
 using Acron.RestApi.DataContracts.Response;
+using Acron.RestApi.Interfaces.Data.Request.ProcessData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,15 @@ namespace Acron.RestApi.Client.Client.Request.DataRequests
          return result;
       }
 
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<WriteProcessDataResultItem> Result)> WriteProcessData(WriteProcessDataRequestResource writeProcessDataRequestResource)
+      {
+
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, List<WriteProcessDataResultItem> Result) result
+            = await Post_Request<WriteProcessDataRequestResource, List<WriteProcessDataResultItem>>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.WriteProcessData]}",
+                                                                                     writeProcessDataRequestResource,
+                                                                                     CustomHeaders);
+
+         return result;
+      }
    }
 }

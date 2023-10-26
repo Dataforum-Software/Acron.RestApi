@@ -29,6 +29,7 @@ namespace Acron.RestApi.BaseObjects
          IProviderBaseObject iProvBase = baseObject as IProviderBaseObject;
 
          this.PropProviderId = iProvBase.PropProviderId;
+         this.ShortName = null;
 
          return true;
       }
@@ -41,6 +42,7 @@ namespace Acron.RestApi.BaseObjects
          ICreateProviderBaseObjectRequestResource iProvBase = baseObject as ICreateProviderBaseObjectRequestResource;
 
          this.PropProviderId = iProvBase.PropProviderId;
+         this.ShortName = null;
 
          return true;
       }
@@ -53,6 +55,7 @@ namespace Acron.RestApi.BaseObjects
          IUpdateProviderBaseObjectRequestResource iProvBase = baseObject as IUpdateProviderBaseObjectRequestResource;
 
          this.PropProviderId = iProvBase.PropProviderId;
+         this.ShortName = null;
 
          return true;
       }

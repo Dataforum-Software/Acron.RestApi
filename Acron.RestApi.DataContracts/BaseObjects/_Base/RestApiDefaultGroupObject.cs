@@ -9,7 +9,7 @@ namespace Acron.RestApi.BaseObjects
 {
    
    [DataContract]
-   public class RestApiDefaultGroupObject : RestApiGroupBaseObject, IDefaultGroupObject
+   public class RestApiDefaultGroupObject : RestApiRealGroupObject, IDefaultGroupObject
    {
       #region cTor
 

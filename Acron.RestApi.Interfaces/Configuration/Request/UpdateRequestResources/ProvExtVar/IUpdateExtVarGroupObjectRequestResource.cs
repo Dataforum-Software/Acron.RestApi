@@ -6,7 +6,7 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
    /// <summary>
    /// Interface for groups of external variables
    /// </summary>
-   public interface IUpdateExtVarGroupObjectRequestResource : IUpdateGroupBaseObjectRequestResource
+   public interface IUpdateExtVarGroupObjectRequestResource : IUpdateRealGroupObjectRequestResource
    {
       void SetProviderId(int providerId);
 
@@ -17,5 +17,6 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
       {
          get;
       }
+
    }
 }

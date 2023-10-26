@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResources
 {
    [DataContract]
-   public class CreateAlertGroupObjectRequestResource : CreateGroupBaseObjectRequestResource, ICreateAlertGroupObjectRequestResource
+   public class CreateAlertGroupObjectRequestResource : CreateRealGroupObjectRequestResource, ICreateAlertGroupObjectRequestResource
    {
       #region cTor
 

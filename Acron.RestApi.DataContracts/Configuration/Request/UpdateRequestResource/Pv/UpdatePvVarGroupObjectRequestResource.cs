@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResources
 {
    [DataContract]
-   public class UpdatePvVarGroupObjectRequestResource : UpdateGroupBaseObjectRequestResource, IUpdatePvVarGroupObjectRequestResource
+   public class UpdatePvVarGroupObjectRequestResource : UpdateRealGroupObjectRequestResource, IUpdatePvVarGroupObjectRequestResource
    {
       #region cTor
 

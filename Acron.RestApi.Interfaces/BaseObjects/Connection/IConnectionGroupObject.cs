@@ -3,7 +3,7 @@
    /// <summary>
    /// Interface for groups of connections
    /// </summary>
-   public interface IConnectionGroupObject : IGroupBaseObject
+   public interface IConnectionGroupObject : IRealGroupObject
    {
    }
 }

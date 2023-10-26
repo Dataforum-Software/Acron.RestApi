@@ -5,7 +5,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
    /// <summary>
    /// Interface for main groups (sections of the configuration)
    /// </summary>
-   public interface IDefaultGroupObject : IGroupBaseObject
+   public interface IDefaultGroupObject : IRealGroupObject
    {
       /// <summary>
       /// Type of default group

@@ -47,6 +47,9 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
          this.PropDriverParameter5 = iProv.PropDriverParameter5;
 
+         if (string.IsNullOrEmpty(this.PropDriverParameter5))
+            this.PropDriverParameter5 = null;
+
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
 
@@ -76,6 +79,9 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
          this.PropDriverParameter5 = iProv.PropDriverParameter5;
 
+         if (string.IsNullOrEmpty(this.PropDriverParameter5))
+            this.PropDriverParameter5 = null;
+
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
 
@@ -104,6 +110,9 @@ namespace Acron.RestApi.BaseObjects
          this.PropDriverParameter3 = iProv.PropDriverParameter3;
          this.PropDriverParameter4 = iProv.PropDriverParameter4;
          this.PropDriverParameter5 = iProv.PropDriverParameter5;
+
+         if (string.IsNullOrEmpty(this.PropDriverParameter5))
+            this.PropDriverParameter5 = null;
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;

@@ -5,7 +5,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
    /// <summary>
    /// Interface for groups of external variables
    /// </summary>
-   public interface IExtVarGroupObject : IGroupBaseObject
+   public interface IExtVarGroupObject : IRealGroupObject
    {
       void SetProviderId(int providerId);
 
