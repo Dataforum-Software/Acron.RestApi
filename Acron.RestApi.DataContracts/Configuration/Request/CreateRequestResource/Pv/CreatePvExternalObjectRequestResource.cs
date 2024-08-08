@@ -204,9 +204,9 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResourc
       [DataMember]
       public bool PropProvidingFloatDayval { get; internal set; }
 
-      /// <summary>Bereitstellung für das Internet old:WWW_USED</summary>
-      [DataMember]
-      public bool PropProvidingWWW { get; internal set; }
+      ///// <summary>Bereitstellung für das Internet old:WWW_USED</summary>
+      //[DataMember]
+      //public bool PropProvidingWWW { get; internal set; }
 
       /// <summary>Bereitstellung der Grenzwertverletzungen old:REP_OUTRANGE</summary>
       [DataMember]

@@ -23,7 +23,7 @@ namespace Acron.RestApi.Interfaces.Data.Request.HandValRawData.GetHandValRawData
       HANDVALREADTYPES HandValReadType { get; set; }
 
       [SwaggerSchema("List of process variables")]
-      [SwaggerExampleValue("[302000003,302000001,302000002]")]
+      [SwaggerExampleValue(new int[] { 302000003, 302000001, 302000002 })]
       List<int> PVs { get; set; }
     }
 

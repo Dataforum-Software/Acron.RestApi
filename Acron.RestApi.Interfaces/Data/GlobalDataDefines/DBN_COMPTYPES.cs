@@ -87,5 +87,14 @@
 
       [SwaggerEnumInfo("Raw process values")]
       DBN_PROCESS_RAWDATA = 28,        // Prozess-Rohwerte
+
+      [SwaggerEnumInfo("Hand Values")]
+      DAT_HAND = 50,                         // Handwerte
+
+      [SwaggerEnumInfo("Hand Values for Service Entities")]
+      DAT_AGHANDVAL = 51,                    // Aggregat-Handwerte
+
+      [SwaggerEnumInfo("Comments")]
+      DAT_COMMENT = 52,                      // Kommentardaten
    }
 }

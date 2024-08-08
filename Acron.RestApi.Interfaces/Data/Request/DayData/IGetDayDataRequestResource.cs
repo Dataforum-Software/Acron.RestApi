@@ -14,6 +14,25 @@ namespace Acron.RestApi.Interfaces.Data.Request.DayData
       DayTypes DayType { get; set; }
 
       [SwaggerSchema("Start time stamp")]
+      [SwaggerExampleValue("2020-08-15")]
+      DateOnly FromDate { get; set; }
+
+      [SwaggerSchema("End time stamp")]
+      [SwaggerExampleValue("2020-08-16")]
+      DateOnly ToDate { get; set; }
+
+      [SwaggerSchema("List of descriptions for requested process variables")]
+      [SwaggerExampleValue(typeof(IGetDayDataPVDescription<IDayWhat>))]
+      List<T> PVDescriptions { get; set; }
+   }
+
+   public interface IGetDayDataRequestResource__L9_4__10_0<T, U> where T : IGetDayDataPVDescription<U> where U : IDayWhat
+   {
+      [SwaggerSchema("Day data from main or secondary interval")]
+      [SwaggerExampleValue(DayTypes.DBN_DAY_1)]
+      DayTypes DayType { get; set; }
+
+      [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2020-08-15T00:00:00Z")]
       DateTimeOffset FromTime { get; set; }
 

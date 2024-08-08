@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Xml.Schema;
 namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 {
    public static class ConfigDefines
-    {
+   {
 
-        static private Dictionary<ApiActionResult, string> _actionResultTexts
-           = new Dictionary<ApiActionResult, string>()
-        {
+      static private Dictionary<ApiActionResult, string> _actionResultTexts
+         = new Dictionary<ApiActionResult, string>()
+      {
          /// <summary> Einwandfrei abgearbeitet </summary>
          { ApiActionResult.Ok, "ok" },
 
@@ -78,6 +79,8 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
             /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
          { ApiActionResult.WaitingForReload, "Configuration has been changed and needs to be reloaded." },
 
+            /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
+         { ApiActionResult.DesignerAccessDenied, "No access to ACRON Designer." },
 
          #region User Management
 
@@ -198,304 +201,410 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
          /// </summary>
          { ApiActionResult.Error_DataRequest, "Get data failed" },
 
-         #endregion ApiDataRequest
+            #endregion ApiDataRequest
 
-        };
+      };
 
-        #region Defines
+      #region Defines
 
-        /// <summary>
-        /// Der Name der mitgelieferten XSD Datei zum Parsen der Acron*_de-de.xml und anderer Sprachdateien
-        /// </summary>
-        public const string LanguageXSD = "Language.xsd";
+      /// <summary>
+      /// Der Name der mitgelieferten XSD Datei zum Parsen der Acron*_de-de.xml und anderer Sprachdateien
+      /// </summary>
+      public const string LanguageXSD = "Language.xsd";
 
-        #endregion Defines
+      #endregion Defines
 
-        static private Dictionary<string, string> _userDefinedTexts = new Dictionary<string, string>();
+      static private Dictionary<string, string> _userDefinedTexts = new Dictionary<string, string>();
 
-        private static string _guiPath
-        {
-            get
+      private static string _guiPath
+      {
+         get
+         {
+            string appPath = AppDomain.CurrentDomain.BaseDirectory.ToLower();
+
+            if (appPath.EndsWith("debug\\"))
+               appPath = appPath.Substring(0, appPath.Length - 7);
+
+            if (appPath.EndsWith("debug"))
+               appPath = appPath.Substring(0, appPath.Length - 6);
+
+            string result = Path.Combine(appPath, "GUI");
+
+            return result;
+         }
+      }
+
+      private static void readOneLanguageFile(string languageFileWithPath, List<string> listErrors, Dictionary<string, string> translationDict)
+      {
+
+         string langPath = _guiPath;
+
+         XmlDocument xmlDoc = new XmlDocument();
+
+         // Einlesen mit XSD-Validierung
+         try
+         {
+            XmlReaderSettings settings = new XmlReaderSettings();
+
+            // im Visual Studio nicht validieren
+            settings.Schemas.Add("", Path.Combine(langPath, LanguageXSD));
+            settings.ValidationType = ValidationType.Schema;
+
+            XmlReader reader = XmlReader.Create(languageFileWithPath, settings);
+            xmlDoc.Load(reader);
+         }
+
+         catch (XmlSchemaValidationException ex)
+         {
+            int line = ex.LineNumber;
+
+            string pathSourceUri = ex.SourceUri.ToString();
+            string fileSourceUri = Path.GetFileName(pathSourceUri);
+
+            string text = string.Format("Error validating line {2} of xml file '{0}':\r\n{1}\r\n", fileSourceUri, ex.Message, line);
+            listErrors.Add(text);
+            //Logger.Error(text);
+         }
+         catch (XmlException ex)
+         {
+            string pathSourceUri = ex.SourceUri.ToString();
+            string fileSourceUri = Path.GetFileName(pathSourceUri);
+
+            string text = string.Format("Error loading REST API file '{0}':\r\n{1}\r\n", fileSourceUri, ex.Message);
+            listErrors.Add(text);
+            //Logger.Error(text);
+         }
+
+         foreach (XmlNode rootNode in xmlDoc.SelectNodes("xml"))
+         {
+
+            foreach (XmlNode regionNode in rootNode.ChildNodes)
             {
-                string appPath = AppDomain.CurrentDomain.BaseDirectory.ToLower();
+               // Parallel.Foreach geht okay, alle Schreibzugriffe benutzen lock()
+               foreach (XmlNode objectNode in regionNode.ChildNodes.Cast<XmlNode>())
+               {
+                  string key = "";
 
-                if (appPath.EndsWith("debug\\"))
-                    appPath = appPath.Substring(0, appPath.Length - 7);
+                  if (objectNode.Attributes == null || objectNode.Attributes.Count < 1)
+                  {
+                     continue;
+                  }
 
-                if (appPath.EndsWith("debug"))
-                    appPath = appPath.Substring(0, appPath.Length - 6);
+                  key = objectNode.Attributes["id"].Value.ToString();
 
-                string result = Path.Combine(appPath, "GUI");
-
-                return result;
+                  if (translationDict.ContainsKey(key))
+                  {
+                     lock (listErrors)
+                     {
+                        listErrors.Add(string.Format("Key duplicated: {0} (country code {1})\r\n",
+                                       objectNode.Attributes["id"].Value, "xyz"));
+                     }
+                  }
+                  else
+                  {
+                     string text = objectNode.InnerText; //  TEST .ToUpper();
+                     lock (translationDict)
+                     {
+                        translationDict.Add(key, text);
+                     }
+                  }
+               }
             }
-        }
+         }
 
-        private static void readOneLanguageFile(string languageFileWithPath, List<string> listErrors, Dictionary<string, string> translationDict)
-        {
+         xmlDoc = null;
+      }
 
-            string langPath = _guiPath;
+      static public string GetResultText(ApiActionResult actionResult)
+      {
+         string guiPath = _guiPath;
 
-            XmlDocument xmlDoc = new XmlDocument();
-
-            // Einlesen mit XSD-Validierung
-            try
+         string languageFileWithPath = Path.Combine(guiPath, "AcronRestAPI.xml");
+         if (File.Exists(languageFileWithPath))
+         {
+            if (!_userDefinedTexts.Any())
             {
-                XmlReaderSettings settings = new XmlReaderSettings();
+               List<string> listErrors = new List<string>();
 
-                // im Visual Studio nicht validieren
-                settings.Schemas.Add("", Path.Combine(langPath, LanguageXSD));
-                settings.ValidationType = ValidationType.Schema;
-
-                XmlReader reader = XmlReader.Create(languageFileWithPath, settings);
-                xmlDoc.Load(reader);
+               readOneLanguageFile(languageFileWithPath, listErrors, _userDefinedTexts);
             }
+         }
 
-            catch (XmlSchemaValidationException ex)
-            {
-                int line = ex.LineNumber;
+         string result = string.Empty;
 
-                string pathSourceUri = ex.SourceUri.ToString();
-                string fileSourceUri = Path.GetFileName(pathSourceUri);
+         string key = string.Format("EnumValue.ApiActionResult.{0}", actionResult.ToString());
 
-                string text = string.Format("Error validating line {2} of xml file '{0}':\r\n{1}\r\n", fileSourceUri, ex.Message, line);
-                listErrors.Add(text);
-                //Logger.Error(text);
-            }
-            catch (XmlException ex)
-            {
-                string pathSourceUri = ex.SourceUri.ToString();
-                string fileSourceUri = Path.GetFileName(pathSourceUri);
+         if (_userDefinedTexts.TryGetValue(key, out result))
+            return result;
 
-                string text = string.Format("Error loading REST API file '{0}':\r\n{1}\r\n", fileSourceUri, ex.Message);
-                listErrors.Add(text);
-                //Logger.Error(text);
-            }
+         if (_actionResultTexts.TryGetValue(actionResult, out result))
+            return result;
 
-            foreach (XmlNode rootNode in xmlDoc.SelectNodes("xml"))
-            {
+         return "no text";
+      }
 
-                foreach (XmlNode regionNode in rootNode.ChildNodes)
-                {
-                    // Parallel.Foreach geht okay, alle Schreibzugriffe benutzen lock()
-                    foreach (XmlNode objectNode in regionNode.ChildNodes.Cast<XmlNode>())
-                    {
-                        string key = "";
+      /// <summary>
+      /// Rückgabewert für alle RestAPI-Methoden
+      /// </summary>
+      /// <remarks>
+      /// int-Val < 0   ===> Error
+      /// int-Val == 0  ===> Ok
+      /// int-Val > 0   ===> Warning or hint
+      /// </remarks>
+      [SwaggerSchema("Return codes for all operations")]
+      public enum ApiActionResult : int
+      {
+         /// <summary> Einwandfrei abgearbeitet </summary>
+         [SwaggerEnumInfo("Operation successful")]
+         Ok = 0,
 
-                        if (objectNode.Attributes == null || objectNode.Attributes.Count < 1)
-                        {
-                            continue;
-                        }
+         /// <summary> FEHLER - Fehlender Übergabeparameter </summary>
+         [SwaggerEnumInfo("Missing parameter")]
+         ErrorParam = -1,
+         /// <summary> FEHLER - Unerwarteter Ausnahmefehler </summary>
+         [SwaggerEnumInfo("Unexpected internal error")]
+         ErrorException = -2,
 
-                        key = objectNode.Attributes["id"].Value.ToString();
+         /// <summary> Exception bei der Initialisierung des PlantConfigManagers </summary>
+         [SwaggerEnumInfo("Error during initialization of plant config manager")]
+         ErrorExceptionInit = -1000,
 
-                        if (translationDict.ContainsKey(key))
-                        {
-                            lock (listErrors)
-                            {
-                                listErrors.Add(string.Format("Key duplicated: {0} (country code {1})\r\n",
-                                               objectNode.Attributes["id"].Value, "xyz"));
-                            }
-                        }
-                        else
-                        {
-                            string text = objectNode.InnerText; //  TEST .ToUpper();
-                            lock (translationDict)
-                            {
-                                translationDict.Add(key, text);
-                            }
-                        }
-                    }
-                }
-            }
+         /// <summary> Anlage wurde nicht gefunden </summary>
+         [SwaggerEnumInfo("Plant configuration does not exist")]
+         ErrorPlantNotFound = -1001,
 
-            xmlDoc = null;
-        }
+         /// <summary> Exception bei Anlagensuche </summary>
+         [SwaggerEnumInfo("Internal error while searching for plant")]
+         ErrorExceptionFindPlant = -1002,
 
-        static public string GetResultText(ApiActionResult actionResult)
-        {
-            string guiPath = _guiPath;
+         /// <summary> Exception bei PathLocator </summary>
+         [SwaggerEnumInfo("Error during initialization of plant path locator")]
+         ErrorExceptionPathLocator = -1003,
 
-            string languageFileWithPath = Path.Combine(guiPath, "AcronRestAPI.xml");
-            if (File.Exists(languageFileWithPath))
-            {
-                if (!_userDefinedTexts.Any())
-                {
-                    List<string> listErrors = new List<string>();
+         /// <summary> Keine Infos zur BV erhalten </summary>
+         [SwaggerEnumInfo("Internal error while loading user management")]
+         ErrorGetUserManagement = -1004,
 
-                    readOneLanguageFile(languageFileWithPath, listErrors, _userDefinedTexts);
-                }
-            }
+         /// <summary> Benutzerverwaltung der Anlage ist deaktiviert </summary>
+         [SwaggerEnumInfo("User management is inactive")]
+         ErrorNoUserManagement = -1005,
 
-            string result = string.Empty;
-
-            string key = string.Format("EnumValue.ApiActionResult.{0}", actionResult.ToString());
-
-            if (_userDefinedTexts.TryGetValue(key, out result))
-                return result;
-
-            if (_actionResultTexts.TryGetValue(actionResult, out result))
-                return result;
-
-            return "no text";
-        }
-
-        /// <summary>
-        /// Rückgabewert für alle RestAPI-Methoden
-        /// </summary>
-        /// <remarks>
-        /// int-Val < 0   ===> Error
-        /// int-Val == 0  ===> Ok
-        /// int-Val > 0   ===> Warning or hint
-        /// </remarks>
-        public enum ApiActionResult : int
-        {
-            /// <summary> Einwandfrei abgearbeitet </summary>
-            Ok = 0,
-
-            /// <summary> FEHLER - Fehlender Übergabeparameter </summary>
-            ErrorParam = -1,
-            /// <summary> FEHLER - Unerwarteter Ausnahmefehler </summary>
-            ErrorException = -2,
-
-            /// <summary> Exception bei der Initialisierung des PlantConfigManagers </summary>
-            ErrorExceptionInit = -1000,
-            /// <summary> Anlage wurde nicht gefunden </summary>
-            ErrorPlantNotFound = -1001,
-            /// <summary> Exception bei Anlagensuche </summary>
-            ErrorExceptionFindPlant = -1002,
-            /// <summary> Exception bei PathLocator </summary>
-            ErrorExceptionPathLocator = -1003,
-            /// <summary> Keine Infos zur BV erhalten </summary>
-            ErrorGetUserManagement = -1004,
-            /// <summary> Benutzerverwaltung der Anlage ist deaktiviert </summary>
-            ErrorNoUserManagement = -1005,
-            /// <summary> Benutzerverwaltung der Anlage hat keine Benutzer </summary>
-            ErrorNoUsers = -1006,
-
-
-            /// <summary> Schreibzugriff kann nicht ermittelt werden</summary>
-            ErrorConfigAccessDetection = -100,
-
-
-            /// <summary> Kontaktierung des DBServers wirft Exception </summary>
-            ErrorDBServerException = -300,
-
-
-            /// <summary> Exception beim neu Laden der Anlage </summary>
-            ErrorLoadPlantException = -500,
-            /// <summary> Exception beim neu Laden der Anlage </summary>
-            ErrorReloadPlantException = -501,
-            /// <summary> Mehrfaches neu Laden der Anlage </summary>
-            ErrorReloadPlantMulticall = -502,
-
-
-            /// <summary> Speichern der Anlage schlug fehl </summary>
-            ErrorSaveFailed = -400,
-            /// <summary> Exception beim Speichern </summary>
-            ErrorSaveException = -401,
+         /// <summary> Benutzerverwaltung der Anlage hat keine Benutzer </summary>
+         [SwaggerEnumInfo("User management contains no users")]
+         ErrorNoUsers = -1006,
 
 
 
-            /// <summary> Benutzer hat keinen Zugriff auf diesen Bereich </summary>
-            RegionAccessDenied = 1,
-            /// <summary> Die API unterstützt diesen Bereich der Konfiguration zur Zeit nicht </summary>
-            RegionNotSupported = 2,
-            /// <summary> Die API unterstützt diesen Typecode zur Zeit nicht </summary>
-            TypeCodeNotSupported = 3,
-            /// <summary> Update/Create - es wurden keine geeigneten Objekte übergegeben </summary>
-            NoInterfaceObjectsOfGivenType = 4,
-            /// <summary> Das BaseObject mit der angegebenen Id ist nicht in der Konfiguration enthalten </summary>
-            BaseObjectNotFound = 5,
-            /// <summary> Das BaseObject mit der angegebenen Id ist ein Read-Only Acron Objekt </summary>
-            ReadOnlyAcronObject = 6,
 
-            /// <summary> Die RestAPI ist unter Vollast und kann keine Anfragen beantworten </summary>
-            ApiToBusy = 7,
+         /// <summary>Der AuthorizationHeader fehlt/// </summary>
+         [SwaggerEnumInfo("Authorization header not set")]
+         ErrorMissingAuthorizationHeader = -1100,
 
-            /// <summary> Das Schreiben von Daten via REST API ist nicht gestattet </summary>
-            NoWriteAccess = 8,
+         /// <summary>Der AuthorizationHeader ist leer/// </summary>
+         [SwaggerEnumInfo("Authorization header contains no Bearer Token")]
+         ErrorEmptyAuthorizationHeader = -1101,
 
-            /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
-            WaitingForReload = 9,
+         /// <summary>Der AcronHeader fehlt/// </summary>
+         [SwaggerEnumInfo("Acron header not set")]
+         ErrorMissingAcronHeader = -1102,
 
-            #region User Management
+         /// <summary>Der AcronHeader ist leer/// </summary>
+         [SwaggerEnumInfo("Acron header contains no Bearer Token")]
+         ErrorEmptyAcronHeader = -1103,
 
-            /// <summary> Benutzerverwaltung der Anlage ist nicht aktiv </summary>
-            UserCheckNoUserManagement = 50,
-            /// <summary> Benutzer nicht gefunden </summary>
-            UserCheckUserNotFound = 51,
-            /// <summary> Falsches Pwd </summary>
-            UserCheckPwd = 52,
-            /// <summary> Benutzer hat keinen Zugriff auf die Rest API </summary>
-            NoRestApiAccess = 53,
-            /// <summary> Der Zeitbereich der angeforderten Daten überschreitet das vom Benutzer vorgegebene Maß </summary>
-            UserDataLimit = 54,
-            /// <summary> Die angegebene Verfahrensgröße existiert nicht. </summary>
-            UserDataPvNotFound = 55,
-            /// <summary> Die angegebene Verfahrensgröße besitzt nicht die erforderlichen Zugriffsrechte für den angegebenen Benutzer </summary>
-            UserDataPvNoAccess = 56,
-            /// <summary> Die angegebene Verfahrensgröße besitzt nicht die erforderlichen Zugriffsrechte für den angegebenen Benutzer </summary>
-            UserDataPvNoWriteAccess = 57,
+
+         /// <summary> Schreibzugriff kann nicht ermittelt werden</summary>
+         [SwaggerEnumInfo("Could not determine current write access status")]
+         ErrorConfigAccessDetection = -100,
+
+
+         /// <summary> Kontaktierung des DBServers wirft Exception </summary>
+         [SwaggerEnumInfo("Error in communication with Database Server")]
+         ErrorDBServerException = -300,
+
+
+         /// <summary> Exception beim neu Laden der Anlage </summary>
+         [SwaggerEnumInfo("Internal error while loading the plant")]
+         ErrorLoadPlantException = -500,
+
+         /// <summary> Exception beim neu Laden der Anlage </summary>
+         [SwaggerEnumInfo("Internal error while reloading the plant")]
+         ErrorReloadPlantException = -501,
+
+         /// <summary> Mehrfaches neu Laden der Anlage </summary>
+         [SwaggerEnumInfo("Requested plant reload while reload is already in progress")]
+         ErrorReloadPlantMulticall = -502,
+
+
+         /// <summary> Speichern der Anlage schlug fehl </summary>
+         [SwaggerEnumInfo("Plant config could not be saved")]
+         ErrorSaveFailed = -400,
+
+         /// <summary> Exception beim Speichern </summary>
+         [SwaggerEnumInfo("Internal error while saving the plant config")]
+         ErrorSaveException = -401,
+
+
+
+         /// <summary> Benutzer hat keinen Zugriff auf diesen Bereich </summary>
+         [SwaggerEnumInfo("User has no access to this part of the plant config")]
+         RegionAccessDenied = 1,
+
+         /// <summary> Die API unterstützt diesen Bereich der Konfiguration zur Zeit nicht </summary>
+         [SwaggerEnumInfo("This part of the plant config is not currently implemented")]
+         RegionNotSupported = 2,
+
+         /// <summary> Die API unterstützt diesen Typecode zur Zeit nicht </summary>
+         [SwaggerEnumInfo("This object type is not currently implemented")]
+         TypeCodeNotSupported = 3,
+
+         /// <summary> Update/Create - es wurden keine geeigneten Objekte übergegeben </summary>
+         [SwaggerEnumInfo("Request contained no objects of given type")]
+         NoInterfaceObjectsOfGivenType = 4,
+
+         /// <summary> Das BaseObject mit der angegebenen Id ist nicht in der Konfiguration enthalten </summary>
+         [SwaggerEnumInfo("Plant config contains no object with given ID")]
+         BaseObjectNotFound = 5,
+
+         /// <summary> Das BaseObject mit der angegebenen Id ist ein Read-Only Acron Objekt </summary>
+         [SwaggerEnumInfo("Object of given ID is marked as read-only")]
+         ReadOnlyAcronObject = 6,
+
+         /// <summary> Die RestAPI ist unter Vollast und kann keine Anfragen beantworten </summary>
+         [SwaggerEnumInfo("Server is busy and could not process the request in time")]
+         ApiToBusy = 7,
+
+         /// <summary> Das Schreiben von Daten via REST API ist nicht gestattet </summary>
+         [SwaggerEnumInfo("Data access via REST API is marked as read-only")]
+         NoWriteAccess = 8,
+
+         /// <summary> Die Konfiguration wurde geändert und muss aktualisiert werden </summary>
+         [SwaggerEnumInfo("Server is waiting for the plant to be reloaded")]
+         WaitingForReload = 9,
+
+         /// <summary> Benutzer hat keinen Zugriff auf den DSG </summary>
+         [SwaggerEnumInfo("User has no access to acron Designer")]
+         DesignerAccessDenied = 10,
+
+         #region User Management
+
+         /// <summary> Benutzerverwaltung der Anlage ist nicht aktiv </summary>
+         [SwaggerEnumInfo("User management is inactive")]
+         UserCheckNoUserManagement = 50,
+
+         /// <summary> Benutzer nicht gefunden </summary>
+         [SwaggerEnumInfo("User does not exist")]
+         UserCheckUserNotFound = 51,
+
+         /// <summary> Falsches Pwd </summary>
+         [SwaggerEnumInfo("Wrong password for user")]
+         UserCheckPwd = 52,
+
+         /// <summary> Benutzer hat keinen Zugriff auf die Rest API </summary>
+         [SwaggerEnumInfo("User has no permission to access the REST API")]
+         NoRestApiAccess = 53,
+
+         /// <summary> Der Zeitbereich der angeforderten Daten überschreitet das vom Benutzer vorgegebene Maß </summary>
+         [SwaggerEnumInfo("Time frame of data request exceeds the current users limit")]
+         UserDataLimit = 54,
+
+         /// <summary> Die angegebene Verfahrensgröße existiert nicht. </summary>
+         [SwaggerEnumInfo("The requested process value does not exist")]
+         UserDataPvNotFound = 55,
+
+         /// <summary> Die angegebene Verfahrensgröße besitzt nicht die erforderlichen Zugriffsrechte für den angegebenen Benutzer </summary>
+         [SwaggerEnumInfo("User has no permission to access the requested process variable")]
+         UserDataPvNoAccess = 56,
+
+         /// <summary> Die angegebene Verfahrensgröße besitzt nicht die erforderlichen Zugriffsrechte für den angegebenen Benutzer </summary>
+         [SwaggerEnumInfo("User has no write access to requested process variable")]
+         UserDataPvNoWriteAccess = 57,
 
          #endregion User Management
 
          #region Config Access Infos
 
          /// <summary> Die RestAPI hat keinen Schreib-Zugriff auf die Konfiguration </summary>
+         [SwaggerEnumInfo("REST API has no write access to plant config")]
          RestApiConfigWriteAccess = 100,
 
-            /// <summary> Benutzer hat keinen Exclusiv-Schreibzugriff </summary>
-            NoConfigWriteAccess = 101,
-            /// <summary> Keiner hat den Exclusiv-Schreibzugriff </summary>
-            ConfigAccessNobody = 102,
-            /// <summary> Ein anderer Benutzer hat den Exclusiv-Schreibzugriff </summary>
-            ConfigAccessOtherUser = 103,
-            /// <summary> Properties können nicht geändert werden </summary>
-            ConfigChangesLocked = 104,
+         /// <summary> Benutzer hat keinen Exclusiv-Schreibzugriff </summary>
+         [SwaggerEnumInfo("User has no write access to plant config")]
+         NoConfigWriteAccess = 101,
 
-            /// <summary> Server nicht vorhanden </summary>
-            ConfigAccessNoClientToDBServer = 105,
-            /// <summary> Keine aktive Anlage </summary>
-            ConfigAccessNoActivePlant = 106,
-            /// <summary> Aktive Anlage ist nicht komplett geladen</summary>
-            ConfigAccessActivePlantNotLoaded = 107,
+         /// <summary> Keiner hat den Exclusiv-Schreibzugriff </summary>
+         [SwaggerEnumInfo("No user has requested exclusive write access to plant config")]
+         ConfigAccessNobody = 102,
 
-            /// <summary> Der Aufruf des Servers mit dem Befehl zur Ermittelung des Register-Status schlug fehl</summary>
-            ConfigAccessCheckRegisterFailed = 108,
-            /// <summary> Unbekannter Fehler beim Aufruf des Servers </summary>
-            ConfigAccessCheckRegisterUnknown = 109,
+         /// <summary> Ein anderer Benutzer hat den Exclusiv-Schreibzugriff </summary>
+         [SwaggerEnumInfo("Another user has requested exclusive write access to plant config")]
+         ConfigAccessOtherUser = 103,
 
-            /// <summary> Unlock nicht möglich - mir gehört der ConfigLock nicht </summary>
-            ConfigAccessResetIamNotOwner = 110,
-            /// <summary> Unlock nicht möglich - es liegt kein Lock vor </summary>
-            ConfigAccessResetNoLock = 111,
-            /// <summary> Unlock abgebrochen wegen offenen Änderungen</summary>
-            ConfigAccessResetCancelOpenChanges = 112,
-            /// <summary> Der Aufruf des Servers mit dem Unregister-Befehl schlug fehl</summary>
-            ConfigAccessResetUnregisterFailed = 113,
-            /// <summary> Unbekannter Fehler beim Aufruf des Servers </summary>
-            ConfigAccessResetUnregisterUnknown = 114,
+         /// <summary> Properties können nicht geändert werden </summary>
+         [SwaggerEnumInfo("Properties are read-only")]
+         ConfigChangesLocked = 104,
 
-            /// <summary> Lock nicht möglich - die RestAPI hat keinen Zugriff auf die Konfiguration (Flag in Anlage)</summary>
-            ConfigAccessSetNoConfigAccess = 115,
-            /// <summary> Lock nicht möglich - ich habe ihn bereits </summary>
-            ConfigAccessSetAlreadyLockedByMe = 116,
-            /// <summary> Lock nicht möglich - ein anderer Benutzer hat den Lock </summary>
-            ConfigAccessSetAlreadyLockedByAnotherUser = 117,
-            /// <summary> Lock nicht möglich - Zeitstempel nicht aktuell </summary>
-            ConfigAccessSetInvalidTimeStamps = 118,
-            /// <summary> Lock fehlgeschlagen - Aufruf des Servers schlug fehl </summary>
-            ConfigAccessSetRegisterFailed = 119,
-            /// <summary> Lock fehlgeschlagen - Unbekannter Server-Fehler </summary>
-            ConfigAccessSetRegisterUnknown = 120,
+         /// <summary> Server nicht vorhanden </summary>
+         [SwaggerEnumInfo("No connection to Database Server")]
+         ConfigAccessNoClientToDBServer = 105,
+
+         /// <summary> Keine aktive Anlage </summary>
+         [SwaggerEnumInfo("No active plant")]
+         ConfigAccessNoActivePlant = 106,
+
+         /// <summary> Aktive Anlage ist nicht komplett geladen</summary>
+         [SwaggerEnumInfo("Active plant has not finished loading")]
+         ConfigAccessActivePlantNotLoaded = 107,
+
+         /// <summary> Der Aufruf des Servers mit dem Befehl zur Ermittelung des Register-Status schlug fehl</summary>
+         [SwaggerEnumInfo("Error in communication with Database Server while checking register status")]
+         ConfigAccessCheckRegisterFailed = 108,
+
+         /// <summary> Unbekannter Fehler beim Aufruf des Servers </summary>
+         [SwaggerEnumInfo("Internal error while checking register status")]
+         ConfigAccessCheckRegisterUnknown = 109,
+
+         /// <summary> Unlock nicht möglich - mir gehört der ConfigLock nicht </summary>
+         [SwaggerEnumInfo("Current user has not requested exclusive access to the plant config")]
+         ConfigAccessResetIamNotOwner = 110,
+
+         /// <summary> Unlock nicht möglich - es liegt kein Lock vor </summary>
+         [SwaggerEnumInfo("No user has requested exclusive access to the plant config")]
+         ConfigAccessResetNoLock = 111,
+
+         /// <summary> Unlock abgebrochen wegen offenen Änderungen</summary>
+         [SwaggerEnumInfo("Relinquishing exclusive access to plant config failed, unsaved changes")]
+         ConfigAccessResetCancelOpenChanges = 112,
+
+         /// <summary> Der Aufruf des Servers mit dem Unregister-Befehl schlug fehl</summary>
+         [SwaggerEnumInfo("Error in communication with Database Server while relinquishing exclusive access to plant config")]
+         ConfigAccessResetUnregisterFailed = 113,
+
+         /// <summary> Unbekannter Fehler beim Aufruf des Servers </summary>
+         [SwaggerEnumInfo("Internal Error while relinquishing exclusive access to plant config")]
+         ConfigAccessResetUnregisterUnknown = 114,
+
+         /// <summary> Lock nicht möglich - die RestAPI hat keinen Zugriff auf die Konfiguration (Flag in Anlage)</summary>
+         [SwaggerEnumInfo("Error while requesting exclusive access to plant config, no access to plant config")]
+         ConfigAccessSetNoConfigAccess = 115,
+
+         /// <summary> Lock nicht möglich - ich habe ihn bereits </summary>
+         ConfigAccessSetAlreadyLockedByMe = 116,
+         /// <summary> Lock nicht möglich - ein anderer Benutzer hat den Lock </summary>
+         ConfigAccessSetAlreadyLockedByAnotherUser = 117,
+         /// <summary> Lock nicht möglich - Zeitstempel nicht aktuell </summary>
+         ConfigAccessSetInvalidTimeStamps = 118,
+         /// <summary> Lock fehlgeschlagen - Aufruf des Servers schlug fehl </summary>
+         ConfigAccessSetRegisterFailed = 119,
+         /// <summary> Lock fehlgeschlagen - Unbekannter Server-Fehler </summary>
+         ConfigAccessSetRegisterUnknown = 120,
 
          #endregion Config Access Infos
 
          #region Create and Update
 
-            /// <summary> Create / Update fehlgeschlagen </summary>
-            CreateUpdateFailed =  150,
+         /// <summary> Create / Update fehlgeschlagen </summary>
+         CreateUpdateFailed = 150,
 
          #endregion Create and Update
 
@@ -503,30 +612,30 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 
          /// <summary> Das BaseObject konnte nicht gelöscht werden, da es von anderen BaseObjects verwendet wird </summary>
          DeleteFailedObjectUsed = 200,
-            /// <summary> Das BaseObject konnte nicht gelöscht werden </summary>
-            DeleteFailedGeneral = 201,
+         /// <summary> Das BaseObject konnte nicht gelöscht werden </summary>
+         DeleteFailedGeneral = 201,
 
-            #endregion Delete
+         #endregion Delete
 
-            #region DBServer communication
+         #region DBServer communication
 
-            /// <summary> Allgemeiner Verbindungsfehler zum DBServer </summary>
-            DBServerGeneral = 300,
-            /// <summary> DBServer läuft nicht </summary>
-            DBServerNotRunning = 301,
-            /// <summary> DBServer meldet : Anlage hat die false Version </summary>
-            DBServerPlantNeedsUpdate = 302,
+         /// <summary> Allgemeiner Verbindungsfehler zum DBServer </summary>
+         DBServerGeneral = 300,
+         /// <summary> DBServer läuft nicht </summary>
+         DBServerNotRunning = 301,
+         /// <summary> DBServer meldet : Anlage hat die false Version </summary>
+         DBServerPlantNeedsUpdate = 302,
 
-            #endregion DBServer communication
+         #endregion DBServer communication
 
-            #region Save
+         #region Save
 
-            /// <summary> Speichern nicht möglich - es gibt keine Änderungen </summary>
-            SaveNoChanges = 400,
-            /// <summary> Speichern nicht möglich - Anlage wurde nicht validiert </summary>
-            SaveMissingValidation = 401,
-            /// <summary> Speichern nicht möglich - Der Zeitstempel für die Neukompression ist nicht gültig </summary>
-            SaveInvalidTimeStamp = 402,
+         /// <summary> Speichern nicht möglich - es gibt keine Änderungen </summary>
+         SaveNoChanges = 400,
+         /// <summary> Speichern nicht möglich - Anlage wurde nicht validiert </summary>
+         SaveMissingValidation = 401,
+         /// <summary> Speichern nicht möglich - Der Zeitstempel für die Neukompression ist nicht gültig </summary>
+         SaveInvalidTimeStamp = 402,
 
          #endregion Save
 
@@ -546,14 +655,14 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
 
          #region ApiDataRequest
 
-            /// <summary>
-            /// Wenn es einen Fehler gibt bei einer ProcessDatenabfrage
-            /// </summary>
-            Error_DataRequest = 500,
+         /// <summary>
+         /// Wenn es einen Fehler gibt bei einer ProcessDatenabfrage
+         /// </summary>
+         Error_DataRequest = 500,
 
          #endregion ApiDataRequest
 
-        }
+      }
 
-    }
+   }
 }

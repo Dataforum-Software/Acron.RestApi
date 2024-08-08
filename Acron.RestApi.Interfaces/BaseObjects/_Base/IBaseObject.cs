@@ -70,7 +70,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// All directly subordinate base objects
       /// </summary>
       [SwaggerSchema("All subordinate base objects")]
-      [SwaggerExampleValue("[300000002,300000003,300000004,300000005,300000006,300000007,300000008,300000009,300000010]")]
+      [SwaggerExampleValue(new int[] { 300000002, 300000003, 300000004, 300000005, 300000006, 300000007, 300000008, 300000009, 300000010 })]
       List<int> ReferencedIBaseObjects { get; }
    }
 }

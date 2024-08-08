@@ -18,12 +18,12 @@ namespace Acron.RestApi.Interfaces.Configuration.Response
 
       /// <summary> Name </summary>
       [SwaggerSchema("Object identifier")]
-      [SwaggerExampleValue(302000001)]
+      [SwaggerExampleValue(new string[] { "302000001" })]
       string[] AffectedPropertyKey { get; set; }
 
       /// <summary> Fehlertext </summary>
       [SwaggerSchema("Object identifier")]
-      [SwaggerExampleValue(302000001)]
+      [SwaggerExampleValue("302000001")]
       string Text { get; set; }
 
    }

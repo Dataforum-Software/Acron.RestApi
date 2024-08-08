@@ -14,6 +14,41 @@ namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
    {
       [DataMember]
       [JsonConverter(typeof(StringEnumConverter))]
+      [Range(17, 18)]
+      public MonthWeekTypes MonthWeekType { get; set; }
+
+      [DataMember]
+      [Required]
+      [RequestTimeStampValidator]
+      public DateOnly FromDate { get; set; }
+
+      public DateTime FromTime
+      {
+         get => FromDate.ToDateTime(TimeOnly.MinValue);
+         set => FromDate = DateOnly.FromDateTime(value);
+      }
+
+      [DataMember]
+      [Required]
+      [RequestTimeStampValidator]
+      public DateOnly ToDate { get; set; }
+
+      public DateTime ToTime
+      {
+         get => ToDate.ToDateTime(TimeOnly.MinValue);
+         set => ToDate = DateOnly.FromDateTime(value);
+      }
+
+      [DataMember]
+      [Required]
+      public List<GetMonthWeekDataPVDescription> PVDescriptions { get; set; }
+   }
+
+   [DataContract]
+   public class GetMonthWeekDataRequestResource__L9_4__10_0 : IGetMonthWeekDataRequestResource__L9_4__10_0<GetMonthWeekDataPVDescription, MonthWeekWhat>
+   {
+      [DataMember]
+      [JsonConverter(typeof(StringEnumConverter))]
       [Range(17,18)]
       public MonthWeekTypes MonthWeekType { get; set; }
 

@@ -41,15 +41,37 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("External variables group")]
          ExtVarGroup = 1004,
 
-         ///// <summary>Report group</summary>
-         //ReportGroup = 56,
+         /// <summary>Report group</summary>
+         [SwaggerEnumInfo("Reports group")]
+         ReportGroup = 1006,
+
          /// <summary>Alert group</summary>
          [SwaggerEnumInfo("Alerts group")]
          AlertGroup = 1007,
 
+         /// <summary>User group</summary>
+         [SwaggerEnumInfo("User group")]
+         UserGroup = 1009,
+
          /// <summary>Process variable group</summary>
          [SwaggerEnumInfo("Process variable group")]
          VgVarGroup = 1011,
+
+         /// <summary>Report</summary>
+         [SwaggerEnumInfo("Report")]
+         Report = 1012,
+
+         /// <summary>Event</summary>
+         [SwaggerEnumInfo("Event")]
+         Event = 1013,
+
+         /// <summary>Event group</summary>
+         [SwaggerEnumInfo("Event group")]
+         EventGroup = 1014,
+
+         /// <summary>Event step</summary>
+         [SwaggerEnumInfo("Event step")]
+         EventStep = 1018,
 
          /// <summary>Connection group</summary>
          [SwaggerEnumInfo("Connections group")]
@@ -84,6 +106,10 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("Alert object")]
          Alert = 1053,
 
+         /// <summary>User</summary>
+         [SwaggerEnumInfo("User object")]
+         User = 1054,
+
          /// <summary>Process variable - auto</summary>
          [SwaggerEnumInfo("Process variable object, type 'auto'")]
          VgAuto = 1055,
@@ -99,6 +125,19 @@ public static class BaseObjectDefines
          /// <summary>Process variable - calculation from key figure</summary>
          [SwaggerEnumInfo("Process variable object, type 'key figure'")]
          VgCalcReference = 1061,
+
+         /// <summary>Model for report pages</summary>
+         [SwaggerEnumInfo("Model for report pages")]
+         ModelPage = 1080,
+         /// <summary>Report page</summary>
+         [SwaggerEnumInfo("Report page")]
+         ReportPage = 1081,
+         /// <summary>Report page for events / data</summary>
+         [SwaggerEnumInfo("Report page for events / data")]
+         EventPage = 1082,
+         /// <summary>Report page for events / alerts</summary>
+         [SwaggerEnumInfo("Report page for events / alerts")]
+         EventAlertPage = 1083,
 
          /// <summary>Connection</summary>
          [SwaggerEnumInfo("Connection object")]

@@ -4,7 +4,7 @@
    {
       Default = 0,
 
-      Process = 0,
+      Process = 1, //0, // Default und Process hatten den gleichen Wert. Warum??
 
       /// <summary> Verwendetes Intervall muss ermittelt werden </summary>
       IntervalX,
@@ -28,6 +28,9 @@
       Month,
 
       Year,
+
+      /// <summary> "Prozessdaten" für Alarme </summary>
+      ProcessAlert = Year+10,
    }
 
    public sealed class FormatDateTimeListAttribute : FormatBaseAttribute

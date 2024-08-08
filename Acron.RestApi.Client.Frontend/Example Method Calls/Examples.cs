@@ -1186,8 +1186,8 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             = await monthWeekDataRequests_Month.GetMonthWeekData(new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataRequestResource()
             {
                MonthWeekType = Interfaces.Data.Request.MonthWeekData.MonthWeekTypes.DBN_MONTH,
-               FromTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500)),
-               ToTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50)),
+               FromTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500),
+               ToTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50),
                PVDescriptions = new List<DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription>()
                {
                   new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription() 
@@ -1209,8 +1209,8 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
             = await monthWeekDataRequests_Week.GetMonthWeekData(new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataRequestResource()
             {
                MonthWeekType = Interfaces.Data.Request.MonthWeekData.MonthWeekTypes.DBN_WEEK,
-               FromTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500)),
-               ToTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50)),
+               FromTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500),
+               ToTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(50),
                PVDescriptions = new List<DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription>()
                {
                   new DataContracts.Data.Request.MonthWeekData.GetMonthWeekDataPVDescription()

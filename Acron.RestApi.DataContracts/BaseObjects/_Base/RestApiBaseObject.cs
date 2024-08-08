@@ -66,7 +66,7 @@ namespace Acron.RestApi.BaseObjects
          this.ShortName = iBase.ShortName;
          this.LongName = iBase.LongName;
 
-         if (iBase.ReferencedIBaseObjects != null)
+         if (iBase.ReferencedIBaseObjects != null && iBase.ReferencedIBaseObjects.Any())
          {
             //if ( ! lockReferences )
                _referencedIds = iBase.ReferencedIBaseObjects.ToList();
@@ -90,7 +90,7 @@ namespace Acron.RestApi.BaseObjects
          this.ShortName = iCreate.ShortName;
          this.LongName = iCreate.LongName;
 
-         if (iCreate.ReferencedIBaseObjects != null)
+         if (iCreate.ReferencedIBaseObjects != null && iCreate.ReferencedIBaseObjects.Any())
             _referencedIds = iCreate.ReferencedIBaseObjects.ToList();
 
          return true;
@@ -111,7 +111,7 @@ namespace Acron.RestApi.BaseObjects
          this.ShortName = iUpdate.ShortName;
          this.LongName = iUpdate.LongName;
 
-         if (iUpdate.ReferencedIBaseObjects != null)
+         if (iUpdate.ReferencedIBaseObjects != null && iUpdate.ReferencedIBaseObjects.Any())
             _referencedIds = iUpdate.ReferencedIBaseObjects.ToList();
 
          return true;
@@ -159,6 +159,11 @@ namespace Acron.RestApi.BaseObjects
       }
 
       protected object _sourceBaseObject=null;
+      public object SourceBaseObject
+      {
+         get { return _sourceBaseObject; }
+      }
+
 
       private List<string> _modifiedProperties = null;
       protected List<string> ModifiedProperties 
@@ -230,6 +235,7 @@ namespace Acron.RestApi.BaseObjects
       /// Position innerhalb einer Gruppe
       /// </summary>
       [DataMember]
+      [DefaultValue(-1)]
       public int Position 
       {
          get { return _position; }

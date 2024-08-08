@@ -25,6 +25,13 @@ namespace Acron.RestApi.DataContracts.Data.Attributes
             if (dtm < _minTime)
                return false;
          }
+         else if (value is DateOnly)
+         {
+            DateTime dtm = ((DateOnly)value).ToDateTime(TimeOnly.MinValue);
+
+            if (dtm < _minTime)
+               return false;
+         }
 
          return true;
       }

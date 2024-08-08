@@ -1,4 +1,6 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 
@@ -23,6 +25,7 @@ namespace Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComme
 
 
    [SwaggerSchema("Comment types")]
+   [JsonConverter(typeof(StringEnumConverter))]
    public enum AVComKinds : short
    {
       [SwaggerEnumInfo("Undefined")]

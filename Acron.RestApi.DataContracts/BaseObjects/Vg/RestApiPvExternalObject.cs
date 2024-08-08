@@ -75,7 +75,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvExt.PropProvidingPercentil;
          this.PropProvidingMDays = iPvExt.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvExt.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvExt.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvExt.PropProvidingWWW;
          this.PropProvidingLimits = iPvExt.PropProvidingLimits;
          this.PropProvidingCoding = iPvExt.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvExt.PropProvidingMultiserver;
@@ -137,7 +138,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvExt.PropProvidingPercentil;
          this.PropProvidingMDays = iPvExt.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvExt.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvExt.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvExt.PropProvidingWWW;
          this.PropProvidingLimits = iPvExt.PropProvidingLimits;
          this.PropProvidingCoding = iPvExt.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvExt.PropProvidingMultiserver;
@@ -199,7 +201,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvExt.PropProvidingPercentil;
          this.PropProvidingMDays = iPvExt.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvExt.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvExt.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvExt.PropProvidingWWW;
          this.PropProvidingLimits = iPvExt.PropProvidingLimits;
          this.PropProvidingCoding = iPvExt.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvExt.PropProvidingMultiserver;
@@ -376,9 +379,9 @@ namespace Acron.RestApi.BaseObjects
       [DataMember]
       public bool PropProvidingFloatDayval { get; internal set;}
 
-      /// <summary>Bereitstellung für das Internet old:WWW_USED</summary>
-      [DataMember]
-      public bool PropProvidingWWW { get; internal set;}
+      /// <summary>Bereitstellung für das Internet old:WWW_USED - Entfällt ab 10.1</summary>
+      //[DataMember]
+      //public bool PropProvidingWWW { get; internal set;}
 
       /// <summary>Bereitstellung der Grenzwertverletzungen old:REP_OUTRANGE</summary>
       [DataMember]

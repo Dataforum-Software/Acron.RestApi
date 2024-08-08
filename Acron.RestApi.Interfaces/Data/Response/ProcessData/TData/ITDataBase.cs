@@ -18,7 +18,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.ProcessData.TData
       public DateTime TimeStamp { get; set; }
 
       [SwaggerSchema($"{nameof(TimeStamp)} formatted according to 'Culture' Header")]
-      [SwaggerExampleValue("\"10.10.2022 21:44:59\"")]
+      [SwaggerExampleValue("10.10.2022 21:44:59")]
       public string TimeStamp_FORMATTED { get; set; }
 
 
@@ -27,7 +27,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.ProcessData.TData
       [SwaggerExampleValue(10.0)]
       public double Value { get; set; }
 
-      [SwaggerSchema("Numeric value formatted")]
+      [SwaggerSchema("Numeric value formatted or value key")]
       [SwaggerExampleValue("10,0")]
       public string Value_FORMATTED { get; set; }
 

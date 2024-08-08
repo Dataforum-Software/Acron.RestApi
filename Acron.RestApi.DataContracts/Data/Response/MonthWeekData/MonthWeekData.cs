@@ -113,13 +113,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_PMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(MDAT_PMINLIM_FORMATTED))]
       public List<uint> MDAT_PMINLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_PMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_PMAXLIM_FORMATTED))]
       public List<uint> MDAT_PMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_PMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_PCOUNT_FORMATTED))]
       public List<uint> MDAT_PCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> MDAT_PCOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_ISUM_FORMATTED), ValueFormatType.Interval)]
@@ -157,13 +169,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_IMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(MDAT_IMINLIM_FORMATTED))]
       public List<uint> MDAT_IMINLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_IMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_IMAXLIM_FORMATTED))]
       public List<uint> MDAT_IMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_IMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_ICOUNT_FORMATTED))]
       public List<uint> MDAT_ICOUNT { get; set; }
+
+      [DataMember]
+      public List<string> MDAT_ICOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(MDAT_DSUM_FORMATTED), ValueFormatType.Day)]
@@ -222,12 +246,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
       public List<string> MDAT_DMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(MDAT_DMINLIM_FORMATTED))]
       public List<uint> MDAT_DMINLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_DMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_DMAXLIM_FORMATTED))]
       public List<uint> MDAT_DMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> MDAT_DMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(MDAT_DCOUNT_FORMATTED))]
       public List<uint> MDAT_DCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> MDAT_DCOUNT_FORMATTED { get; set; }
+
    }
 }

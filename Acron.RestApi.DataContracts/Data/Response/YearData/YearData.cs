@@ -110,13 +110,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_PMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(YDAT_PMINLIM_FORMATTED))]
       public List<uint> YDAT_PMINLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_PMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_PMAXLIM_FORMATTED))]
       public List<uint> YDAT_PMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_PMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_PCOUNT_FORMATTED))]
       public List<uint> YDAT_PCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> YDAT_PCOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(YDAT_ISUM_FORMATTED), ValueFormatType.Interval)]
@@ -154,13 +166,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_IMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(YDAT_IMINLIM_FORMATTED))]
       public List<uint> YDAT_IMINLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_IMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_IMAXLIM_FORMATTED))]
       public List<uint> YDAT_IMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_IMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_ICOUNT_FORMATTED))]
       public List<uint> YDAT_ICOUNT { get; set; }
+
+      [DataMember]
+      public List<string> YDAT_ICOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(YDAT_DSUM_FORMATTED), ValueFormatType.Day)]
@@ -198,13 +222,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_DMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(YDAT_DMINLIM_FORMATTED))]
       public List<uint> YDAT_DMINLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_DMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_DMAXLIM_FORMATTED))]
       public List<uint> YDAT_DMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_DMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_DCOUNT_FORMATTED))]
       public List<uint> YDAT_DCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> YDAT_DCOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(YDAT_MSUM_FORMATTED), ValueFormatType.WeekOrMonth)]
@@ -263,12 +299,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.YearData
       public List<string> YDAT_MMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(YDAT_MMINLIM_FORMATTED))]
       public List<uint> YDAT_MMINLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_MMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_MMAXLIM_FORMATTED))]
       public List<uint> YDAT_MMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> YDAT_MMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(YDAT_MCOUNT_FORMATTED))]
       public List<uint> YDAT_MCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> YDAT_MCOUNT_FORMATTED { get; set; }
+
    }
 }

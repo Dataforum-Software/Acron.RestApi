@@ -21,11 +21,11 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       int TimeStampsCount { get; }
 
       [SwaggerSchema($"Time stamps for interval values of process variables in {nameof(Data)}")]
-      [SwaggerExampleValue("[\"2022-10-10T02:00:00Z\", \"2022-10-10T04:00:00Z\", \"2022-10-10T06:00:00Z\"]")]
+      [SwaggerExampleValue(new string[]{ "2022-10-10T02:00:00Z", "2022-10-10T04:00:00Z", "2022-10-10T06:00:00Z"})]
       List<DateTime> TimeStamps { get; set; }
 
       [SwaggerSchema($"{nameof(TimeStamps)} formatted according to 'Culture' Header")]
-      [SwaggerExampleValue("[\"10.10.2022 02:00:00\", \"10.10.2022 04:00:00\", \"10.10.2022 06:00:00\"]")]
+      [SwaggerExampleValue(new string[]{ "10.10.2022 02:00:00", "10.10.2022 04:00:00", "10.10.2022 06:00:00"})]
       List<string> TimeStamps_FORMATTED { get; set; }
 
       [SwaggerSchema($"Collection of {nameof(IIntervalData<IIntervalDataFlag>)} objects, one per process variable")]

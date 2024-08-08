@@ -13,6 +13,29 @@ namespace Acron.RestApi.Interfaces.Data.Request.YearData
       [SwaggerExampleValue(YearTypes.DBN_YEAR_WEEK)]
       YearTypes YearType { get; set; }
 
+      [SwaggerSchema("Start year")]
+      [SwaggerExampleValue("2020")]
+      int FromYear { get; set; }
+
+      DateTimeOffset FromTime { get; }
+
+      [SwaggerSchema("End year")]
+      [SwaggerExampleValue("2023")]
+      int ToYear { get; set; }
+
+      DateTimeOffset ToTime { get; }
+
+      [SwaggerSchema("List of descriptions for requested process variables")]
+      [SwaggerExampleValue(typeof(IGetYearDataPVDescription<IYearWhat>))]
+      List<T> PVDescriptions { get; set; }
+   }
+
+   public interface IGetYearDataRequestResource__L9_4__10_0<T, U> where T : IGetYearDataPVDescription<U> where U : IYearWhat
+   {
+      [SwaggerSchema("Day data from main or secondary interval")]
+      [SwaggerExampleValue(YearTypes.DBN_YEAR_WEEK)]
+      YearTypes YearType { get; set; }
+
       [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2020-08-15T00:00:00Z")]
       DateTimeOffset FromTime { get; set; }

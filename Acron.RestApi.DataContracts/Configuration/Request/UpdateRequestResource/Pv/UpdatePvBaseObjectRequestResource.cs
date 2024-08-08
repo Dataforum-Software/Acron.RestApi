@@ -64,7 +64,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
          this.PropProvidingPercentil = false;
          this.PropProvidingMDays = false;
          this.PropProvidingFloatDayval = false;
-         this.PropProvidingWWW = false;
+         //this.PropProvidingWWW = false;
          this.PropProvidingLimits = false;
          this.PropProvidingCoding = false;
          this.PropProvidingMultiserver = false;
@@ -689,18 +689,18 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
          }
       }
 
-      private bool _propProvidingWWW;
-      [DataMember]
-      [DefaultValue(false)]
-      public bool PropProvidingWWW
-      {
-         get { return _propProvidingWWW; }
-         set
-         {
-            _propProvidingWWW = value;
-            ModifiedProperties.Add(nameof(PropProvidingWWW));
-         }
-      }
+      //private bool _propProvidingWWW;
+      //[DataMember]
+      //[DefaultValue(false)]
+      //public bool PropProvidingWWW
+      //{
+      //   get { return _propProvidingWWW; }
+      //   set
+      //   {
+      //      _propProvidingWWW = value;
+      //      ModifiedProperties.Add(nameof(PropProvidingWWW));
+      //   }
+      //}
 
       private bool _propProvidingLimits;
       [DataMember]

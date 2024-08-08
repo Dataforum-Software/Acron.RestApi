@@ -83,12 +83,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
       public List<string> IDAT_PMAXTM_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(IDAT_PMINLIM_FORMATTED))]
       public List<uint> IDAT_PMINLIM { get; set; }
 
       [DataMember]
+      public List<string> IDAT_PMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(IDAT_PMAXLIM_FORMATTED))]
       public List<uint> IDAT_PMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> IDAT_PMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(IDAT_PCOUNT_FORMATTED))]
       public List<uint> IDAT_PCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> IDAT_PCOUNT_FORMATTED { get; set; }
+
    }
 }

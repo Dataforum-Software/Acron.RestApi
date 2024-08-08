@@ -205,11 +205,6 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
       [SwaggerExampleValue("false")]
       bool PropProvidingFloatDayval { get; }
 
-      /// <summary>Provisioning for the internet old:WWW_USED</summary>
-      [SwaggerSchema("Provisioning for the internet old:WWW_USED")]
-      [SwaggerExampleValue("false")]
-      bool PropProvidingWWW { get; }
-
       /// <summary>Provisioning of limit violations old:REP_OUTRANGE</summary>
       [SwaggerSchema("Provisioning of limit violations old:REP_OUTRANGE")]
       [SwaggerExampleValue("true")]

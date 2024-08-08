@@ -179,9 +179,9 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       [DataMember]
       public bool PropProvidingFloatDayval { get; internal set; }
 
-      /// <summary>Bereitstellung für das Internet old:WWW_USED</summary>
-      [DataMember]
-      public bool PropProvidingWWW { get; internal set; }
+      /// <summary>Bereitstellung für das Internet old:WWW_USED - Entfällt ab 10.1</summary>
+      //[DataMember]
+      //public bool PropProvidingWWW { get; internal set; }
 
       /// <summary>Bereitstellung der Grenzwertverletzungen old:REP_OUTRANGE</summary>
       [DataMember]

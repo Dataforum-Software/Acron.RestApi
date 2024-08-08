@@ -45,7 +45,7 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
 
       /// <summary>Manual value times (there can be several )</summary>
       [SwaggerSchema("Manual value times (there can be several)")]
-      [SwaggerExampleValue("(1,43200)")]
+      [SwaggerExampleValue(new string[] { "(1,43200)" })]
       Dictionary<int, int> PropHandValueTimeStamps
       {
          get; set;

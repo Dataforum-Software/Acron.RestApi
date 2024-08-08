@@ -69,7 +69,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = false;
          this.PropProvidingMDays = false;
          this.PropProvidingFloatDayval = false;
-         this.PropProvidingWWW = false;
+         // Entfällt ab 10.1
+         //this.PropProvidingWWW = false;
          this.PropProvidingLimits = false;
          this.PropProvidingCoding = false;
          this.PropProvidingMultiserver = false;
@@ -140,7 +141,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvBase.PropProvidingPercentil;
          this.PropProvidingMDays = iPvBase.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvBase.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvBase.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvBase.PropProvidingWWW;
          this.PropProvidingLimits = iPvBase.PropProvidingLimits;
          this.PropProvidingCoding = iPvBase.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvBase.PropProvidingMultiserver;
@@ -217,7 +219,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvBase.PropProvidingPercentil;
          this.PropProvidingMDays = iPvBase.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvBase.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvBase.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvBase.PropProvidingWWW;
          this.PropProvidingLimits = iPvBase.PropProvidingLimits;
          this.PropProvidingCoding = iPvBase.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvBase.PropProvidingMultiserver;
@@ -294,7 +297,8 @@ namespace Acron.RestApi.BaseObjects
          this.PropProvidingPercentil = iPvBase.PropProvidingPercentil;
          this.PropProvidingMDays = iPvBase.PropProvidingMDays;
          this.PropProvidingFloatDayval = iPvBase.PropProvidingFloatDayval;
-         this.PropProvidingWWW = iPvBase.PropProvidingWWW;
+         //Entfällt ab 10.1
+         //this.PropProvidingWWW = iPvBase.PropProvidingWWW;
          this.PropProvidingLimits = iPvBase.PropProvidingLimits;
          this.PropProvidingCoding = iPvBase.PropProvidingCoding;
          this.PropProvidingMultiserver = iPvBase.PropProvidingMultiserver;
@@ -925,18 +929,19 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
-      private bool _propProvidingWWW;
-      [DataMember]
-      [DefaultValue(false)]
-      public bool PropProvidingWWW
-      {
-         get { return _propProvidingWWW; }
-         set
-         {
-            _propProvidingWWW = value;
-            ModifiedProperties.Add(nameof(PropProvidingWWW));
-         }
-      }
+      // Entfällt ab 10.1
+      //private bool _propProvidingWWW;
+      //[DataMember]
+      //[DefaultValue(false)]
+      //public bool PropProvidingWWW
+      //{
+      //   get { return _propProvidingWWW; }
+      //   set
+      //   {
+      //      _propProvidingWWW = value;
+      //      ModifiedProperties.Add(nameof(PropProvidingWWW));
+      //   }
+      //}
 
       private bool _propProvidingLimits;
       [DataMember]

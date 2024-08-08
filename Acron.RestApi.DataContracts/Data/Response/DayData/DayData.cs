@@ -77,13 +77,25 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_PMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(DDAT_PMINLIM_FORMATTED))]
       public List<uint> DDAT_PMINLIM { get; set; }
 
       [DataMember]
+      public List<string> DDAT_PMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(DDAT_PMAXLIM_FORMATTED))]
       public List<uint> DDAT_PMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> DDAT_PMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(DDAT_PCOUNT_FORMATTED))]
       public List<uint> DDAT_PCOUNT { get; set; }
+
+      [DataMember]
+      public List<string> DDAT_PCOUNT_FORMATTED { get; set; }
 
       [DataMember]
       [FormatDoubleList(nameof(DDAT_ISUM_FORMATTED), ValueFormatType.Interval)]
@@ -142,12 +154,24 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public List<string> DDAT_IMAX_FORMATTED { get; set; }
 
       [DataMember]
+      [FormatUIntList(nameof(DDAT_IMINLIM_FORMATTED))]
       public List<uint> DDAT_IMINLIM { get; set; }
 
       [DataMember]
+      public List<string> DDAT_IMINLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(DDAT_IMAXLIM_FORMATTED))]
       public List<uint> DDAT_IMAXLIM { get; set; }
 
       [DataMember]
+      public List<string> DDAT_IMAXLIM_FORMATTED { get; set; }
+
+      [DataMember]
+      [FormatUIntList(nameof(DDAT_ICOUNT_FORMATTED))]
       public List<uint> DDAT_ICOUNT { get; set; }
+
+      [DataMember]
+      public List<string> DDAT_ICOUNT_FORMATTED { get; set; }
    }
 }

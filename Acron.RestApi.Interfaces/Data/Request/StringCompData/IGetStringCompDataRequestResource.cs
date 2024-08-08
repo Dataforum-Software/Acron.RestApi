@@ -26,7 +26,7 @@ namespace Acron.RestApi.Interfaces.Data.Request.StringCompData
       DateTime ToTime_UTC { get; }
 
       [SwaggerSchema("List of numeric IDs of process variables to get values for")]
-      [SwaggerExampleValue("[302000001, 302000002, 302000003, 302000004]")]
+      [SwaggerExampleValue(new int[] { 302000001, 302000002, 302000003, 302000004 })]
       List<uint> PVIDs { get; set; }
    }
 }

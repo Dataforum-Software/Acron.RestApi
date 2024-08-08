@@ -1,7 +1,6 @@
 ﻿using Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
-using static Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines.ConfigDefines;
 
 namespace Acron.RestApi.Interfaces.Response
 {
@@ -17,7 +16,7 @@ namespace Acron.RestApi.Interfaces.Response
 
       [SwaggerSchema("Return code of REST API methods")]
       [SwaggerExampleValue(ConfigDefines.ApiActionResult.ApiToBusy)]
-      ApiActionResult? ApiActionResult { get; set; }
+      ConfigDefines.ApiActionResult? ApiActionResult { get; set; }
 
       [SwaggerSchema("User friendly result message")]
       [SwaggerExampleValue("Example message.")]

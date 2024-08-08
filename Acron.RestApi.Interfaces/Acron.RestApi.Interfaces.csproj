@@ -2,7 +2,7 @@
 
    <PropertyGroup>
       <OutputType>Library</OutputType>
-      <TargetFramework>net6.0-windows</TargetFramework>
+      <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
       <Platforms>x64</Platforms>
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
       <SignAssembly>False</SignAssembly>
@@ -29,7 +29,7 @@
       <NoWarn>CA1416;CS1591;CS1587;</NoWarn>
       <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
       <WarningsAsErrors />
-      <OutputPath>$(BaseOutputPath)\Release</OutputPath>
+      <OutputPath>$(BaseOutputPath)</OutputPath>
       <DebugType>pdbonly</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
@@ -41,10 +41,12 @@
    </ItemGroup>
 
    <ItemGroup>
-     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
    </ItemGroup>
 
    <ItemGroup>
+     <Folder Include="Common\Request\" />
      <Folder Include="Configuration\Request\CreateRequestResources\Event\" />
      <Folder Include="Configuration\Request\UpdateRequestResources\Event\" />
    </ItemGroup>

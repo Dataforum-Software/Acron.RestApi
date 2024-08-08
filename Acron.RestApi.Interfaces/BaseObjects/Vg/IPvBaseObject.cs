@@ -350,7 +350,7 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       /// this dictionary will be replaced by correcponding values.
       /// </remarks>
       [SwaggerSchema("All Key-Value pairs of this process variable")]
-      [SwaggerExampleValue("{\"1\": \"trocken\", \"2\": \"Frost\", \"3\": \"Regen\"}")]
+      [SwaggerExampleValue(new string[] {"1: trocken", "2: Frost", "3: Regen"})]
       Dictionary<double,string> PropValKeys { get; set; }
 
       #endregion ValKeys
@@ -417,14 +417,6 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       [SwaggerSchema("Provisioning of moving daily value old:REP_DAYFLOATAVG")]
       [SwaggerExampleValue("true")]
       bool PropProvidingFloatDayval
-      {
-         get; set;
-      }
-
-      /// <summary>Provisioning for the internet old:WWW_USED</summary>
-      [SwaggerSchema("Provisioning for the internet old:WWW_USED")]
-      [SwaggerExampleValue("false")]
-      bool PropProvidingWWW
       {
          get; set;
       }

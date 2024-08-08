@@ -13,6 +13,25 @@ namespace Acron.RestApi.Interfaces.Data.Request.MonthWeekData
       MonthWeekTypes MonthWeekType { get; set; }
 
       [SwaggerSchema("Start time stamp")]
+      [SwaggerExampleValue("2020-08-01")]
+      DateOnly FromDate { get; set; }
+
+      [SwaggerSchema("End time stamp")]
+      [SwaggerExampleValue("2020-09-01")]
+      DateOnly ToDate { get; set; }
+
+      [SwaggerSchema("List of descriptions for requested process variables")]
+      [SwaggerExampleValue(typeof(IGetMonthWeekDataPVDescription<IMonthWeekWhat>))]
+      List<T> PVDescriptions { get; set; }
+   }
+
+   public interface IGetMonthWeekDataRequestResource__L9_4__10_0<T, U> where T : IGetMonthWeekDataPVDescription<U> where U : IMonthWeekWhat
+   {
+      [SwaggerSchema("Interval data from weekly or monthly intervals")]
+      [SwaggerExampleValue(MonthWeekTypes.DBN_MONTH)]
+      MonthWeekTypes MonthWeekType { get; set; }
+
+      [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2020-08-15T00:00:00Z")]
       public DateTimeOffset FromTime { get; set; }
 
