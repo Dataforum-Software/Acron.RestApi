@@ -158,6 +158,21 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
+      /// <summary>
+      /// Modifiziert die Liste der Referenzen
+      /// </summary>
+      /// <param name="referencedIds">Neue Referenzliste</param>
+      public void SetReferences(List<int> referencedIds)
+      {
+         if (referencedIds == null)
+            return;
+
+         if (_referencedIds != null && referencedIds.Count > _referencedIds.Count)
+            return; // mehr Referenzen sind nicht zulässig
+
+         _referencedIds = referencedIds;
+      }
+
       protected object _sourceBaseObject=null;
       public object SourceBaseObject
       {
