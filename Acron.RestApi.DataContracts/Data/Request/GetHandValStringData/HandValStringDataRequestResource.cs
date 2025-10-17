@@ -44,6 +44,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValStringData
       }
 
       [DataMember]
+      [ObjectId]
       public List<uint> PVIds { get; set; }
    }
 }

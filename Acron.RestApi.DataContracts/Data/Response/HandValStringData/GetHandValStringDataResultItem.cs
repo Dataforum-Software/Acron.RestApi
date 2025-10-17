@@ -20,6 +20,9 @@ namespace Acron.RestApi.DataContracts.Data.Response.HandValStringData
       public int PVId { get; set; }
 
       [DataMember]
+      public string ShortName { get; set; }
+
+      [DataMember]
       [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
       [Range(2, 5)]
       public List<CDAT_Kind> KindValues { get; set; }

@@ -35,20 +35,8 @@
    </PropertyGroup>
 
    <ItemGroup>
-     <Compile Remove="Response\NewFolder\**" />
-     <EmbeddedResource Remove="Response\NewFolder\**" />
-     <None Remove="Response\NewFolder\**" />
-   </ItemGroup>
-
-   <ItemGroup>
      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
-   </ItemGroup>
-
-   <ItemGroup>
-     <Folder Include="Common\Request\" />
-     <Folder Include="Configuration\Request\CreateRequestResources\Event\" />
-     <Folder Include="Configuration\Request\UpdateRequestResources\Event\" />
    </ItemGroup>
 
 </Project>

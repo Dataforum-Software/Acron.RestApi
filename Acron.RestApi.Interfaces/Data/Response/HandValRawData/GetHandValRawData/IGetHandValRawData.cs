@@ -13,10 +13,13 @@ namespace Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawDat
       [SwaggerExampleValue(302000003)]
       public uint PVID { get; set; }
 
+      [SwaggerSchema("Unique name of the process variable")]
+      [SwaggerExampleValue("NI10IN002")]
+      public string ShortName { get; set; }
+
       [SwaggerSchema($"Number of values in {nameof(DayList)}")]
       [SwaggerExampleValue(30)]
       public int DaysCount { get; }
-
 
       [SwaggerSchema($"Collection of {nameof(IGetHandValRawDataDayValue<IGetHandValRawDataValue<IGetHandValRawDataFlag>, IGetHandValRawDataFlag>)} objects, one per process variable")]
       [SwaggerExampleValue(typeof(IGetHandValRawDataDayValue<IGetHandValRawDataValue<IGetHandValRawDataFlag>, IGetHandValRawDataFlag>))]

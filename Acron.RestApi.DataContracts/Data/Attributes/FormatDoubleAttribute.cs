@@ -10,6 +10,8 @@
       WeekOrMonth,
       Year,
       ManualValue,
+
+      Currency,
    }
 
 

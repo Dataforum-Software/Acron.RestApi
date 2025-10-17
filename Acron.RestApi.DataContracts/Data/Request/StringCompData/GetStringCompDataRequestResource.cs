@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Data.Request.StringCompData;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Data.Request.StringCompData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -31,6 +32,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.StringCompData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<uint> PVIDs { get; set; }
    }
 }

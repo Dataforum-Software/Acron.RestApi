@@ -1,4 +1,5 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Acron.RestApi.Interfaces.Data.Request.DayData;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace Acron.RestApi.Interfaces.Data.Request.ProcessData

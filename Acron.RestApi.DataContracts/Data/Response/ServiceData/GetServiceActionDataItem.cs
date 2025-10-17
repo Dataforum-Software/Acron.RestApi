@@ -1,5 +1,6 @@
 ﻿using Acron.RestApi.DataContracts.Data.Attributes;
 using Acron.RestApi.Interfaces.Data.Response.ServiceData;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
       [DataMember]
       public uint ServiceId { get; set; }
       [DataMember]
+      public string ServiceShortName { get; set; }
+      [DataMember]
       public uint ParentId { get; set; }
       [DataMember]
       [DefaultValue(false)]
@@ -27,9 +30,10 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
 
 
       [DataMember]
+      [FormatDateOnly(nameof(LastServiceDate_FORMATTED), DateTimeFormatType.Day1)]
       public DateOnly LastServiceDate { get; set; }
 
-      [FormatDateTime(nameof(LastServiceDate_FORMATTED))]
+
       public DateTime LastServiceTime
       {
          get
@@ -49,9 +53,10 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
 
 
       [DataMember]
+      [FormatDateOnly(nameof(NextServiceDate_FORMATTED), DateTimeFormatType.Day1)]
       public DateOnly NextServiceDate { get; set; }
 
-      [FormatDateTime(nameof(NextServiceDate_FORMATTED))]
+
       public DateTime NextServiceTime
       {
          get
@@ -70,7 +75,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
       public string NextServiceDate_FORMATTED { get; set; }
 
 
-      [DataMember]      
+      [DataMember]
       public char? NextServiceType { get; set; }
 
 
@@ -112,6 +117,9 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
       [DataMember]
       public string Comment3 { get; set; }
       [DataMember]
-      public string ServUser { get; set; }                  
+      public string ServUser { get; set; }
+      [DataMember]
+      [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+      public URGENCY Urgency { get; set; }
    }
 }

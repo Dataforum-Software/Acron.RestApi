@@ -1231,8 +1231,8 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
          (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, DataContracts.Data.Response.YearData.YearDataResult Result) yearDataResult
             = await yearDataRequests_Week.GetYearData(new DataContracts.Data.Request.YearData.GetYearDataRequestResource()
             {
-               FromTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500)),
-               ToTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(150)),
+               FromTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(500),
+               ToTime = new DateTime(2022, 10, 1, 0, 0, 0) + TimeSpan.FromMilliseconds(200) + TimeSpan.FromDays(150),
                YearType = Interfaces.Data.Request.YearData.YearTypes.DBN_YEAR_MONTH,
                PVDescriptions = new List<DataContracts.Data.Request.YearData.GetYearDataPVDescription>()
                {

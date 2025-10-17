@@ -16,6 +16,10 @@ namespace Acron.RestApi.Interfaces.Data.Response.ServiceData
       [SwaggerExampleValue(650000001)]
       public uint ServiceId { get; set; }
 
+      [SwaggerSchema("Unique name of service")]
+      [SwaggerExampleValue("gro_e_inspektion")]
+      public string ServiceShortName { get; set; }
+
       /// <summary>
       /// Objekt-ID des übergeordneten Aggregats
       /// </summary>
@@ -190,5 +194,21 @@ namespace Acron.RestApi.Interfaces.Data.Response.ServiceData
       [SwaggerExampleValue("acron")]
       public string ServUser { get; set; }
 
+      /// <summary>
+      /// Dringlichkeit
+      /// </summary>
+      [SwaggerSchema("Urgency of the service action")]
+      [SwaggerExampleValue(URGENCY.TODAY)]
+      public URGENCY Urgency { get; set; }
+
    }
+
+   public enum URGENCY
+   {
+      UNKNOWN = -1,
+      LATER = 0,
+      INRANGE = 1,
+      TODAY = 2,
+      BURNING = 3,
+   };
 }

@@ -428,11 +428,11 @@ namespace Acron.RestApi.Client.Frontend.Models.CommandWrappers
 
       public void UpdateLastExecution()
       {
-         Input.ToTime = new DateTimeOffset(DateTime.Now, TimeSpan.FromHours(1)).DateTime;
+         Input.ToTime = DateTime.Now;
          if (LastExecution == new DateTime())
             Input.FromTime = Input.FromTime;
          else
-            Input.FromTime = new DateTimeOffset(LastExecution - TimeSpan.FromSeconds(5), TimeSpan.FromHours(1)).DateTime;
+            Input.FromTime = LastExecution - TimeSpan.FromSeconds(5);
          OnPropertyChanged(nameof(Input));
          OnPropertyChanged(nameof(InputBodyText));
          LastExecution = Input.ToTime;

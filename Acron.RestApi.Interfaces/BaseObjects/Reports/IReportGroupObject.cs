@@ -73,6 +73,9 @@ namespace Acron.RestApi.Interfaces.BaseObjects
          /// <summary> Default group for protocol reports </summary>
          [SwaggerEnumInfo("Default group for protocol reports")]
          DefaultReportProtocol = 23,
+         /// <summary> Default group for placeholder lists </summary>
+         [SwaggerEnumInfo("Default group for placeholder lists")]
+         DefaultPlaceholder = 24,
       }
 
    }

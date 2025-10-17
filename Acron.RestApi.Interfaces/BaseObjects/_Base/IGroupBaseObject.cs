@@ -20,6 +20,9 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       {
          get;
       }
+
+      IGroupBaseObject Parent { get; }
+
    }
 
 }

@@ -44,6 +44,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.IntervalData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetIntervalDataPVDescription> PVDescriptions {get; set;}
    }
 }

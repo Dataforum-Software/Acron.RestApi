@@ -13,6 +13,10 @@ namespace Acron.RestApi.Interfaces.Data.Response.MachineLearning.SpikeDetection.
       [SwaggerExampleValue(302000003)]
       uint PVID { get; set; }
 
+      [SwaggerSchema("Unique identification of process variable")]
+      [SwaggerExampleValue("a1")]
+      public string ShortName { get; set; }
+
       [SwaggerSchema("Time stamp of this process value")]
       [SwaggerExampleValue("2020-08-15T12:00:00Z")]
       DateTime TimeStamp_UTC { get; }

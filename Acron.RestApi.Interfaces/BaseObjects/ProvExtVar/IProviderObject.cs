@@ -53,9 +53,10 @@ namespace Acron.RestApi.Interfaces.BaseObjects
       public const int DrvOpcclientuaac64 = 8000042; // NEU 10.0 - 64Bit
       public const int DrvMqttSparkB64 = 8000043; // NEU 10.1 - 64Bit
       public const int DrvMqttSparkBts64 = 8000044; // NEU 10.1 - 64Bit
+      public const int DrvModbus64 = 8000042; // NEU 10.2 - 64Bit
 
       public const int MinDriverId = DrvZenon;
-      public const int MaxDriverId = DrvMqttSparkBts64; // !!! Letzten Treiber immer nachziehen !!!
+      public const int MaxDriverId = DrvModbus64; // !!! Letzten Treiber immer nachziehen !!!
 
       #endregion Driver IDs
    }

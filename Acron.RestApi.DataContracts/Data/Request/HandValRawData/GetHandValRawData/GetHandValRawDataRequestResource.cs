@@ -43,6 +43,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.GetHandValRawD
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<int> PVs { get; set; }
    }
 }

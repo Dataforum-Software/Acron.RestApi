@@ -11,6 +11,9 @@ namespace Acron.RestApi.DataContracts.Data.Response.HandValRawData.GetHandValRaw
       public uint PVID { get; set; }
 
       [DataMember]
+      public string ShortName { get; set; }
+
+      [DataMember]
       public int DaysCount
       {
          get { return DayList.Count; }

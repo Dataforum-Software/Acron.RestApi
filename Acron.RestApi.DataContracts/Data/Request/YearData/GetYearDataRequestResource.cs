@@ -41,6 +41,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.YearData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetYearDataPVDescription> PVDescriptions { get; set; }
    }
 
@@ -78,6 +79,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.YearData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetYearDataPVDescription> PVDescriptions { get; set; }
    }
 }

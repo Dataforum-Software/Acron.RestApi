@@ -15,6 +15,8 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
       [DataMember]
       public uint EntityId { get; set; }
       [DataMember]
+      public string EntityShortName { get; set; }
+      [DataMember]
       public uint LastServiceId { get; set; }
       [DataMember]
       public string LastServiceShortName { get; set; }

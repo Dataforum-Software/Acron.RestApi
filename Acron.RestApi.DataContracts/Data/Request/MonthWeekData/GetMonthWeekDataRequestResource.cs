@@ -1,5 +1,6 @@
 ﻿using Acron.RestApi.DataContracts.Data.Attributes;
 using Acron.RestApi.Interfaces.Data.Request.MonthWeekData;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -41,6 +42,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetMonthWeekDataPVDescription> PVDescriptions { get; set; }
    }
 
@@ -49,15 +51,15 @@ namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
    {
       [DataMember]
       [JsonConverter(typeof(StringEnumConverter))]
-      [Range(17,18)]
+      [Range(17, 18)]
       public MonthWeekTypes MonthWeekType { get; set; }
 
       [DataMember]
       [Required]
       [RequestTimeStampValidator]
       public DateTimeOffset FromTime { get; set; }
-      public DateTime FromTime_UTC 
-      { 
+      public DateTime FromTime_UTC
+      {
          get
          {
             return FromTime.UtcDateTime;
@@ -68,8 +70,8 @@ namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
       [Required]
       [RequestTimeStampValidator]
       public DateTimeOffset ToTime { get; set; }
-      public DateTime ToTime_UTC 
-      { 
+      public DateTime ToTime_UTC
+      {
          get
          {
             return ToTime.UtcDateTime;
@@ -78,6 +80,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetMonthWeekDataPVDescription> PVDescriptions { get; set; }
    }
 }

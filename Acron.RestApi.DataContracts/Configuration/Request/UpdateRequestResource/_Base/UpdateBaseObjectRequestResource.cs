@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.BaseObjects;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.BaseObjects;
 using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -71,6 +72,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       /// ID des übergeordneten Objekts oder 0 für höchste Ebene
       /// </summary>
       [DataMember]
+      [ObjectId]
       [DefaultValue(0)]
       public int IdParent
       {
@@ -88,6 +90,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       /// Eindeutige ID des ACRON-BOs
       /// </summary>
       [DataMember]
+      [ObjectId]
       [System.ComponentModel.DataAnnotations.Required]
       public int Id
       {

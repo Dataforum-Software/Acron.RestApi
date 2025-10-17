@@ -32,17 +32,7 @@
       <DebugType>pdbonly</DebugType>
       <DebugSymbols>true</DebugSymbols>
    </PropertyGroup>
-
-   <ItemGroup>
-     <Compile Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
-     <EmbeddedResource Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
-     <None Remove="Data\Response\HandValRawData\WriteHandValInfos\**" />
-   </ItemGroup>
-
-   <ItemGroup>
-     <Compile Remove="Data\Response\ProcessData\TData\TDataValueNum.cs" />
-   </ItemGroup>
-
+   
    <ItemGroup>
       <ProjectReference Include="..\Acron.RestApi.Interfaces\Acron.RestApi.Interfaces.csproj" />
    </ItemGroup>
@@ -50,21 +40,5 @@
    <ItemGroup>
      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
-   </ItemGroup>
-
-   <ItemGroup>
-     <Folder Include="Common\Request\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\Alert\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\Connection\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\Event\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\Pv\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\Unit\" />
-     <Folder Include="Configuration\Request\CreateRequestResource\ProvExtVar\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\Alert\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\Connection\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\Event\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\Unit\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\Pv\" />
-     <Folder Include="Configuration\Request\UpdateRequestResource\ProvExtVar\" />
    </ItemGroup>
 </Project>

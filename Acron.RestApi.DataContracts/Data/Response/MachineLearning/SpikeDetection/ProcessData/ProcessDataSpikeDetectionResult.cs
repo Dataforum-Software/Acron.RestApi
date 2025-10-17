@@ -21,6 +21,9 @@ namespace Acron.RestApi.DataContracts.Data.Response.MachineLearning.SpikeDetecti
       public uint PVID { get; set; }
 
       [DataMember]
+      public string ShortName { get; set; }
+
+      [DataMember]
       [FormatDateTime(nameof(TimeStamp_FORMATTED))]
       public DateTime TimeStamp_UTC { get; set; }
 

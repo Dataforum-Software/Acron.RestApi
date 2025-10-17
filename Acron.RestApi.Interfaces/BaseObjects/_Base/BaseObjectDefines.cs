@@ -53,6 +53,10 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("User group")]
          UserGroup = 1009,
 
+         /// <summary>Service aggregate</summary>
+         [SwaggerEnumInfo("Service aggregate")]
+         Aggregate = 1010,
+
          /// <summary>Process variable group</summary>
          [SwaggerEnumInfo("Process variable group")]
          VgVarGroup = 1011,
@@ -69,6 +73,14 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("Event group")]
          EventGroup = 1014,
 
+         /// <summary>Service group</summary>
+         [SwaggerEnumInfo("Service group")]
+         ServiceGroup = 1016,
+
+         /// <summary>PvMask</summary>
+         [SwaggerEnumInfo("Pv mask")]
+         PvMask = 1017,
+
          /// <summary>Event step</summary>
          [SwaggerEnumInfo("Event step")]
          EventStep = 1018,
@@ -81,9 +93,13 @@ public static class BaseObjectDefines
          [SwaggerEnumInfo("Base units group")]
          BaseUnit = 1024,
 
+         /// <summary>Group of mask with processvariables</summary>
+         [SwaggerEnumInfo("Group of mask with processvariables")]
+         PvMaskGroup = 1030,
+
          /// <summary>ProviderRestApi group</summary>
          [SwaggerEnumInfo("Auto generated provider for rest api variables")]
-         ProviderRestApi = 1025,
+         ProviderRestApi = 1033,
 
          #endregion group based
 
@@ -138,6 +154,10 @@ public static class BaseObjectDefines
          /// <summary>Report page for events / alerts</summary>
          [SwaggerEnumInfo("Report page for events / alerts")]
          EventAlertPage = 1083,
+
+         /// <summary>Service object</summary>
+         [SwaggerEnumInfo("Service object")]
+         Service = 1090,
 
          /// <summary>Connection</summary>
          [SwaggerEnumInfo("Connection object")]

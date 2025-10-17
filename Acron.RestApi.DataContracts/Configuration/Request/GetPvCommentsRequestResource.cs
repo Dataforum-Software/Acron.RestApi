@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Configuration.Request;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Configuration.Request;
 using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComments;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -43,6 +44,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request
       }
 
       [DataMember]
+      [ObjectId]
       public IEnumerable<uint> PVIDs { get; set; }
    }
 }

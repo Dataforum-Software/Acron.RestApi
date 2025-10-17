@@ -73,6 +73,8 @@ namespace Acron.RestApi.BaseObjects
          }
       }
 
+      public IGroupBaseObject Parent { get => null; }
+
       #endregion IGroupBaseObject
    }
 }

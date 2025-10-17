@@ -520,6 +520,14 @@ namespace Acron.RestApi.Interfaces.Configuration.GlobalConfigDefines
          [SwaggerEnumInfo("User has no write access to requested process variable")]
          UserDataPvNoWriteAccess = 57,
 
+         /// <summary> Das angegebene Ereignis existiert nicht. </summary>
+         [SwaggerEnumInfo("The requested event variable does not exist")]
+         UserDataEventNotFound = 58,
+
+         /// <summary> Das angegebene Ereignis besitzt nicht die erforderlichen Zugriffsrechte für den angegebenen Benutzer </summary>
+         [SwaggerEnumInfo("User has no permission to access the requested event variable")]
+         UserDataEventNoAccess = 59,
+
          #endregion User Management
 
          #region Config Access Infos

@@ -20,6 +20,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValRa
       }
 
       [DataMember]
+      [ObjectId]
       public List<WriteHandValRawDataPVDescription> PVDescriptions { get; set; }
    }
 }

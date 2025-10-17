@@ -16,6 +16,10 @@ namespace Acron.RestApi.Interfaces.Data.Response.ServiceData
       [SwaggerExampleValue(600200001)]
       public uint EntityId { get; set; }
 
+      [SwaggerSchema("Identification of service entity")]
+      [SwaggerExampleValue("umwaelzrolle")]
+      public string EntityShortName { get; set; }
+
       /// <summary>
       /// Objekt-ID der letzten durchgeführten Wartung
       /// </summary>

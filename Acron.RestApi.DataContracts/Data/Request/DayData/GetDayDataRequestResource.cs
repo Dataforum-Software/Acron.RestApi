@@ -42,6 +42,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.DayData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetDayDataPVDescription> PVDescriptions { get; set; }
    }
 
@@ -79,6 +80,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.DayData
 
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetDayDataPVDescription> PVDescriptions { get; set; }
    }
 

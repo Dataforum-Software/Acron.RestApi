@@ -9,5 +9,8 @@ namespace Acron.RestApi.DataContracts.Configuration.Request
    {
       [DataMember]
       public DateTime? RecalculateFrom { get; set; }
+
+      [DataMember]
+      public bool UsePlannedRecalc { get; set; }
    }
 }

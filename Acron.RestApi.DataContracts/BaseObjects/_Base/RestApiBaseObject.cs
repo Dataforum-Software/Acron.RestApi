@@ -10,6 +10,7 @@ using Acron.RestApi.Interfaces.Configuration.Request.CreateRequestResponses;
 using Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Windows.ApplicationModel.VoiceCommands;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Acron.RestApi.BaseObjects
@@ -54,8 +55,7 @@ namespace Acron.RestApi.BaseObjects
 
       protected virtual bool memberMapperBaseObject(object baseObject)
       {
-         IBaseObject iBase = baseObject as IBaseObject;
-         if (iBase == null)
+         if (baseObject is not IBaseObject iBase)
             return false;
 
          _restTypeCode = iBase.RestTypeCode;
@@ -67,18 +67,14 @@ namespace Acron.RestApi.BaseObjects
          this.LongName = iBase.LongName;
 
          if (iBase.ReferencedIBaseObjects != null && iBase.ReferencedIBaseObjects.Any())
-         {
-            //if ( ! lockReferences )
-               _referencedIds = iBase.ReferencedIBaseObjects.ToList();
-         }
+            _referencedIds = iBase.ReferencedIBaseObjects.ToList();
 
          return true;
       }
 
       protected virtual bool memberMapperCreate(object baseObject)
       {
-         ICreateBaseObjectRequestResource iCreate = baseObject as ICreateBaseObjectRequestResource;
-         if (iCreate == null)
+         if (baseObject is not ICreateBaseObjectRequestResource iCreate)
             return false;
 
          _restTypeCode = iCreate.RestTypeCode;
@@ -98,9 +94,7 @@ namespace Acron.RestApi.BaseObjects
 
       protected virtual bool memberMapperUpdate(object baseObject)
       {
-         IUpdateBaseObjectRequestResource iUpdate = baseObject as IUpdateBaseObjectRequestResource;
-
-         if (iUpdate == null) 
+         if (baseObject is not IUpdateBaseObjectRequestResource iUpdate)
             return false;
 
          _restTypeCode = iUpdate.RestTypeCode;
@@ -307,4 +301,6 @@ namespace Acron.RestApi.BaseObjects
       #endregion IBaseObject
 
    }
+
+
 }

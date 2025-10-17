@@ -40,6 +40,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
       /// </summary>
       [DataMember]
       [Required]
+      [ObjectId]
       public List<GetProcessDataPVDescription> PVIDs { get; set; }
    }
 }

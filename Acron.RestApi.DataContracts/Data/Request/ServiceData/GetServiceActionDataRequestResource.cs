@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Data.Request.ServiceData;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Data.Request.ServiceData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,8 +15,9 @@ namespace Acron.RestApi.DataContracts.Data.Request.ServiceData
    {
       [DataMember]
       [Required]
-      public List<uint> ServiceActionIDs {  get; set; }
+      [ObjectId]
+      public List<uint> ServiceActionIDs { get; set; }
       [DataMember]
-      public bool ByParentID {  get; set; }
+      public bool ByParentID { get; set; }
    }
 }

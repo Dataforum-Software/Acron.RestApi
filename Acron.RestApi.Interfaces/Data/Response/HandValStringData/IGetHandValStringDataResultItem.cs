@@ -14,6 +14,10 @@ namespace Acron.RestApi.Interfaces.Data.Response.HandValStringData
       [SwaggerExampleValue(302000001)]
       int PVId { get; set; }
 
+      [SwaggerSchema("Unique identification of process variable")]
+      [SwaggerExampleValue("gro_e_inspektion")]
+      string ShortName { get; set; }
+
       [SwaggerSchema("Value kind of each value")]
       [SwaggerExampleValue(CDAT_Kind.CDAT_REMVG)]
       List<CDAT_Kind> KindValues { get; set; }

@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Data.Request.ProcessData;
+﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Data.Request.ProcessData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
    {
       [DataMember]
       [Required]
+      [ObjectId]
       public List<WriteProcessDataDescription> ProcessDataDescriptions { get; set; }
    }
 }
