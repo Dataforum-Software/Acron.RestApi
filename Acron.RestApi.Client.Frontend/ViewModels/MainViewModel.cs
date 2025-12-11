@@ -243,8 +243,8 @@ namespace Acron.RestApi.Client.Frontend.ViewModels
                   Input = new DataContracts.Data.Request.DayData.GetDayDataRequestResource()
                   {
                      DayType = Interfaces.Data.Request.DayData.DayTypes.DBN_DAY_1,
-                     FromTime = DateTime.Now - TimeSpan.FromDays(30),
-                     ToTime = DateTime.Now,
+                     FromDate = DateOnly.FromDateTime(DateTime.Now - TimeSpan.FromDays(30)),
+                     ToDate = DateOnly.FromDateTime(DateTime.Now),
                      PVDescriptions = new()
                      {
                         new DataContracts.Data.Request.DayData.GetDayDataPVDescription()
