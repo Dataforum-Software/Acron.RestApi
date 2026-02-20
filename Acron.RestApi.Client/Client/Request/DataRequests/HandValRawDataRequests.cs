@@ -59,10 +59,10 @@ namespace Acron.RestApi.Client.Client.Request.DataRequests
       /// </summary>
       /// <param name="writeHandValCommentsRequestResouce"></param>
       /// <returns></returns>
-      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, WriteHandValCommentsResult Result)> WriteHandValComments(WriteHandValCommentsRequestResouce writeHandValCommentsRequestResouce)
+      public async Task<(bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, WriteCommentsResult Result)> WriteHandValComments(WriteHandValCommentsRequestResouce writeHandValCommentsRequestResouce)
       {
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, WriteHandValCommentsResult Result) result
-         = await Post_Request<WriteHandValCommentsRequestResouce, WriteHandValCommentsResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.WriteHandValComments]}",
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, WriteCommentsResult Result) result
+         = await Post_Request<WriteHandValCommentsRequestResouce, WriteCommentsResult>($"{BaseAddress}{RouteDefines.Instance.Routes[RouteDefines.RouteKeys.WriteHandValComments]}",
                                                                                                  writeHandValCommentsRequestResouce,
                                                                                                  CustomHeaders);
 

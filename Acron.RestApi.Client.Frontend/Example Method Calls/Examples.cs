@@ -15,6 +15,7 @@ using Acron.RestApi.DataContracts.Data.Response.ProcessData;
 using Acron.RestApi.DataContracts.Request.AccessToken;
 using Acron.RestApi.DataContracts.Request.UserToken;
 using Acron.RestApi.DataContracts.Response;
+using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComments;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -1292,14 +1293,14 @@ namespace Acron.RestApi.Client.Frontend.Example_Method_Calls
 
 
          handValRawDataRequest = new HandValRawDataRequests(client);
-         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, DataContracts.Data.Response.HandValRawData.WriteHandValComments.WriteHandValCommentsResult Result) writeHandValCommentsResult
+         (bool HasError, string ErrorText, ApiControllerResponseBase ResponseBase, DataContracts.Data.Response.HandValRawData.WriteHandValComments.WriteCommentsResult Result) writeHandValCommentsResult
             = await handValRawDataRequest.WriteHandValComments(new DataContracts.Data.Request.HandValRawData.WriteHandValComments.WriteHandValCommentsRequestResouce()
             {
                TimeStamp = new DateTimeOffset(new DateTime(2022, 10, 3), TimeSpan.FromHours(1)),
-               AVComKind = Interfaces.Data.Request.HandValRawData.WriteHandValComments.AVComKinds.AVCOMMENT_DAY,
-               PVDescriptions = new List<DataContracts.Data.Request.HandValRawData.WriteHandValComments.WriteHandValCommentsPVDescription>()
+               CommentKind = CommentKind.AVCOMMENT_DAY,
+               PVDescriptions = new List<DataContracts.Data.Request.HandValRawData.WriteHandValComments.WriteCommentsPVDescription>()
                 {
-                   new DataContracts.Data.Request.HandValRawData.WriteHandValComments.WriteHandValCommentsPVDescription()
+                   new DataContracts.Data.Request.HandValRawData.WriteHandValComments.WriteCommentsPVDescription()
                    {
                        PVID=302000005,
                        Comment = "ExampleComment"
