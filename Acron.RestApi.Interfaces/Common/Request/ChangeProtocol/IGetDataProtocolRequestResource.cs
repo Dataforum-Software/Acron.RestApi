@@ -11,19 +11,19 @@ namespace Acron.RestApi.Interfaces.Common.Request.ChangeProtocol
    {
       [SwaggerSchema("Start of the requested time interval concerning changes")]
       [SwaggerExampleValue("2024-06-17T07:22:37+02:00")]
-      DateTime FromTime { get; set; }
+      DateTimeOffset FromTime { get; set; }
 
       [SwaggerSchema("End of the requested time interval concerning changes")]
       [SwaggerExampleValue("2024-06-17T14:13:56+02:00")]
-      DateTime ToTime { get; set; }
+      DateTimeOffset ToTime { get; set; }
 
       [SwaggerSchema("Start of the requested time interval concerning data")]
       [SwaggerExampleValue("2024-06-17T07:22:37+02:00")]
-      DateTime FromTimeData { get; set; }
+      DateTimeOffset FromTimeData { get; set; }
 
       [SwaggerSchema("End of the requested time interval concerning data")]
       [SwaggerExampleValue("2024-06-17T14:13:56+02:00")]
-      DateTime ToTimeData { get; set; }
+      DateTimeOffset ToTimeData { get; set; }
 
       [SwaggerSchema("The user whose changes are requested")]
       [SwaggerExampleValue("acron")]

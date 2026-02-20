@@ -134,6 +134,19 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
          }
       }
 
+      private int _propReconnectDelayTime;
+      [DataMember]
+      [DefaultValue(0)]
+      public int PropReconnectDelayTime
+      {
+         get { return _propReconnectDelayTime; }
+         set
+         {
+            _propReconnectDelayTime = value;
+            ModifiedProperties.Add(nameof(PropReconnectDelayTime));
+         }
+      }
+
       private bool _propTestMode;
       [DataMember]
       [DefaultValue(false)]

@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.DayData;
+using Acron.RestApi.Interfaces.Data.Response.DayData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +26,12 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
 
       [DataMember]
       public bool DCOMPDAT_OVER_LIMIT { get; set; }
+
+      [DataMember]
+      public bool DCOMPDAT_MINIMUM { get; set; }
+
+      [DataMember]
+      public bool DCOMPDAT_MAXIMUM { get; set; }
 
    }
 }

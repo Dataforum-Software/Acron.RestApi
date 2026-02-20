@@ -22,5 +22,17 @@ namespace Acron.RestApi.DataContracts.Data.Response.ProcessData.TData
       /// Oberer Grenzbereich des Prozesswertes überschritten
       /// </summary>
       public bool OverLimit { get; set; }
+
+      [DataMember]
+      /// <summary>
+      /// Maximum: Prozesswert ist Maximum im angeforderten Bereich
+      ///</summary>
+      public bool Maximum { get; set; }
+
+      [DataMember]
+      /// <summary>
+      /// Minimum: Prozesswert ist Minimum im angeforderten Bereich
+      ///</summary>
+      public bool Minimum { get; set; }
    }
 }

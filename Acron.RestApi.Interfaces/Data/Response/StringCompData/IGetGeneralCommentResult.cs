@@ -1,4 +1,5 @@
-﻿using Acron.RestApi.Interfaces.Data.Request.StringCompData;
+﻿using Acron.RestApi.Interfaces.Data.GlobalDataDefines;
+using Acron.RestApi.Interfaces.Data.Request.StringCompData;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.StringCompData
 
       [SwaggerSchema("Type of comment")]
       [SwaggerExampleValue("AVCOMMENT_WEEK")]
-      AVComKinds_GeneralComment Kind { get; set; }
+      CDAT_Kind Kind { get; set; }
 
       [SwaggerSchema("Text value of comment")]
       [SwaggerExampleValue("this is a comment")]

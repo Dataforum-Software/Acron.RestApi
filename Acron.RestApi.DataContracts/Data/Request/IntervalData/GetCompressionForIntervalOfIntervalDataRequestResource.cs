@@ -4,6 +4,7 @@ using Acron.RestApi.Interfaces.Data.Request.MonthWeekData;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -15,10 +16,28 @@ namespace Acron.RestApi.DataContracts.Data.Request.IntervalData
    public class GetCompressionForIntervalOfIntervalDataRequestResource : IGetCompressionForIntervalOfIntervalDataRequestResource<GetIntervalDataPVDescription, IntervalWhat>
    {
       [DataMember]
-      public DateTime FromTime { get; set; }
+      [Required]
+      public DateTimeOffset FromTime { get; set; }
+      [Required]
+      public DateTime FromTime_UTC
+      {
+         get
+         {
+            return FromTime.UtcDateTime;
+         }
+      }
 
       [DataMember]
-      public DateTime ToTime { get; set; }
+      [Required]
+      public DateTimeOffset ToTime { get; set; }
+      [Required]
+      public DateTime ToTime_UTC
+      {
+         get
+         {
+            return ToTime.UtcDateTime;
+         }
+      }
 
       [DataMember]
       [ObjectId]

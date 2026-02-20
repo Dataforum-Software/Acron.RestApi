@@ -11,15 +11,26 @@ using System.Threading.Tasks;
 
 namespace Acron.RestApi.DataContracts.Data.Request.MonthWeekData
 {
+   [DataContract]
    public class GetCompressionForIntervalOfMonthWeekDataRequestResource : IGetCompressionForIntervalOfMonthWeekDataRequestResource<GetMonthWeekDataPVDescription, MonthWeekWhat>
    {
       [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime FromTime { get; set; }
+      public DateOnly FromDate { get; set; }
+
+      public DateTime FromTime
+      {
+         get => FromDate.ToDateTime(TimeOnly.MinValue);
+         set => FromDate = DateOnly.FromDateTime(value);
+      }
 
       [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime ToTime { get; set; }
+      public DateOnly ToDate { get; set; }
+
+      public DateTime ToTime
+      {
+         get => ToDate.ToDateTime(TimeOnly.MinValue);
+         set => ToDate = DateOnly.FromDateTime(value);
+      }
 
       [DataMember]
       [ObjectId]

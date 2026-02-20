@@ -20,5 +20,14 @@ namespace Acron.RestApi.Interfaces.Data.Response.ProcessData.TData
       [SwaggerSchema("process value exceeds upper value range limit")]
       [SwaggerExampleValue(true)]
       public bool OverLimit { get; set; }
+
+
+      [SwaggerSchema("process value is maximum in requested range")]
+      [SwaggerExampleValue(true)]
+      public bool Maximum { get; set; }
+
+      [SwaggerSchema("process value is minimum in requested range")]
+      [SwaggerExampleValue(true)]
+      public bool Minimum { get; set; }
    }
 }

@@ -36,7 +36,7 @@ namespace Acron.RestApi.DataContracts.Common.Response.ChangeProtocol
       public string Field { get; set; }
 
       [DataMember]
-      [TranslateKey(FallbackTranslationType.Key)]
+      [TranslateKey(fallbackTranslationType: FallbackTranslationType.Key, usedParams: nameof(ObjectKey))]
       public string ActionType { get; set; }
 
       [DataMember]

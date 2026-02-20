@@ -19,7 +19,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValStringData
       [DataMember]
       [Required]
       [JsonConverter(typeof(StringEnumConverter))]
-      public ValKinds Kind { get; set; }
+      public HandValStringDataKind Kind { get; set; }
 
       [DataMember]
       [Required]

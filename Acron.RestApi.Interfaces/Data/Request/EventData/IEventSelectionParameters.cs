@@ -10,12 +10,16 @@ namespace Acron.RestApi.Interfaces.Data.Request.EventData
    public interface IEventSelectionParameters
    {
       [SwaggerSchema("Start time stamp")]
-      [SwaggerExampleValue("2022-10-12T01:00:00Z")]
-      DateTime FromTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T12:00:00Z")]
+      DateTimeOffset FromTime { get; set; }
+
+      DateTime FromTime_UTC { get; }
 
       [SwaggerSchema("End time stamp")]
-      [SwaggerExampleValue("2022-10-18T01:00:00Z")]
-      DateTime ToTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T16:00:00Z")]
+      DateTimeOffset ToTime { get; set; }
+
+      DateTime ToTime_UTC { get; }
 
       [SwaggerSchema("Unique short name of the event")]
       [SwaggerExampleValue("Event_1")]

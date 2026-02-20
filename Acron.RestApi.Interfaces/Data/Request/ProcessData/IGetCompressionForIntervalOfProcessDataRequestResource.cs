@@ -12,12 +12,19 @@ namespace Acron.RestApi.Interfaces.Data.Request.ProcessData
    public interface IGetCompressionForIntervalOfProcessDataRequestResource<T, U> where T : IGetProcessDataPVDescriptionForTemporaryCompression<U> where U : IDayWhat
    {
       [SwaggerSchema("Start time stamp")]
-      [SwaggerExampleValue("2020-08-15")]
-      DateTime FromTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T12:00:00Z")]
+      DateTimeOffset FromTime { get; set; }
 
+      DateTime FromTime_UTC { get; }
+
+      /// <summary>
+      /// Bis Zeit
+      /// </summary>
       [SwaggerSchema("End time stamp")]
-      [SwaggerExampleValue("2020-08-16")]
-      DateTime ToTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T15:00:00Z")]
+      DateTimeOffset ToTime { get; set; }
+
+      DateTime ToTime_UTC { get; }
 
       [SwaggerSchema("List of descriptions for requested process variables")]
       [SwaggerExampleValue(typeof(IGetDayDataPVDescription<IDayWhat>))]

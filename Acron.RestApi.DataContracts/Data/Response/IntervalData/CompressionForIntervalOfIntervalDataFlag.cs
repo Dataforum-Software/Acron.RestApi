@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.IntervalData;
+using Acron.RestApi.Interfaces.Data.Response.IntervalData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,5 +35,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
 
       [DataMember]
       public bool ICOMPDAT_OVER_LIMIT { get; set; }
+
+      [DataMember]
+      public bool ICOMPDAT_MINIMUM { get; set; }
+
+      [DataMember]
+      public bool ICOMPDAT_MAXIMUM { get; set; }
    }
 }

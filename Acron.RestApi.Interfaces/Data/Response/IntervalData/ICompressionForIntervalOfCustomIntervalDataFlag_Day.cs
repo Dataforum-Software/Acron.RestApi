@@ -42,5 +42,13 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerExampleValue(true)]
       bool DCOMPDAT_OVER_LIMIT { get; set; }
 
+      [SwaggerSchema($"Compressed daily interval value equals the minimum of all values in the custom interval day")]
+      [SwaggerExampleValue(true)]
+      bool DCOMPDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema($"Compressed daily interval value equals the maximum of all values in the custom interval day")]
+      [SwaggerExampleValue(true)]
+      bool DCOMPDAT_MAXIMUM { get; set; }
+
    }
 }

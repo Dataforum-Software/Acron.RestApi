@@ -11,9 +11,13 @@ namespace Acron.RestApi.DataContracts.Data.Attributes
    {
       public FallbackTranslationType FallbackTranslationType { get; }
 
-      public TranslateKeyAttribute(FallbackTranslationType translationType = FallbackTranslationType.None)
+      public object[] UsedParams { get; }
+
+      public TranslateKeyAttribute(FallbackTranslationType fallbackTranslationType = FallbackTranslationType.None, params string[] usedParams)
       {
-         FallbackTranslationType = translationType;
+         FallbackTranslationType = fallbackTranslationType;
+         if (usedParams.Length > 0)
+            UsedParams = usedParams;
       }
    }
 

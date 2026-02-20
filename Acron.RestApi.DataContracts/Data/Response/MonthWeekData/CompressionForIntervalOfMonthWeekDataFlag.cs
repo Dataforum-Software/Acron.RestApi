@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
+using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
 using System.Collections;
 using System.Runtime.Serialization;
 

@@ -12,8 +12,8 @@ namespace Acron.RestApi.Interfaces.Data.Request.HandValStringData
    public interface IHandValStringDataRequestResource
    {
       [SwaggerSchema("Get weekly, monthly or yearly values")]
-      [SwaggerExampleValue(ValKinds.PVWEEKVAL)]
-      ValKinds Kind { get; set; }
+      [SwaggerExampleValue(HandValStringDataKind.PVWEEKVAL)]
+      HandValStringDataKind Kind { get; set; }
 
       [SwaggerSchema("Start date")]
       [SwaggerExampleValue("2020-08-15")]
@@ -29,19 +29,22 @@ namespace Acron.RestApi.Interfaces.Data.Request.HandValStringData
    }
 
 
-   [SwaggerSchema("Value types")]
-   public enum ValKinds : short
+   [SwaggerSchema("Value types for process variables with output format text")]
+   public enum HandValStringDataKind : short
    {
       [SwaggerEnumInfo("Undefined")]
-      UNKNOWN = AVComKinds.AVCOMMENT_UNKNOWN,  // return value for unknown base. NO DATA-BASE!
+      UNKNOWN = AVComKinds.AVCOMMENT_UNKNOWN,  
+
+      [SwaggerEnumInfo("Daily comment for a process variable")]
+      PVDAY = AVComKinds.AVCOMMENT_PVDAY, 
 
       [SwaggerEnumInfo("Weekly value for a process variable of type text")]
-      PVWEEKVAL = AVComKinds.AVCOMMENT_PVWEEKVAL, // weekly-value for a text pv
+      PVWEEKVAL = AVComKinds.AVCOMMENT_PVWEEKVAL, 
 
       [SwaggerEnumInfo("Monthly value for a process variable of type text")]
-      PVMONVAL = AVComKinds.AVCOMMENT_PVMONVAL, // monthly-value for a text pv
+      PVMONVAL = AVComKinds.AVCOMMENT_PVMONVAL, 
 
       [SwaggerEnumInfo("Yearly value for a process variable of type text")]
-      PVYEARVAL = AVComKinds.AVCOMMENT_PVYEARVAL, // yearly-value for a text pv
+      PVYEARVAL = AVComKinds.AVCOMMENT_PVYEARVAL, 
    }
 }

@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
+using Acron.RestApi.Interfaces.Data.Response.MonthWeekData;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
@@ -20,5 +20,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.MonthWeekData
 
       [DataMember]
       public bool MDAT_OVER_LIMIT { get; set; }
+
+      [DataMember]
+      public bool MDAT_MINIMUM { get; set; }
+
+      [DataMember]
+      public bool MDAT_MAXIMUM { get; set; }
    }
 }

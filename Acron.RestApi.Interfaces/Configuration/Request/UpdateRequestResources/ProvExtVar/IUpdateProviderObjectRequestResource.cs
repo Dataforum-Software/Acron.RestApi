@@ -79,6 +79,15 @@ namespace Acron.RestApi.Interfaces.Configuration.Request.UpdateRequestResponses
          get; set;
       }
 
+      /// <summary> Query reconnect delay after data loss (s) </summary>
+      /// 
+      [SwaggerSchema("Query reconnect delay after data loss (s)")]
+      [SwaggerExampleValue("0")]
+      int PropReconnectDelayTime
+      {
+         get; set;
+      }
+
       /// <summary> Test mode </summary>
       /// 
       [SwaggerSchema("Test mode")]

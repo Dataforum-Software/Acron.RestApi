@@ -30,6 +30,13 @@ namespace Acron.RestApi.Interfaces.Data.Response.DayData
       [SwaggerExampleValue(true)]
       bool DCOMPDAT_OVER_LIMIT { get; set; }
 
+      [SwaggerSchema($"Indicates that the compressed day data value for this interval represents the minimum observed value within the compression period.")]
+      [SwaggerExampleValue(true)]
+      bool DCOMPDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema($"Indicates that the compressed day data value for this interval represents the maximum observed value within the compression period.")]
+      [SwaggerExampleValue(true)]
+      bool DCOMPDAT_MAXIMUM { get; set; }
 
    }
 }

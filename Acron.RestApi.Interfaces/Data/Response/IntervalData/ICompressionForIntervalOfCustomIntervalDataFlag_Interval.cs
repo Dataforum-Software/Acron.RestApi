@@ -42,5 +42,13 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerExampleValue(true)]
       bool ICOMPDAT_OVER_LIMIT { get; set; }
 
+      [SwaggerSchema($"Compressed custom interval value is exactly at the configured minimum limit for this interval")]
+      [SwaggerExampleValue(true)]
+      bool ICOMPDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema($"Compressed custom interval value is exactly at the configured maximum limit for this interval")]
+      [SwaggerExampleValue(true)]
+      bool ICOMPDAT_MAXIMUM { get; set; }
+
    }
 }

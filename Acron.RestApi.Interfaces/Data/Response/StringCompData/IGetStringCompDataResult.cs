@@ -13,8 +13,12 @@ namespace Acron.RestApi.Interfaces.Data.Response.StringCompData
       [SwaggerExampleValue(new string[] { "2022-10-12T00:00:00Z", "2022-10-13T00:00:00Z", "2022-10-14T00:00:00Z" })]
       List<DateTime> TimeStamps { get; set; }
 
+      [SwaggerSchema($"{nameof(TimeStamps)} formatted according to 'Culture' Header")]
+      [SwaggerExampleValue(new string[] { "12.10.2022 00:00:00", "13.10.2022 00:00:00", "14.10.2022 00:00:00" })]
+      List<string> TimeStamps_FORMATTED { get; set; }
+
       [SwaggerSchema("List of compression values in selected time range")]
-      [SwaggerExampleValue(new string[]{ "Drei-Vier-Fünf", "One-Two-Three", "Dix-Neuf-Sept"})]
+      [SwaggerExampleValue(typeof(IGetStringCompDataResultItem))]
       List<T> Values { get; set; }
    }
 }

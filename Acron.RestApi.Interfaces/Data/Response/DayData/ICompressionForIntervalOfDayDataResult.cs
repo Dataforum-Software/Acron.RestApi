@@ -14,7 +14,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.DayData
       [SwaggerExampleValue(GaugeMsg.GStart)]
       GaugeMsg Status { get; set; }
 
-      [SwaggerSchema($"Unique ID on a running compression. Can sed to receive status information or retrieve the result.")]
+      [SwaggerSchema($"Unique ID on a running compression. Can be used to receive status information or retrieve the result.")]
       [SwaggerExampleValue("d9262d90-5feb-4d55-b9b8-2b12093abd25")]
       Guid ResultID { get; set; }
 

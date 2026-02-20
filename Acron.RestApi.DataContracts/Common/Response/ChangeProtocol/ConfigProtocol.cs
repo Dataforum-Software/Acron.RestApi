@@ -29,13 +29,13 @@ namespace Acron.RestApi.DataContracts.Common.Response.ChangeProtocol
       [TranslateKey(FallbackTranslationType.FullKey)]
       public string Module { get; set; }
       [DataMember]
-      [TranslateKey(FallbackTranslationType.Key)]
+      [TranslateKey(fallbackTranslationType: FallbackTranslationType.Key, usedParams: nameof(ObjectKey))]
       public string ActionType { get; set; }
       [DataMember]
       public string OldValue { get; set; }
       [DataMember]
       public string NewValue { get; set; }
-      
+
       [DataMember]
       [TranslateKey(FallbackTranslationType.Empty)]
       public string Dialog { get; set; }

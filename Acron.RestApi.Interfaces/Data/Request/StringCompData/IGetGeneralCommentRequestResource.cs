@@ -1,4 +1,7 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComments;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +13,27 @@ namespace Acron.RestApi.Interfaces.Data.Request.StringCompData
    public interface IGetGeneralCommentRequestResource
    {
       [SwaggerSchema("Type of comment")]
-      [SwaggerExampleValue("AVCOMMENT_WEEK")]
-      AVComKinds_GeneralComment Kind { get; set; }
+      [SwaggerExampleValue(GeneralCommentKind.MON)]
+      GeneralCommentKind Kind { get; set; }
 
       [SwaggerSchema("Date of the requested comment value")]
       [SwaggerExampleValue("2024-04-01")]
-      DateOnly Date {  get; set; }
+      DateOnly Date { get; set; }
    }
 
-   public enum AVComKinds_GeneralComment : short
+   [SwaggerSchema("Comment types for general comments specific to a timeframe")]
+   public enum GeneralCommentKind : short
    {
       [SwaggerEnumInfo("Daily general comment")]
-      AVCOMMENT_DAY = 1,
+      DAY = AVComKinds.AVCOMMENT_DAY,
 
       [SwaggerEnumInfo("Weekly general comment")]
-      AVCOMMENT_WEEK = 2,
+      WEEK =  AVComKinds.AVCOMMENT_WEEK,
 
       [SwaggerEnumInfo("Monthly general comment")]
-      AVCOMMENT_MON = 3,
+      MON = AVComKinds.AVCOMMENT_MON,
 
       [SwaggerEnumInfo("Yearly general comment")]
-      AVCOMMENT_YEAR = 5,
+      YEAR = AVComKinds.AVCOMMENT_YEAR,
    }
 }

@@ -1,4 +1,5 @@
 ﻿using Acron.RestApi.Interfaces.Data.Request.HandValRawData.GetHandValRawDataComments;
+using Acron.RestApi.Interfaces.Data.Request.HandValStringData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.GetHandValRawD
    {
       public override bool IsValid(object value)
       {
-         switch ((short)((AVComKinds_HandVal)value))
+         switch ((short)((HandValStringDataKind)value))
          {
             case 6:
             case 14:

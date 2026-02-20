@@ -24,6 +24,8 @@ namespace Acron.RestApi.Interfaces.Data.Request.ProcessData
       [SwaggerExampleValue(DBP_ReadTypes.DBP_WITHOUT_NOVALID)]
       DBP_ReadTypes DBP_ReadType { get; set; }
 
+      [SwaggerSchema("Set of flags to select which properties to include in result")]
+      [SwaggerExampleValue(typeof(IDayWhat))]
       T DayWhat { get; set; }
 
 

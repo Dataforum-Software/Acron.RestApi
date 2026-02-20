@@ -38,5 +38,14 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerSchema("Interval value exceeds upper limit for this process variable")]
       [SwaggerExampleValue(false)]
       bool IDAT_OVER_LIMIT { get; set; }
+
+      [SwaggerSchema("Interval value is the minimum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool IDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema("Interval value is the maximum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool IDAT_MAXIMUM { get; set; }
+
    }
 }

@@ -55,6 +55,7 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.UpdateRequestResourc
       [DataMember]
       [MinLength(1)]
       [MaxLength(256)]
+      [Required]
       public override string ShortName
       {
          get { return base.ShortName; }

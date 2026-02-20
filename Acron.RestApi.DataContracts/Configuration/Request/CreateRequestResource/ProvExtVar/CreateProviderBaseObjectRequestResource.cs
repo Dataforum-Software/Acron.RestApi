@@ -23,7 +23,8 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResourc
       private int _propProviderId;
 
       [DataMember]
-      [Required]
+      [Range(1, 99)]
+
       public int PropProviderId
       {
          get { return _propProviderId; }
@@ -32,6 +33,12 @@ namespace Acron.RestApi.DataContracts.Configuration.Request.CreateRequestResourc
             _propProviderId = value;
             ModifiedProperties.Add(nameof(PropProviderId));
          }
+      }
+
+      [OnDeserialized]
+      private void OnDeserialized(StreamingContext context)
+      {
+
       }
 
       #endregion IProviderBaseObject

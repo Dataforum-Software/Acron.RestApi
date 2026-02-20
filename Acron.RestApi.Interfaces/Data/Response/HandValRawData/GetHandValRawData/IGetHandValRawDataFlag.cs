@@ -28,6 +28,5 @@ namespace Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawDat
       [SwaggerSchema("Manual value exceeds upper limit for this manual variable")]
       [SwaggerExampleValue(false)]
       public bool HDAT_OVER_LIMIT { get; set; }
-
    }
 }

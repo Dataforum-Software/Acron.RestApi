@@ -11,9 +11,26 @@ namespace Acron.RestApi.DataContracts.Common.Request.ChangeProtocol
    public class GetConfigProtocolRequestResource : IGetConfigProtocolRequestResource
    {
       [DataMember]
-      public DateTime FromTime { get; set; }
+      public DateTimeOffset FromTime { get; set; }
+
+      public DateTime FromTime_UTC
+      {
+         get
+         {
+            return FromTime.UtcDateTime;
+         }
+      }
+
       [DataMember]
-      public DateTime ToTime { get; set; }
+      public DateTimeOffset ToTime { get; set; }
+      public DateTime ToTime_UTC
+      {
+         get
+         {
+            return ToTime.UtcDateTime;
+         }
+      }
+
       [DataMember]
       public string UserShortName { get; set; }
       [DataMember]

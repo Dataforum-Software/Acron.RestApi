@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValComments
 {
    [DataContract]
-   public class WriteHandValCommentsPVDescription : IWriteHandValCommentsPVDescription
+   public class WriteCommentsPVDescription : IWriteCommentsPVDescription
    {
       [DataMember]
       public uint PVID { get; set; }

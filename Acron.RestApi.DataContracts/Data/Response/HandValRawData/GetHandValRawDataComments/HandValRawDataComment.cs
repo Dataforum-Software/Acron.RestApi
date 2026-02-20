@@ -1,5 +1,5 @@
 ﻿using Acron.RestApi.DataContracts.Data.Attributes;
-using Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawData;
+using Acron.RestApi.Interfaces.Data.GlobalDataDefines;
 using Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawData.GetHandValRawDataCommentsResult;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

@@ -7,13 +7,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Acron.RestApi.Interfaces.Configuration.Request
+namespace Acron.RestApi.Interfaces.Data.Request.ProcessData
 {
    public interface IGetPvCommentsRequestResource
    {
       [SwaggerSchema("Type of requested comment")]
-      [SwaggerExampleValue(AVComKinds_Pv.AVCOMMENT_PVYEAR)]
-      AVComKinds_Pv Kind { get; set; }
+      [SwaggerExampleValue(PvCommentsKind.PVYEAR)]
+      PvCommentsKind Kind { get; set; }
 
       [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2020-08-15T00:00:00Z")]
@@ -28,18 +28,19 @@ namespace Acron.RestApi.Interfaces.Configuration.Request
       IEnumerable<uint> PVIDs { get; set; }
    }
 
-   public enum AVComKinds_Pv : short
+   [SwaggerSchema("Comment type for a comment that is specific to a process variable.")]
+   public enum PvCommentsKind : short
    {
       [SwaggerEnumInfo("Daily comment for a process- or manual variable")]
-      AVCOMMENT_PVDAY = 6,    // daily-comment for a PV (also PV-handvalues)
+      PVDAY = AVComKinds.AVCOMMENT_PVDAY,
 
       [SwaggerEnumInfo("Weekly comment for process variable")]
-      AVCOMMENT_PVWEEK = 7,    // weekly-comment for a PV
+      PVWEEK = AVComKinds.AVCOMMENT_PVWEEK,
 
       [SwaggerEnumInfo("Monthly comment for process variable")]
-      AVCOMMENT_PVMON = 8,    // monthly-comment for a PV
+      PVMON = AVComKinds.AVCOMMENT_PVMON,
 
       [SwaggerEnumInfo("Yearly comment for process variable")]
-      AVCOMMENT_PVYEAR = 9,    // yearly-comment for a PV
+      PVYEAR = AVComKinds.AVCOMMENT_PVYEARVAL,
    }
 }

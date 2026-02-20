@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,20 +40,10 @@ namespace Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawDat
 
       [SwaggerSchema($"{nameof(TimeEditValues)} formatted according to 'Culture' Header")]
       [SwaggerExampleValue("[\"01.01.1970 00:00:00\", \"01.01.1970 00:00:00\", \"01.01.1970 00:00:00\"]")]
-      List<string> TimeEditValues_FORMATTED { get; set;}
+      List<string> TimeEditValues_FORMATTED { get; set; }
 
       [SwaggerSchema("List of user names of the editor of every comment")]
       [SwaggerExampleValue("[\"Klaus\",\"Uwe\",\"Horst\"]")]
-      List<string> UserValues {  get; set; }
-   }
-
-   [JsonConverter(typeof(StringEnumConverter))]
-   public enum CDAT_Kind : short
-   {
-      CDAT_REMVG = 0,         // comment for VG-handvalue on one day
-      CDAT_REMTM = 1,         // comment for day, week, month and year
-      CDAT_REMRT = 2,         // comment for AG-runtime-handvalue, one day
-      CDAT_REMSS = 4,         // comment for AG-switch-handvalue, one day
-      CDAT_VALVG = 5,        // Values für Handwerte-Text
+      List<string> UserValues { get; set; }
    }
 }

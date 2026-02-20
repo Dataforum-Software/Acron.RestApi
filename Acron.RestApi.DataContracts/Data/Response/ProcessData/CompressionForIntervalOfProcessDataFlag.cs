@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.ProcessData;
+using Acron.RestApi.Interfaces.Data.Response.ProcessData;
 using System.Collections;
 using System.Runtime.Serialization;
 

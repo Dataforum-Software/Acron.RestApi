@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.DayData;
+using Acron.RestApi.Interfaces.Data.Response.DayData;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Response.DayData
@@ -29,5 +29,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
 
       [DataMember]
       public bool DDAT_OVER_LIMIT { get; set; }
+
+      [DataMember]
+      public bool DDAT_MINIMUM { get; set; }
+
+      [DataMember]
+      public bool DDAT_MAXIMUM { get; set; }
    }
 }

@@ -8,7 +8,15 @@ namespace Acron.RestApi.DataContracts.Configuration.Request
    public class SaveRequestResource : ISaveRequestResource
    {
       [DataMember]
-      public DateTime? RecalculateFrom { get; set; }
+      public DateTimeOffset? RecalculateFrom { get; set; }
+
+      public DateTime? RecalculateFrom_UTC
+      {
+         get
+         {
+            return RecalculateFrom?.UtcDateTime;
+         }
+      }
 
       [DataMember]
       public bool UsePlannedRecalc { get; set; }

@@ -11,12 +11,12 @@ namespace Acron.RestApi.Interfaces.Data.Request.MonthWeekData
     public interface IGetCompressionForIntervalOfMonthWeekDataRequestResource<T, U> where T : IGetMonthWeekDataPVDescription<U> where U : IMonthWeekWhat
    {
       [SwaggerSchema("Start time stamp")]
-      [SwaggerExampleValue("2020-08-15")]
-      DateTime FromTime { get; set; }
+      [SwaggerExampleValue("2020-08-01")]
+      DateOnly FromDate { get; set; }
 
       [SwaggerSchema("End time stamp")]
-      [SwaggerExampleValue("2020-08-16")]
-      DateTime ToTime { get; set; }
+      [SwaggerExampleValue("2020-09-01")]
+      DateOnly ToDate { get; set; }
 
       [SwaggerSchema("List of descriptions for requested process variables")]
       [SwaggerExampleValue(typeof(IGetDayDataPVDescription<IDayWhat>))]

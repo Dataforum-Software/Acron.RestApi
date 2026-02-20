@@ -26,7 +26,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
       [DataMember]
       public DateOnly LastServiceDate { get; set; }
 
-      [FormatDateTime(nameof(LastServiceDate_FORMATTED))]
+      [FormatDateTime(nameof(LastServiceDate_FORMATTED), DateTimeFormatType.DayX)]
       public DateTime LastServiceTime
       {
          get
@@ -43,5 +43,40 @@ namespace Acron.RestApi.DataContracts.Data.Response.ServiceData
 
       [DataMember]
       public string LastServiceDate_FORMATTED { get; set; }
+
+      [DataMember]
+      public bool IsRuntimeHandValue { get; set; }
+
+      [DataMember]
+      public uint CountRuntimeHandValues { get; set; }
+
+      [DataMember]
+      [FormatDateTimeList(nameof(RuntimeHandValueTimestamps_FORMATTED), DateTimeFormatType.DayX)]
+      public List<DateTime> RuntimeHandValueTimestamps { get; set; }
+
+      [DataMember]
+      public List<string> RuntimeHandValueTimestamps_FORMATTED { get; set; }
+
+      [DataMember]
+      public List<uint> RuntimeHandValues { get; set; }
+
+      [DataMember]
+      public bool IsSwitchingHandValue { get; set; }
+
+      [DataMember]
+      public uint CountSwitchingHandValues { get; set; }
+
+      [DataMember]
+      [FormatDateTimeList(nameof(SwitchingHandValueTimestamps_FORMATTED), DateTimeFormatType.DayX)]
+      public List<DateTime> SwitchingHandValueTimestamps { get; set; }
+
+      [DataMember]
+      public List<string> SwitchingHandValueTimestamps_FORMATTED { get; set; }
+
+      [DataMember]
+      public List<uint> SwitchingHandValues { get; set; }
+
+
+
    }
 }

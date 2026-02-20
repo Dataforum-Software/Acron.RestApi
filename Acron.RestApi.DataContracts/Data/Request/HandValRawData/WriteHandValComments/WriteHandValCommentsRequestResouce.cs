@@ -9,11 +9,11 @@ using System.Runtime.Serialization;
 namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValComments
 {
    [DataContract]
-   public class WriteHandValCommentsRequestResouce : IWriteHandValCommentsRequestResouce<WriteHandValCommentsPVDescription>
+   public class WriteHandValCommentsRequestResouce : IWriteHandValCommentsRequestResouce<WriteCommentsPVDescription>
    {
       [DataMember]
       [JsonConverter(typeof(StringEnumConverter))]
-      public AVComKinds AVComKind { get; set; }
+      public CommentKind CommentKind { get; set; }
 
       [DataMember]
       public DateTimeOffset TimeStamp { get; set; }
@@ -28,6 +28,6 @@ namespace Acron.RestApi.DataContracts.Data.Request.HandValRawData.WriteHandValCo
 
       [DataMember]
       [ObjectId]
-      public List<WriteHandValCommentsPVDescription> PVDescriptions { get; set; }
+      public List<WriteCommentsPVDescription> PVDescriptions { get; set; }
    }
 }

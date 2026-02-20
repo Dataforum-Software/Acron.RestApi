@@ -52,6 +52,7 @@ namespace Acron.RestApi.BaseObjects
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
+         this.PropReconnectDelayTime = iProv.PropReconnectDelayTime;
 
          this.PropTestMode = iProv.PropTestMode;
 
@@ -84,6 +85,7 @@ namespace Acron.RestApi.BaseObjects
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
+         this.PropReconnectDelayTime = iProv.PropReconnectDelayTime;
 
          this.PropTestMode = iProv.PropTestMode;
 
@@ -116,6 +118,7 @@ namespace Acron.RestApi.BaseObjects
 
          this.PropReadingInterval = iProv.PropReadingInterval;
          this.PropStartupDelayTime = iProv.PropStartupDelayTime;
+         this.PropReconnectDelayTime = iProv.PropReconnectDelayTime;
 
          this.PropTestMode = iProv.PropTestMode;
 
@@ -233,6 +236,19 @@ namespace Acron.RestApi.BaseObjects
          {
             _propStartupDelayTime = value;
             ModifiedProperties.Add(nameof(PropStartupDelayTime));
+         }
+      }
+
+      private int _propReconnectDelayTime;
+      [DataMember]
+      [DefaultValue(0)]
+      public int PropReconnectDelayTime
+      {
+         get { return _propReconnectDelayTime; }
+         set
+         {
+            _propReconnectDelayTime = value;
+            ModifiedProperties.Add(nameof(PropReconnectDelayTime));
          }
       }
 

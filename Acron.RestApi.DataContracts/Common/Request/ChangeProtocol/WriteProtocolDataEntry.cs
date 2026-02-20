@@ -18,7 +18,15 @@ namespace Acron.RestApi.DataContracts.Common.Request.ChangeProtocol
       public ACRON_MODULE Module { get; set; }
 
       [DataMember]
-      public DateTime Timestamp { get; set; }
+      public DateTimeOffset Timestamp { get; set; }
+
+      public DateTime Timestamp_UTC 
+      { 
+         get
+         {
+            return Timestamp.UtcDateTime;
+         }
+      }
 
       [DataMember]
       public string PropertyName { get; set; }

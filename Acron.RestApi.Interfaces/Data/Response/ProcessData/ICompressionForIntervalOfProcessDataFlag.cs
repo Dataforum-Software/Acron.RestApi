@@ -37,5 +37,6 @@ namespace Acron.RestApi.Interfaces.Data.Response.ProcessData
       [SwaggerSchema($"Value is greater than maximum")]
       [SwaggerExampleValue(true)]
       bool IDAT_OVER_LIMIT { get; set; }
+
    }
 }

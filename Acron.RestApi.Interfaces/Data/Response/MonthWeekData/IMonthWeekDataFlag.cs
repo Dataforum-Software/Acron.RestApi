@@ -28,5 +28,13 @@ namespace Acron.RestApi.Interfaces.Data.Response.MonthWeekData
       [SwaggerSchema("Monthly/Weekly value exceeds upper limit for this process variable")]
       [SwaggerExampleValue(false)]
       bool MDAT_OVER_LIMIT { get; set; }
+
+      [SwaggerSchema("Monthly/Weekly value is the minimum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool MDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema("Monthly/Weekly value is the maximum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool MDAT_MAXIMUM { get; set; }
    }
 }

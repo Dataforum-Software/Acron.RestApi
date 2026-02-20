@@ -44,5 +44,12 @@ namespace Acron.RestApi.Interfaces.Data.Response.DayData
       [SwaggerExampleValue(false)]
       bool DDAT_OVER_LIMIT { get; set; }
 
+      [SwaggerSchema("Daily value is the minimum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool DDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema("Daily value is the maximum value in the data set")]
+      [SwaggerExampleValue(true)]
+      bool DDAT_MAXIMUM { get; set; }
    }
 }

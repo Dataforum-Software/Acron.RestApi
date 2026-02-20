@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,42 +10,85 @@ namespace Acron.RestApi.Interfaces.Data.Request.EventData
 {
    public interface IGetEventDataRequestResource<T> where T : IEventSelectionParameters
    {
+      [SwaggerSchema("List of objects which each contain selection parameters for a singular event and it's batches")]
+      [SwaggerExampleValue(typeof(IEventSelectionParameters))]
       List<T> EventSelectionParameters { get; set; }
 
+      [SwaggerSchema("Event sort order")]
+      [SwaggerExampleValue(EventSortOrder.CFG_NEWOLD)]
       EventSortOrder EventsOrder { get; set; }
 
+
+      [SwaggerSchema("Steps sort order")]
+      [SwaggerExampleValue(EventSortOrder.CFG_OLDNEW)]
       EventSortOrder StepsOrder { get; set; }
    }
 
    public enum EventSortOrder
    {
-      NONE = -1,  // KEINE Sortierung durchführen
-      CFG_OLDNEW = 0,  // Ereignisse / Schritte nach Konfiguration / aufsteigend
-      CFG_NEWOLD = 1,  // Ereignisse / Schritte nach Konfiguration / absteigend
-      OLDNEW = 2, // Ereignisse + Schritte chronologisch / aufsteigend (Option 'Chronologisch' aktiv V7.3 - V8.4)
-      NEWOLD = 3, // Ereignisse + Schritte chronologisch / absteigend
+      [EnumMember]
+      [SwaggerEnumInfo("Don't sort")]
+      NONE = -1, 
+      [EnumMember]
+      [SwaggerEnumInfo("Sort events and steps by configuration in ascending order")]
+      CFG_OLDNEW = 0,
+      [EnumMember]
+      [SwaggerEnumInfo("Sort events and steps by configuration in descending order")]
+      CFG_NEWOLD = 1,
+      [EnumMember]
+      [SwaggerEnumInfo("Sort events and steps chronologically in ascending order")]
+      OLDNEW = 2,
+      [EnumMember]
+      [SwaggerEnumInfo("Sort events and steps chronologically in descending order")]
+      NEWOLD = 3,
 
    };
 
    public enum EventFilters
    {
-      ALL = 0,  //kein Filter
-      CLOSED = 1,  //nur abgeschlossene Ereignisse
-      OPEN = 2, //nur offene Ereignisse
-      STARTING = 3,   //Die Startzeit des Events muß im Zeitbereich liegen
-      ENDING = 4,  //Die Stoppzeit des Events muß im Zeitbereich liegen
+      [EnumMember]
+      [SwaggerEnumInfo("No filter")]
+      ALL = 0,
+      [EnumMember]
+      [SwaggerEnumInfo("Only closed events")]
+      CLOSED = 1,
+      [EnumMember]
+      [SwaggerEnumInfo("Only open events")]
+      OPEN = 2,
+      [EnumMember]
+      [SwaggerEnumInfo("Only events starting within the time range")]
+      STARTING = 3,
+      [EnumMember]
+      [SwaggerEnumInfo("Only events ending within the time range")]
+      ENDING = 4,
    };
 
    [Flags]
    public enum ReadOptions
    {
-      NONE = 0x0,      // Keine Optionen gesetzt
-      READ_CELL = 0x1,      // Zellen mit einlesen
-      READ_SUB = 0x2,    // Unterereignisse mit einlesen
+      [EnumMember]
+      [SwaggerEnumInfo("No options set")]
+      NONE = 0x0,
+      [EnumMember]
+      [SwaggerEnumInfo("Read cell values")]
+      READ_CELL = 0x1,
+      [EnumMember]
+      [SwaggerEnumInfo("Read sub values")]
+      READ_SUB = 0x2,
+      [EnumMember]
+      [SwaggerEnumInfo("Read cell and sub values")]
       READ_CELL_SUB = 0x3,
-      AUTODEL = 0x8, //Gelöschte Ereignisse mit einlesen
+      [EnumMember]
+      [SwaggerEnumInfo("Auto delete read data after reading")]
+      AUTODEL = 0x8,
+      [EnumMember]
+      [SwaggerEnumInfo("Read cell values and auto delete after reading")]
       READ_CELL_AUTODEL = 0x9,
+      [EnumMember]
+      [SwaggerEnumInfo("Read sub values and auto delete after reading")]
       READ_SUB_AUTODEL = 0x10,
+      [EnumMember]
+      [SwaggerEnumInfo("Read cell and sub values and auto delete after reading")]
       READ_CELL_SUB_AUTODEL = 0x11,
    };
 

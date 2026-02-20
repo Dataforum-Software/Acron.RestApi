@@ -42,5 +42,14 @@ namespace Acron.RestApi.Interfaces.Data.Response.IntervalData
       [SwaggerExampleValue(true)]
       bool ICOMPDAT_OVER_LIMIT { get; set; }
 
+      [SwaggerSchema($"Flag indicating that the compressed interval value represents the minimum observed value within the underlying raw interval data")]
+      [SwaggerExampleValue(true)]
+      bool ICOMPDAT_MINIMUM { get; set; }
+
+      [SwaggerSchema($"Flag indicating that the compressed interval value represents the maximum observed value within the underlying raw interval data")]
+      [SwaggerExampleValue(true)]
+      bool ICOMPDAT_MAXIMUM { get; set; }
+
+
    }
 }

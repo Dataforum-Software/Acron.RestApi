@@ -17,7 +17,7 @@ namespace Acron.RestApi.DataContracts.Data.Request.StringCompData
       [DataMember]
       [Required]
       [JsonConverter(typeof(StringEnumConverter))]
-      public AVComKinds_GeneralComment Kind { get; set; }
+      public GeneralCommentKind Kind { get; set; }
 
       [DataMember]
       [Required]

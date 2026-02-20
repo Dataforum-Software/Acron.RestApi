@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -205,10 +206,20 @@ namespace Acron.RestApi.Interfaces.Data.Response.ServiceData
 
    public enum URGENCY
    {
+      [EnumMember]
+      [SwaggerEnumInfo("Unknown urgency")]
       UNKNOWN = -1,
+      [EnumMember]
+      [SwaggerEnumInfo("Service action can be performed later")]
       LATER = 0,
+      [EnumMember]
+      [SwaggerEnumInfo("Service action should be performed in the given timeframe")]
       INRANGE = 1,
+      [EnumMember]
+      [SwaggerEnumInfo("Service action should be performed today")]
       TODAY = 2,
+      [EnumMember]
+      [SwaggerEnumInfo("Service action is overdue and should be performed immediately")]
       BURNING = 3,
    };
 }

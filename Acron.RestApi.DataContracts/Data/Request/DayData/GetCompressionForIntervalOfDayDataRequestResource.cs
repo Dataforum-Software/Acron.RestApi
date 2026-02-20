@@ -15,13 +15,26 @@ namespace Acron.RestApi.DataContracts.Data.Request.DayData
    [DataContract]
    public class GetCompressionForIntervalOfDayDataRequestResource : IGetCompressionForIntervalOfDayDataRequestResource<GetDayDataPVDescription, DayWhat>
    {
-      [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime FromTime { get; set; }
 
       [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime ToTime { get; set; }
+      [Required]
+      public DateOnly FromDate { get; set; }
+
+      public DateTime FromTime
+      {
+         get => FromDate.ToDateTime(TimeOnly.MinValue);
+         set => FromDate = DateOnly.FromDateTime(value);
+      }
+
+      [DataMember]
+      [Required]
+      public DateOnly ToDate { get; set; }
+
+      public DateTime ToTime
+      {
+         get => ToDate.ToDateTime(TimeOnly.MinValue);
+         set => ToDate = DateOnly.FromDateTime(value);
+      }
 
       [DataMember]
       [ObjectId]

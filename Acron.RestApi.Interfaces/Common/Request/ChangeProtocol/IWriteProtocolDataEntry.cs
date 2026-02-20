@@ -16,7 +16,9 @@ namespace Acron.RestApi.Interfaces.Common.Request.ChangeProtocol
 
       [SwaggerSchema("Time of change")]
       [SwaggerExampleValue("2024-06-17T07:22:37+02:00")]
-      DateTime Timestamp { get; set; }
+      DateTimeOffset Timestamp { get; set; }
+
+      DateTime Timestamp_UTC { get; }
 
       [SwaggerSchema("Name of the property according to the general naming scheme Type -> Area -> Name")]
       [SwaggerExampleValue("umValue.ConfiSetType.Plant")]

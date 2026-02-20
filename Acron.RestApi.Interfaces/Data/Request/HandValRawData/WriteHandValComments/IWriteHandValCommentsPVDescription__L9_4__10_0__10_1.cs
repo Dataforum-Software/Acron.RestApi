@@ -2,7 +2,7 @@
 
 namespace Acron.RestApi.Interfaces.Data.Request.HandValRawData.WriteHandValComments
 {
-   public interface IWriteHandValCommentsPVDescription
+   public interface IWriteHandValCommentsPVDescription__L9_4__10_0__10_1
    {
       [SwaggerSchema("Numeric ID of process variable")]
       [SwaggerExampleValue(302000003)]

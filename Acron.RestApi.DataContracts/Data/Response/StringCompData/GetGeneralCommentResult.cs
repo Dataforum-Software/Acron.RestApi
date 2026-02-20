@@ -1,4 +1,5 @@
 ﻿using Acron.RestApi.DataContracts.Data.Attributes;
+using Acron.RestApi.Interfaces.Data.GlobalDataDefines;
 using Acron.RestApi.Interfaces.Data.Request.StringCompData;
 using Acron.RestApi.Interfaces.Data.Response.StringCompData;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.StringCompData
 
       [DataMember]
       [JsonConverter(typeof(StringEnumConverter))]
-      public AVComKinds_GeneralComment Kind { get; set; }
+      public CDAT_Kind Kind { get; set; }
 
       [DataMember]
       public string Comment { get; set; }

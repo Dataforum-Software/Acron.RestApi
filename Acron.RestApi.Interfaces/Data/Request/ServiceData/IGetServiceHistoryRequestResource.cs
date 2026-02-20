@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +12,11 @@ namespace Acron.RestApi.Interfaces.Data.Request.ServiceData
    {
       [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2022-10-12T01:00:00Z")]
-      DateTime FromTime { get; set; }
+      DateTimeOffset FromTime { get; set; }
 
       [SwaggerSchema("End time stamp")]
       [SwaggerExampleValue("2022-10-12T01:00:00Z")]
-      DateTime ToTime { get; set; }
+      DateTimeOffset ToTime { get; set; }
 
       [SwaggerSchema("Flag that determines whether services or repairs are returned")]
       [SwaggerExampleValue(ServiceHistoryFlags.Hist_Service)]
@@ -29,8 +30,14 @@ namespace Acron.RestApi.Interfaces.Data.Request.ServiceData
    [Flags]
    public enum ServiceHistoryFlags : short
    {
+      [EnumMember]
+      [SwaggerEnumInfo("Service history")]
       Hist_Service = 1,
+      [EnumMember]
+      [SwaggerEnumInfo("Repair history")]
       Hist_Repairs = 2,
+      [EnumMember]
+      [SwaggerEnumInfo("Service and repair history")]
       Hist_Repairs_Service = 3
    }
 }

@@ -13,12 +13,16 @@ namespace Acron.RestApi.Interfaces.Data.Request.IntervalData
    public interface IGetCompressionForIntervalOfIntervalDataRequestResource<T, U> where T : IGetIntervalDataPVDescription<U> where U : IIntervalWhat
    {
       [SwaggerSchema("Start time stamp")]
-      [SwaggerExampleValue("2020-08-15")]
-      DateTime FromTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T12:00:00Z")]
+      DateTimeOffset FromTime { get; set; }
+
+      DateTime FromTime_UTC { get; }
 
       [SwaggerSchema("End time stamp")]
-      [SwaggerExampleValue("2020-08-16")]
-      DateTime ToTime { get; set; }
+      [SwaggerExampleValue("2020-08-15T16:00:00Z")]
+      DateTimeOffset ToTime { get; set; }
+
+      DateTime ToTime_UTC { get; }
 
       [SwaggerSchema("List of descriptions for requested process variables")]
       [SwaggerExampleValue(typeof(IGetIntervalDataPVDescription<IIntervalWhat>))]

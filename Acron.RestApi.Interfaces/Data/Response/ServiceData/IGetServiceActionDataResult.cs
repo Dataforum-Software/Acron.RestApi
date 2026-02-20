@@ -8,6 +8,7 @@ namespace Acron.RestApi.Interfaces.Data.Response.ServiceData
 {
    public interface IGetServiceActionDataResult<ServiceActionDataItemType> where ServiceActionDataItemType : IGetServiceActionDataItem
    {
+
       public List<ServiceActionDataItemType> ServiceActions { get; set; }
    }
 }

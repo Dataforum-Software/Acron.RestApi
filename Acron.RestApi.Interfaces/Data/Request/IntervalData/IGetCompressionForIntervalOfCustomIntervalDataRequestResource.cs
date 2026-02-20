@@ -12,11 +12,11 @@ namespace Acron.RestApi.Interfaces.Data.Request.IntervalData
    {
       [SwaggerSchema("Start time stamp")]
       [SwaggerExampleValue("2020-08-15")]
-      DateTime FromTime { get; set; }
+      DateTimeOffset FromTime { get; set; }
 
       [SwaggerSchema("End time stamp")]
       [SwaggerExampleValue("2020-08-16")]
-      DateTime ToTime { get; set; }
+      DateTimeOffset ToTime { get; set; }
 
       [SwaggerSchema("List of descriptions for requested process variables")]
       [SwaggerExampleValue(typeof(IGetIntervalDataPVDescription<IIntervalWhat>))]

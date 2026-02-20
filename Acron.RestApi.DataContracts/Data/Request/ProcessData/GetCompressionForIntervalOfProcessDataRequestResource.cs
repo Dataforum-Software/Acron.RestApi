@@ -3,6 +3,7 @@ using Acron.RestApi.DataContracts.Data.Request.DayData;
 using Acron.RestApi.Interfaces.Data.Request.ProcessData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
@@ -11,12 +12,18 @@ namespace Acron.RestApi.DataContracts.Data.Request.ProcessData
    public class GetCompressionForIntervalOfProcessDataRequestResource : IGetCompressionForIntervalOfProcessDataRequestResource<GetProcessDataPVDescriptionForTemporaryCompression, DayWhat>
    {
       [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime FromTime { get; set; }
+      public DateTimeOffset FromTime { get; set; }
+      public DateTime FromTime_UTC
+      {
+         get { return FromTime.UtcDateTime; }
+      }
 
       [DataMember]
-      [RequestTimeStampValidator]
-      public DateTime ToTime { get; set; }
+      public DateTimeOffset ToTime { get; set; }
+      public DateTime ToTime_UTC
+      {
+         get { return ToTime.UtcDateTime; }
+      }
 
       [DataMember]
       [ObjectId]

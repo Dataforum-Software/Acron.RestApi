@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawData;
+using Acron.RestApi.Interfaces.Data.Response.HandValRawData.GetHandValRawData;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Response.HandValRawData.GetHandValRawData

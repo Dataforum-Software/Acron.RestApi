@@ -36,7 +36,7 @@ namespace Acron.RestApi.DataContracts.Data.Response.DayData
       public string DCOMPDAT_MVALTM_FORMATTED { get; set; }
 
       [DataMember]
-      [FormatFloat(nameof(DCOMPDAT_MVAL1_FORMATTED), ValueFormatType.Day)]
+      [FormatFloat(nameof(DCOMPDAT_MVAL1_FORMATTED), ValueFormatType.Default)]
       public float DCOMPDAT_MVAL1 { get; set; }
 
       [DataMember]

@@ -3,6 +3,7 @@ using Acron.RestApi.Interfaces.Data.Request.ServiceData;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -14,10 +15,28 @@ namespace Acron.RestApi.DataContracts.Data.Request.ServiceData
    public class GetServiceHistoryRequestResource : IGetServiceHistoryRequestResource
    {
       [DataMember]
-      public DateTime FromTime { get; set; }
+      public DateTimeOffset FromTime { get; set; }
+      [Required]
+      [RequestTimeStampValidator]
+      public DateTime FromTime_UTC
+      {
+         get
+         {
+            return FromTime.UtcDateTime;
+         }
+      }
 
       [DataMember]
-      public DateTime ToTime { get; set; }
+      public DateTimeOffset ToTime { get; set; }
+      [Required]
+      [RequestTimeStampValidator]
+      public DateTime ToTime_UTC
+      {
+         get
+         {
+            return ToTime.UtcDateTime;
+         }
+      }
 
       [DataMember]
       [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]

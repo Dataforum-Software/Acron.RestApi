@@ -1,4 +1,4 @@
-﻿using Acron.RestApi.Interfaces.Data.Response.IntervalData;
+using Acron.RestApi.Interfaces.Data.Response.IntervalData;
 using System.Runtime.Serialization;
 
 namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
@@ -26,5 +26,11 @@ namespace Acron.RestApi.DataContracts.Data.Response.IntervalData
 
       [DataMember]
       public bool IDAT_OVER_LIMIT { get; set; }
+
+      [DataMember]
+      public bool IDAT_MINIMUM { get; set; }
+
+      [DataMember]
+      public bool IDAT_MAXIMUM { get; set; }
    }
 }
